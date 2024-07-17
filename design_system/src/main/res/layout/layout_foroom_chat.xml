@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.example.design_system.components.image_view.CircleImageView
+        android:id="@+id/chatImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/backgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background_rounded_12dp"
+        android:backgroundTint="@color/foroom_layer_background"
+        app:layout_constraintBottom_toBottomOf="@id/spacer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/authorNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/jostSmallText2Regular"
+        android:layout_marginTop="8dp"
+        tools:text="\@User1323"
+        android:textColor="@color/foroom_white_faded_tr_50"
+        app:layout_constraintEnd_toEndOf="@+id/chatImageView"
+        app:layout_constraintStart_toStartOf="@+id/chatImageView"
+        app:layout_constraintTop_toBottomOf="@id/chatImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/chatTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Who wants to play apex Legends???"
+        android:textAppearance="@style/jostText1Regular"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/authorNameTextView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/sendMessageButton"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_capsule"
+        android:backgroundTint="@color/foroom_gray_dark"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_chat_fill"
+        app:layout_constraintEnd_toStartOf="@id/starButton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chatTitleTextView" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/starButton"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/background_capsule"
+        android:backgroundTint="@color/foroom_gray_dark"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_star_fill"
+        app:layout_constraintEnd_toStartOf="@id/removeButton"
+        app:layout_constraintStart_toEndOf="@+id/sendMessageButton"
+        app:layout_constraintTop_toTopOf="@+id/sendMessageButton" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/removeButton"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/background_capsule"
+        android:backgroundTint="@color/foroom_gray_dark"
+        android:padding="12dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_remove_fill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/starButton"
+        app:layout_constraintTop_toTopOf="@+id/sendMessageButton" />
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/sendMessageButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

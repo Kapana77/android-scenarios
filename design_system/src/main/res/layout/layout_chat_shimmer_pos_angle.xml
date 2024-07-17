@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="48dp"
+    android:rotation="6">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/background_rounded_12dp"
+        android:backgroundTint="@color/foroom_layer_background" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:shimmer_colored="true"
+        app:shimmer_auto_start="true"
+        app:shimmer_base_color="@color/foroom_background_black"
+        app:shimmer_highlight_color="@color/foroom_gray_light_tr_20"
+        app:shimmer_base_alpha="1">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/background_capsule"
+                android:backgroundTint="@color/foroom_background_black" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="64dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_rounded_8dp"
+                android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="42dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_rounded_8dp"
+                android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginHorizontal="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_rounded_8dp"
+                android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/background_capsule"
+                    android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+                <View
+                    android:id="@+id/view7"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/background_capsule"
+                    android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/background_capsule"
+                    android:backgroundTint="@color/foroom_background_black_tr_90" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</FrameLayout>

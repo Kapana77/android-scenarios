@@ -1,0 +1,15 @@
+package com.example.shared.ui.viewModel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import org.koin.core.component.KoinComponent
+
+abstract class BaseViewModel: ViewModel(), KoinComponent {
+    private val _errorMessageLiveData = MutableLiveData<Int>()
+    val errorMessageLiveData: LiveData<Int> get() = _errorMessageLiveData
+
+    protected fun sendErrorMessage(messageRes: Int) {
+        _errorMessageLiveData.value = messageRes
+    }
+}

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Foroom</string>
+    // shared
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_repeat_password">Repeat Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
+
+    // registration
+    <string name="registration_log_in">Or if you already have an account, [Log In]</string>
+
+    // login
+    <string name="login_forgot_password">Forgot password?</string>
+
+    // validation
+    <string name="blank_input_error">Blank Input is not Permitted</string>
+    <string name="blank_avatar_id_error">Please Choose Avatar</string>
+    <string name="password_does_not_match_error">Passwords do not Match</string>
+
+    // chats
+    <string name="chats_search_hint">Search For Chat</string>
+</resources>

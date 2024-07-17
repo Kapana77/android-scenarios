@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="foroom_main_green">#CBFF97</color>
+    <color name="foroom_main_green_rad">#4DCBFF97</color>
+    <color name="foroom_secondary_green">#99CBFF97</color>
+    <color name="foroom_background_black">#111111</color>
+    <color name="foroom_gray_dark">#373737</color>
+    <color name="foroom_gray_light">#D5D2D2</color>
+    <color name="foroom_gray_light_tr_20">#33D5D2D2</color>
+    <color name="foroom_layer_background">#1B1B1B</color>
+    <color name="foroom_background_pink">#D58387</color>
+    <color name="foroom_white">#FFFFFF</color>
+    <color name="foroom_white_faded_tr_20">#33FFFFFF</color>
+    <color name="foroom_white_faded_tr_50">#80FFFFFF</color>
+    <color name="foroom_white_faded_tr_95">#F2FFFFFF</color>
+    <color name="foroom_shimmer_base">#A1A1A1</color>
+    <color name="foroom_shimmer_foreground">#E9E9E9</color>
+    <color name="foroom_background_black_tr_90">#E6111111</color>
+    <color name="foroom_background_black_tr_25">#40111111</color>
+    <color name="foroom_background_black_tr_40">#66111111</color>
+</resources>

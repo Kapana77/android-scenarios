@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_colored="true"
+        app:shimmer_auto_start="true"
+        app:shimmer_base_color="@color/foroom_background_black"
+        app:shimmer_highlight_color="@color/foroom_main_green_rad"
+        app:shimmer_base_alpha="1">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_rounded_12dp"
+                android:backgroundTint="@color/foroom_background_black"/>
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/background_rounded_8dp"
+                android:backgroundTint="@color/foroom_background_black"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <include
+        layout="@layout/layout_chat_shimmer_pos_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="20dp" />
+
+    <include
+        layout="@layout/layout_chat_shimmer_neg_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="50dp" />
+
+    <include
+        layout="@layout/layout_chat_shimmer_pos_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="48dp"
+        android:layout_marginTop="50dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+

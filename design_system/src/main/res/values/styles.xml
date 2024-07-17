@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SelectionIndicatorView">
+        <attr name="colorRes" format="color"/>
+        <attr name="animationDuration" format="integer"/>
+        <attr name="isExpanded" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="PrimaryButton">
+        <attr name="buttonType" format="enum">
+            <enum name="green" value="1"/>
+            <enum name="dark_gray" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ContentLoaderView">
+        <attr name="loading_layout" format="reference"/>
+        <attr name="start_loading" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="Input">
+        <attr name="description" format="string"/>
+        <attr name="hint" format="string"/>
+        <attr name="android:inputType"/>
+        <attr name="descriptionType" format="enum">
+            <enum name="info" value="1"/>
+            <enum name="error" value="2"/>
+        </attr>
+        <attr name="android:drawableStart" format="reference"/>
+        <attr name="android:drawableEnd" format="reference"/>
+        <attr name="android:textAppearance" format="reference"/>
+        <attr name="contentPadding" format="dimension"/>
+        <attr name="drawableTint" format="color"/>
+        <attr name="android:drawablePadding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ForoomSearchBar">
+        <attr name="hint"/>
+    </declare-styleable>
+
+    <declare-styleable name="ForoomMessageView">
+        <attr name="messageType" format="enum">
+            <enum name="sent" value="1"/>
+            <enum name="received" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

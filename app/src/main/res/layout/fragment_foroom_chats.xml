@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.design_system.components.loader.ContentLoaderView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/foroom_background_primary"
+    app:loading_layout="@layout/layout_fragment_chats_loading">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingTop="64dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.example.design_system.components.search_bar.RandomBehaviour">
+
+            <com.example.design_system.components.search_bar.ForoomSearchBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="@string/chats_search_hint"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"/>
+
+        </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</com.example.design_system.components.loader.ContentLoaderView>
