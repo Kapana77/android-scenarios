@@ -49,7 +49,7 @@ class ForoomMessageView @JvmOverloads constructor(
     private fun handleTypeChange() {
         val isReceived = type == Type.RECEIVED
 
-        binding.backgroundView.background = ContextCompat.getDrawable(
+        binding.contentLinearLayout.background = ContextCompat.getDrawable(
             context,
             if (isReceived) R.drawable.background_message_received else R.drawable.background_message_sent
         )

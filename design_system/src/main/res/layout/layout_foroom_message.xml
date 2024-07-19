@@ -1,59 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.example.design_system.components.image_view.CircleImageView
         android:id="@+id/userImageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <View
-        android:id="@+id/backgroundView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <LinearLayout
+        android:id="@+id/contentLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userImageView"
         app:layout_goneMarginStart="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/messageTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/userNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/jostSmallTextSemiBold"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="@+id/backgroundView"
-        app:layout_constraintTop_toTopOf="@id/backgroundView"
-        android:layout_margin="24dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/messageDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:textAppearance="@style/jostSmallText2SemiBold"
-        android:textColor="@color/foroom_background_black_tr_25"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundView"
-        app:layout_constraintTop_toTopOf="@id/backgroundView" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/jostSmallTextSemiBold"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="24dp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/messageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/jostSmallTextMedium"
-        android:paddingBottom="24dp"
-        android:textColor="@color/foroom_background_black_tr_40"
-        app:layout_constraintEnd_toEndOf="@+id/messageDateTextView"
-        app:layout_constraintStart_toStartOf="@+id/userNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/messageDateTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/jostSmallText2SemiBold"
+                android:textColor="@color/foroom_background_black_tr_25"
+                android:layout_weight="1"
+                android:gravity="end"/>
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/messageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/jostSmallTextMedium"
+            android:textColor="@color/foroom_background_black_tr_40" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

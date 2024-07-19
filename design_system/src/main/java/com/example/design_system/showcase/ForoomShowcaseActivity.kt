@@ -12,8 +12,8 @@ class ForoomShowcaseActivity : BaseActivity<ActivityForoomShowcaseBinding>(
         super.onCreate(savedInstanceState)
 
         binding.message.setUp(
-            "message message message message message message message message message message message message",
-            "shioTakeksi",
+            "takeksa",
+            "@shioTakeksi",
             null
         )
     }
