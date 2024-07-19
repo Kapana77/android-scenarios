@@ -2,8 +2,7 @@ package com.example.foroom.data.repository
 
 import com.example.foroom.data.datasource.ForoomDataSource
 import com.example.foroom.data.mapper.ForoomMapper
-import com.example.foroom.data.model.ChatEntity
-import com.example.foroom.domain.model.Chat
+import com.example.foroom.domain.model.ChatsResponse
 import com.example.foroom.domain.model.LogInRequest
 import com.example.foroom.domain.model.RegistrationRequest
 import com.example.foroom.domain.repository.ForoomRepository
@@ -38,7 +37,7 @@ class ForoomRepositoryImpl(
         )
     }
 
-    override suspend fun getChats(): List<Chat> {
-        return mapper.mapToChats(dataSource.getChats())
+    override suspend fun getChats(): ChatsResponse {
+        return mapper.mapToChatsResponse(dataSource.getChats())
     }
 }

@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.network.Error
 import com.example.shared.model.Result
 import com.example.shared.ui.viewModel.BaseViewModel
-import com.google.gson.Gson
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,10 +12,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 
-class NetworkExecutor<T> internal constructor(parentJob: Job) {
+class NetworkExecutor<T: Any> internal constructor(parentJob: Job) {
     private val executorScope = CoroutineScope(Dispatchers.IO + SupervisorJob(parentJob))
 
     private var onResult: ((Result<T>) -> Unit)? = null
@@ -80,5 +78,5 @@ class NetworkExecutor<T> internal constructor(parentJob: Job) {
     }
 }
 
-fun <T> BaseViewModel.networkExecutor(block: NetworkExecutor<T>.() -> Unit) =
+fun <T: Any> BaseViewModel.networkExecutor(block: NetworkExecutor<T>.() -> Unit) =
     NetworkExecutor<T>(viewModelScope.coroutineContext.job).apply(block).makeNetworkCall()

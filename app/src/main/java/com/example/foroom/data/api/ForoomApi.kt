@@ -1,11 +1,12 @@
 package com.example.foroom.data.api
 
-import com.example.foroom.data.model.ChatEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
+import com.example.foroom.data.model.response.ChatsResponseEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ForoomApi {
 
@@ -16,5 +17,8 @@ interface ForoomApi {
     suspend fun logInUser(@Body request: LogInRequestEntity)
 
     @GET("/chats")
-    suspend fun getChats(): List<ChatEntity>
+    suspend fun getChats(
+        @Query("page") page: Int = 0,
+        @Query("limit") limit: Int = 2
+    ): ChatsResponseEntity
 }

@@ -4,7 +4,9 @@ import com.example.foroom.data.model.ChatEntity
 import com.example.foroom.data.model.Image
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
+import com.example.foroom.data.model.response.ChatsResponseEntity
 import com.example.foroom.domain.model.Chat
+import com.example.foroom.domain.model.ChatsResponse
 import com.example.foroom.domain.model.LogInRequest
 
 class ForoomMapperImpl: ForoomMapper {
@@ -24,8 +26,13 @@ class ForoomMapperImpl: ForoomMapper {
         return LogInRequestEntity(request.userName, request.password)
     }
 
-    override fun mapToChats(chatEntities: List<ChatEntity>): List<Chat> {
-        return chatEntities.map { entity -> mapToChat(entity) }
+    override fun mapToChatsResponse(responseEntity: ChatsResponseEntity): ChatsResponse {
+        return with(responseEntity) {
+            ChatsResponse(
+                chats = result.map(::mapToChat),
+                hasNext = hasNext
+            )
+        }
     }
 
     private fun mapToChat(chatEntity: ChatEntity): Chat {

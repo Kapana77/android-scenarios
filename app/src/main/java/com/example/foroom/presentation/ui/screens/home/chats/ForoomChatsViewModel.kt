@@ -3,6 +3,7 @@ package com.example.foroom.presentation.ui.screens.home.chats
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foroom.domain.model.Chat
+import com.example.foroom.domain.model.ChatsResponse
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.network.rest_client.networkExecutor
@@ -27,16 +28,16 @@ class ForoomChatsViewModel(private val getChatsUseCase: GetChatsUseCase) : BaseV
     }
 
     fun getChats() {
-        networkExecutor {
+        networkExecutor<ChatsResponse> {
             execute { getChatsUseCase() }
             loading { _chatsLiveData.postValue(Result.Loading) }
             error { _chatsLiveData.postValue(Result.Error(it)) }
 
-            success { chats ->
-                paginationHelper.addPage(chats)
+            success { chatsResponse ->
+                paginationHelper.addPage(chatsResponse.chats)
                 loadingListData =
                     ForoomLoadingListAdapter.LoadingListItemType.fromData(paginationHelper.getItems())
-                _chatsLiveData.postValue(Result.Success(chats))
+                _chatsLiveData.postValue(Result.Success(chatsResponse.chats))
             }
         }
     }

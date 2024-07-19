@@ -1,9 +1,9 @@
 package com.example.foroom.data.datasource
 
-import com.example.foroom.data.model.ChatEntity
 import com.example.foroom.data.model.Image
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
+import com.example.foroom.data.model.response.ChatsResponseEntity
 
 interface ForoomDataSource {
 
@@ -15,5 +15,5 @@ interface ForoomDataSource {
 
     suspend fun logInUser(request: LogInRequestEntity)
 
-    suspend fun getChats(): List<ChatEntity>
+    suspend fun getChats(): ChatsResponseEntity
 }

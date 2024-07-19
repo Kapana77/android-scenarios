@@ -2,10 +2,10 @@ package com.example.foroom.data.datasource
 
 import com.example.foroom.data.api.ImagesApi
 import com.example.foroom.data.api.ForoomApi
-import com.example.foroom.data.model.ChatEntity
 import com.example.foroom.data.model.Image
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
+import com.example.foroom.data.model.response.ChatsResponseEntity
 
 class ForoomDataSourceImpl(
     private val imagesApi: ImagesApi,
@@ -27,7 +27,7 @@ class ForoomDataSourceImpl(
         return foroomApi.logInUser(request)
     }
 
-    override suspend fun getChats(): List<ChatEntity> {
+    override suspend fun getChats(): ChatsResponseEntity {
         return foroomApi.getChats()
     }
 }
