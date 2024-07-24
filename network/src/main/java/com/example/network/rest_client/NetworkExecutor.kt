@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class NetworkExecutor<T: Any> internal constructor(parentJob: Job) {
+class NetworkExecutor<T : Any> internal constructor(parentJob: Job) {
     private val executorScope = CoroutineScope(Dispatchers.IO + SupervisorJob(parentJob))
 
     private var onResult: ((Result<T>) -> Unit)? = null
@@ -30,20 +30,22 @@ class NetworkExecutor<T: Any> internal constructor(parentJob: Job) {
         loadingBlock?.invoke()
         onResult?.invoke(Result.Loading)
 
-        try {
-            val result = executeBlock?.invoke(executorScope)
-
-            result?.let { r ->
-                withContext(Dispatchers.Main) {
-                    onSuccessBlock?.invoke(r)
-                    onResult?.invoke(Result.Success(r))
-                }
-            } ?: throw Error.unknownNetworkError
+        val result = try {
+            executeBlock?.invoke(executorScope) ?: throw Error.unknownNetworkError
         } catch (e: Exception) {
             if (e is CancellationException) throw e
 
             onErrorBlock?.invoke(e)
             onResult?.invoke(Result.Error(e))
+
+            null
+        }
+
+        result?.let { r ->
+            withContext(Dispatchers.Main) {
+                onSuccessBlock?.invoke(r)
+                onResult?.invoke(Result.Success(r))
+            }
         }
 
         onFinishBlock?.invoke()
@@ -78,5 +80,5 @@ class NetworkExecutor<T: Any> internal constructor(parentJob: Job) {
     }
 }
 
-fun <T: Any> BaseViewModel.networkExecutor(block: NetworkExecutor<T>.() -> Unit) =
+fun <T : Any> BaseViewModel.networkExecutor(block: NetworkExecutor<T>.() -> Unit) =
     NetworkExecutor<T>(viewModelScope.coroutineContext.job).apply(block).makeNetworkCall()

@@ -27,7 +27,10 @@ class ForoomDataSourceImpl(
         return foroomApi.logInUser(request)
     }
 
-    override suspend fun getChats(): ChatsResponseEntity {
-        return foroomApi.getChats()
+    override suspend fun getChats(
+        page: Int,
+        limit: Int
+    ): ChatsResponseEntity {
+        return foroomApi.getChats(page, limit)
     }
 }

@@ -18,7 +18,7 @@ interface ForoomApi {
 
     @GET("/chats")
     suspend fun getChats(
-        @Query("page") page: Int = 0,
-        @Query("limit") limit: Int = 2
+        @Query("page") page: Int,
+        @Query("limit") limit: Int
     ): ChatsResponseEntity
 }

@@ -7,7 +7,7 @@ class PaginationHelperImpl<T>: PaginationHelper<T> {
 
     override fun getItems(): List<T> = items
 
-    override fun getOffset(): Int = pageSize * page
+    override fun getPage(): Int = page
 
     override fun addPage(items: List<T>) {
         this.items.addAll(items)
@@ -19,7 +19,7 @@ class PaginationHelperImpl<T>: PaginationHelper<T> {
     }
 
     companion object {
-        private const val DEFAULT_PAGE_SIZE = 10
+        private const val DEFAULT_PAGE_SIZE = 20
         private const val FIRST_PAGE = 0
     }
 }

@@ -8,6 +8,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.foroom.databinding.LayoutForoomPaginationErrorBinding
 import com.example.foroom.databinding.LayoutForoomPaginationLoadingBinding
 import com.example.shared.util.diffutil.DefaultItemDiffCallback
+import com.example.shared.util.recyclerview.RecyclerViewBottomReachListener
 import java.lang.ref.WeakReference
 
 /**
@@ -20,6 +21,7 @@ import java.lang.ref.WeakReference
  * */
 @Suppress("UNCHECKED_CAST")
 abstract class ForoomLoadingListAdapter<T : Any>(
+    private val onLoadMore: ()-> Unit = {},
     private val onErrorRefresh: () -> Unit = {}
 ) : ListAdapter<ForoomLoadingListAdapter.LoadingListItemType,
         ForoomLoadingListAdapter.LoadingListDataViewHolder<T>>(DefaultItemDiffCallback()) {
@@ -32,6 +34,9 @@ abstract class ForoomLoadingListAdapter<T : Any>(
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = WeakReference(recyclerView)
+        recyclerView.addOnScrollListener(RecyclerViewBottomReachListener {
+            if (!isErrorState && currentList.size > EMPTY_LIST_SIZE) onLoadMore()
+        })
     }
 
     final override fun getItemViewType(position: Int): Int {
@@ -209,12 +214,6 @@ abstract class ForoomLoadingListAdapter<T : Any>(
         object LoadingItem : LoadingListItemType()
         object ErrorItem : LoadingListItemType()
         data class DataItem<T>(val data: T) : LoadingListItemType()
-
-        companion object {
-            fun <T> fromData(data: List<T>) = data.map {  item ->
-                DataItem(item)
-            }
-        }
     }
 
     companion object {

@@ -15,5 +15,5 @@ interface ForoomRepository {
 
     suspend fun logInUser(request: LogInRequest)
 
-    suspend fun getChats(): ChatsResponse
+    suspend fun getChats(page: Int, limit: Int): ChatsResponse
 }

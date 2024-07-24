@@ -37,7 +37,7 @@ class ForoomRepositoryImpl(
         )
     }
 
-    override suspend fun getChats(): ChatsResponse {
-        return mapper.mapToChatsResponse(dataSource.getChats())
+    override suspend fun getChats(page: Int, limit: Int): ChatsResponse {
+        return mapper.mapToChatsResponse(dataSource.getChats(page, limit))
     }
 }

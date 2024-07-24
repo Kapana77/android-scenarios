@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
 import com.example.foroom.databinding.FragmentForoomChatsBinding
 import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChatsAdapter
 import com.example.shared.ui.fragment.BaseFragment
-import com.example.shared.util.recyclerview.RecyclerViewBottomReachListener
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.shared.ui.viewModel.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomChatsFragment : BaseFragment<ForoomChatsViewModel, FragmentForoomChatsBinding>() {
@@ -19,7 +16,9 @@ class ForoomChatsFragment : BaseFragment<ForoomChatsViewModel, FragmentForoomCha
     override val viewModel: ForoomChatsViewModel by viewModel()
 
     private val adapter by lazy {
-        ForoomChatsAdapter()
+        ForoomChatsAdapter {
+            viewModel.getChats(BaseViewModel.RequestCode.RC_LOAD_MORE)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,24 +29,21 @@ class ForoomChatsFragment : BaseFragment<ForoomChatsViewModel, FragmentForoomCha
 
     private fun initViews() {
         binding.chatsRecyclerView.adapter = adapter
-        binding.chatsRecyclerView.addOnScrollListener(RecyclerViewBottomReachListener {
-            viewModel.getChats()
-        })
     }
 
     private fun setObservers() {
         viewModel.chatsLiveData.handleResult {
-            onSuccess {
+            onSuccess { chats ->
                 binding.root.showContent()
-                adapter.submitList(viewModel.loadingListData)
+                adapter.submitDataList(chats, viewModel.hasMorePages)
             }
 
             onLoading {
-                if (viewModel.isInitializing) binding.root.showLoader()
+                if (viewModel.requestCode.isInit()) binding.root.showLoader()
             }
 
             onError {
-                if (viewModel.isInitializing) binding.root.showEmptyPage()
+                if (viewModel.requestCode.isInit()) binding.root.showEmptyPage()
                 else adapter.showErrorState()
             }
         }

@@ -7,7 +7,9 @@ import com.example.foroom.domain.model.Chat
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.isEven
 
-class ForoomChatsAdapter : ForoomLoadingListAdapter<Chat>() {
+class ForoomChatsAdapter(
+    onLoadMore: ()-> Unit
+): ForoomLoadingListAdapter<Chat>(onLoadMore) {
     override fun onCreateDataItemViewHolder(
         parent: ViewGroup, viewType: Int
     ): LoadingListDataViewHolder<Chat> {
@@ -23,7 +25,7 @@ class ForoomChatsAdapter : ForoomLoadingListAdapter<Chat>() {
             val angle = if (position.isEven()) POSITIVE_ANGLE else NEGATIVE_ANGLE
 
             with(binding.root) {
-                setChatTitle(item.name)
+                setChatTitle(item.id.toString())
                 setAuthorName(item.creatorUsername)
                 setImageUrl(item.emojiUrl)
                 hideRemoveButton()

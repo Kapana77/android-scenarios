@@ -15,5 +15,5 @@ interface ForoomDataSource {
 
     suspend fun logInUser(request: LogInRequestEntity)
 
-    suspend fun getChats(): ChatsResponseEntity
+    suspend fun getChats(page: Int, limit: Int): ChatsResponseEntity
 }

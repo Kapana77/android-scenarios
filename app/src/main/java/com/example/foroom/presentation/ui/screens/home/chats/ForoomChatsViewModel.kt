@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.ChatsResponse
 import com.example.foroom.domain.usecase.GetChatsUseCase
-import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.network.rest_client.networkExecutor
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.model.Result
@@ -18,26 +17,25 @@ class ForoomChatsViewModel(private val getChatsUseCase: GetChatsUseCase) : BaseV
 
     private val paginationHelper = get<PaginationHelper<Chat>>()
 
-    var loadingListData: List<ForoomLoadingListAdapter.LoadingListItemType> = emptyList()
+    var hasMorePages = true
         private set
 
-    val isInitializing get() = loadingListData.isEmpty()
-
     init {
-        getChats()
+        getChats(RequestCode.RC_INIT)
     }
 
-    fun getChats() {
+    fun getChats(requestCode: RequestCode) {
+        this.requestCode = requestCode
+
         networkExecutor<ChatsResponse> {
-            execute { getChatsUseCase() }
+            execute { getChatsUseCase(paginationHelper.getPage()) }
             loading { _chatsLiveData.postValue(Result.Loading) }
             error { _chatsLiveData.postValue(Result.Error(it)) }
 
             success { chatsResponse ->
+                hasMorePages = chatsResponse.hasNext
                 paginationHelper.addPage(chatsResponse.chats)
-                loadingListData =
-                    ForoomLoadingListAdapter.LoadingListItemType.fromData(paginationHelper.getItems())
-                _chatsLiveData.postValue(Result.Success(chatsResponse.chats))
+                _chatsLiveData.postValue(Result.Success(paginationHelper.getItems()))
             }
         }
     }
