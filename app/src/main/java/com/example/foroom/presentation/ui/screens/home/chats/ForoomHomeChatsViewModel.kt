@@ -11,7 +11,7 @@ import com.example.shared.model.Result
 import com.example.shared.util.pagination.PaginationHelper
 import org.koin.core.component.get
 
-class ForoomChatsViewModel(private val getChatsUseCase: GetChatsUseCase) : BaseViewModel() {
+class ForoomHomeChatsViewModel(private val getChatsUseCase: GetChatsUseCase) : BaseViewModel() {
     private val _chatsLiveData = MutableLiveData<Result<List<Chat>>>()
     val chatsLiveData: LiveData<Result<List<Chat>>> get() = _chatsLiveData
 

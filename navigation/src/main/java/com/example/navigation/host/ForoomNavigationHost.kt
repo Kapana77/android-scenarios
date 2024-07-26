@@ -42,22 +42,6 @@ fun ForoomNavigationHost.openNextPage(
 
 }
 
-fun ForoomNavigationHost.addOrShowPage(fragment: BaseFragment<*, *>) {
-    val transaction = getHostFragmentManager().beginTransaction()
-
-    if (fragment.isAdded) {
-        getHostFragmentManager().fragments.forEach(transaction::hide)
-        transaction.show(fragment)
-    } else {
-        transaction.add(
-            fragmentContainerId,
-            fragment
-        )
-    }
-
-    transaction.commit()
-}
-
 fun <T : Parcelable> ForoomNavigationHost.openNextPage(
     fragment: BaseFragment<*, *>,
     args: T,

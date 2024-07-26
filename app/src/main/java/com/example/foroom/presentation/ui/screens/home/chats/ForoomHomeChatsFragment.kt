@@ -4,20 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.foroom.databinding.FragmentForoomChatsBinding
+import com.example.foroom.databinding.FragmentForoomHomeChatsBinding
+import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
 import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChatsAdapter
+import com.example.navigation.host.openNextPage
+import com.example.navigation.util.navigationHost
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.ui.viewModel.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ForoomChatsFragment : BaseFragment<ForoomChatsViewModel, FragmentForoomChatsBinding>() {
-    override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomChatsBinding
-        get() = FragmentForoomChatsBinding::inflate
-    override val viewModel: ForoomChatsViewModel by viewModel()
+class ForoomHomeChatsFragment : BaseFragment<ForoomHomeChatsViewModel, FragmentForoomHomeChatsBinding>() {
+    override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomHomeChatsBinding
+        get() = FragmentForoomHomeChatsBinding::inflate
+    override val viewModel: ForoomHomeChatsViewModel by viewModel()
 
     private val adapter by lazy {
         ForoomChatsAdapter {
             viewModel.getChats(BaseViewModel.RequestCode.RC_LOAD_MORE)
+        }.apply {
+            onSendButtonClicked = {
+                navigationHost?.openNextPage(ForoomChatFragment())
+            }
         }
     }
 

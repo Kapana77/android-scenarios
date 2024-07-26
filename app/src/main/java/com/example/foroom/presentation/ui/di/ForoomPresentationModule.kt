@@ -1,7 +1,8 @@
 package com.example.foroom.presentation.ui.di
 
 import com.example.foroom.domain.model.Chat
-import com.example.foroom.presentation.ui.screens.home.chats.ForoomChatsViewModel
+import com.example.foroom.presentation.ui.screens.chat.ForoomChatViewModel
+import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsViewModel
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerViewModel
 import com.example.foroom.presentation.ui.screens.home.create_chat.ForoomCreateChatViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.ForoomProfileViewModel
@@ -29,12 +30,15 @@ val logInModule = module {
 val homeModule = module {
     viewModelOf(::ForoomHomeContainerViewModel)
 
-    // chats
-    viewModelOf(::ForoomChatsViewModel)
+    // home chats
+    viewModelOf(::ForoomHomeChatsViewModel)
 
     // profile
     viewModelOf(::ForoomProfileViewModel)
 
     // create chat
     viewModelOf(::ForoomCreateChatViewModel)
+
+    // chat
+    viewModelOf(::ForoomChatViewModel)
 }

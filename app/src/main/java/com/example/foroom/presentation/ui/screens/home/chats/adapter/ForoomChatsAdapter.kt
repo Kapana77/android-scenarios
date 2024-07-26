@@ -8,8 +8,10 @@ import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.isEven
 
 class ForoomChatsAdapter(
-    onLoadMore: ()-> Unit
-): ForoomLoadingListAdapter<Chat>(onLoadMore) {
+    onLoadMore: () -> Unit
+) : ForoomLoadingListAdapter<Chat>(onLoadMore) {
+    var onSendButtonClicked: (Long) -> Unit = {}
+
     override fun onCreateDataItemViewHolder(
         parent: ViewGroup, viewType: Int
     ): LoadingListDataViewHolder<Chat> {
@@ -18,8 +20,33 @@ class ForoomChatsAdapter(
         )
     }
 
-    class ViewHolder(private val binding: ItemForoomChatBinding) :
-        LoadingListDataViewHolder<Chat>(binding) {
+    @Suppress("UNCHECKED_CAST")
+    inner class ViewHolder(
+        private val binding: ItemForoomChatBinding
+    ) : LoadingListDataViewHolder<Chat>(binding) {
+
+        init {
+            setUp()
+        }
+
+        private fun setUp() {
+            with(binding.root) {
+                onSendMessageButtonClick = {
+                    onSendButtonClicked(getAdapterPositionChatId())
+                }
+
+                onStarButtonClick = {
+
+                }
+
+                onRemoveButtonClick = {
+
+                }
+            }
+        }
+
+        private fun getAdapterPositionChatId() =
+            (currentList[adapterPosition] as LoadingListItemType.DataItem<Chat>).data.id
 
         override fun onBind(item: Chat, position: Int) {
             val angle = if (position.isEven()) POSITIVE_ANGLE else NEGATIVE_ANGLE
