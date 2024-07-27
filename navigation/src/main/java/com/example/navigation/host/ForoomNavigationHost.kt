@@ -19,16 +19,19 @@ fun ForoomNavigationHost.popBackStack() {
 fun ForoomNavigationHost.openNextPage(
     fragment: BaseFragment<*, *>,
     addToBackStack: Boolean = true,
-    popBackStack: Boolean = false
+    popBackStack: Boolean = false,
+    animate: Boolean = true
 ) {
     val transaction = getHostFragmentManager().beginTransaction()
 
-    transaction.setCustomAnimations(
-        R.anim.animation_slide_in_right,
-        R.anim.dummy_animation,
-        R.anim.dummy_animation,
-        R.anim.animation_slide_out_right
-    )
+    if (animate)  {
+        transaction.setCustomAnimations(
+            R.anim.animation_slide_in_right,
+            R.anim.dummy_animation,
+            R.anim.dummy_animation,
+            R.anim.animation_slide_out_right
+        )
+    }
 
     transaction.add(
         fragmentContainerId,
@@ -45,11 +48,12 @@ fun ForoomNavigationHost.openNextPage(
 fun <T : Parcelable> ForoomNavigationHost.openNextPage(
     fragment: BaseFragment<*, *>,
     args: T,
-    addToBackStack: Boolean
+    addToBackStack: Boolean = true,
+    animate: Boolean = true
 ) {
     openNextPage(fragment.apply {
         arguments = bundleOf(EXTRA_ARGUMENTS to args)
-    }, addToBackStack)
+    }, addToBackStack = addToBackStack, animate = animate)
 }
 
 internal const val EXTRA_ARGUMENTS = "arguments"

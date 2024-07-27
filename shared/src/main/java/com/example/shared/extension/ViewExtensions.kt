@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -43,13 +44,13 @@ fun Context.getDrawableFromAttribute(attributeId: Int): Drawable? {
 }
 
 fun Int.dpToPx(context: Context): Float {
-    val displayMetrics = context.resources.displayMetrics;
-    return this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+    val displayMetrics = context.resources.displayMetrics
+    return this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)
 }
 
 fun Float.dpToPx(context: Context): Float {
-    val displayMetrics = context.resources.displayMetrics;
-    return this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT);
+    val displayMetrics = context.resources.displayMetrics
+    return this * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)
 }
 
 fun TextView.makeTextClickable(spanColor: Int, onClickEvent: (() -> Unit)? = null) {
@@ -72,4 +73,13 @@ fun View.show() {
 
 fun View.hide() {
     isVisible = false
+}
+
+fun View.onGlobalLayout(block: View.() -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+            block()
+        }
+    })
 }

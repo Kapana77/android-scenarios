@@ -13,7 +13,8 @@ import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.ui.viewModel.BaseViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ForoomHomeChatsFragment : BaseFragment<ForoomHomeChatsViewModel, FragmentForoomHomeChatsBinding>() {
+class ForoomHomeChatsFragment :
+    BaseFragment<ForoomHomeChatsViewModel, FragmentForoomHomeChatsBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomHomeChatsBinding
         get() = FragmentForoomHomeChatsBinding::inflate
     override val viewModel: ForoomHomeChatsViewModel by viewModel()
@@ -22,8 +23,12 @@ class ForoomHomeChatsFragment : BaseFragment<ForoomHomeChatsViewModel, FragmentF
         ForoomChatsAdapter {
             viewModel.getChats(BaseViewModel.RequestCode.RC_LOAD_MORE)
         }.apply {
-            onSendButtonClicked = {
-                navigationHost?.openNextPage(ForoomChatFragment())
+            onSendButtonClicked = { chat ->
+                navigationHost?.openNextPage(
+                    ForoomChatFragment(),
+                    args = chat,
+                    animate = false
+                )
             }
         }
     }

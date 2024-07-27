@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.os.Parcelable
 import com.example.navigation.host.EXTRA_ARGUMENTS
 
-interface ForoomNavigationArgumentsHolder {
-    val guestArguments: Bundle?
+interface ForoomNavigationArgumentsHolder<T> {
+    val bundle: Bundle?
+    val argClass: Class<T>
 }
 
-fun <T : Parcelable> ForoomNavigationArgumentsHolder.navigationArguments(argClass: Class<T>): T {
-    return if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.TIRAMISU) {
-        guestArguments?.getParcelable(EXTRA_ARGUMENTS, argClass)
+val <T : Parcelable> ForoomNavigationArgumentsHolder<T>.navArgs
+    get() = if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.TIRAMISU) {
+        bundle?.getParcelable(EXTRA_ARGUMENTS, argClass)
     } else {
-        guestArguments?.getParcelable(EXTRA_ARGUMENTS)
+        bundle?.getParcelable(EXTRA_ARGUMENTS)
     }!!
-}

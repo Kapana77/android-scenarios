@@ -5,6 +5,12 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/foroom_white</item>
     </style>
+
+    <style name="jostText1Medium">
+        <item name="font">@font/jost_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/foroom_white</item>
+    </style>
     
     <style name="jostText2Regular">
         <item name="font">@font/jost_regular</item>

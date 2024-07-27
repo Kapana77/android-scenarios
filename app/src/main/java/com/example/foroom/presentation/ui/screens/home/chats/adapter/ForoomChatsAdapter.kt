@@ -3,18 +3,18 @@ package com.example.foroom.presentation.ui.screens.home.chats.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.foroom.databinding.ItemForoomChatBinding
-import com.example.foroom.domain.model.Chat
+import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.isEven
 
 class ForoomChatsAdapter(
     onLoadMore: () -> Unit
-) : ForoomLoadingListAdapter<Chat>(onLoadMore) {
-    var onSendButtonClicked: (Long) -> Unit = {}
+) : ForoomLoadingListAdapter<ChatUI>(onLoadMore) {
+    var onSendButtonClicked: (ChatUI) -> Unit = {}
 
     override fun onCreateDataItemViewHolder(
         parent: ViewGroup, viewType: Int
-    ): LoadingListDataViewHolder<Chat> {
+    ): LoadingListDataViewHolder<ChatUI> {
         return ViewHolder(
             ItemForoomChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
@@ -23,7 +23,7 @@ class ForoomChatsAdapter(
     @Suppress("UNCHECKED_CAST")
     inner class ViewHolder(
         private val binding: ItemForoomChatBinding
-    ) : LoadingListDataViewHolder<Chat>(binding) {
+    ) : LoadingListDataViewHolder<ChatUI>(binding) {
 
         init {
             setUp()
@@ -32,7 +32,7 @@ class ForoomChatsAdapter(
         private fun setUp() {
             with(binding.root) {
                 onSendMessageButtonClick = {
-                    onSendButtonClicked(getAdapterPositionChatId())
+                    onSendButtonClicked(getChatItem())
                 }
 
                 onStarButtonClick = {
@@ -45,14 +45,14 @@ class ForoomChatsAdapter(
             }
         }
 
-        private fun getAdapterPositionChatId() =
-            (currentList[adapterPosition] as LoadingListItemType.DataItem<Chat>).data.id
+        private fun getChatItem() =
+            (currentList[adapterPosition] as LoadingListItemType.DataItem<ChatUI>).data
 
-        override fun onBind(item: Chat, position: Int) {
+        override fun onBind(item: ChatUI, position: Int) {
             val angle = if (position.isEven()) POSITIVE_ANGLE else NEGATIVE_ANGLE
 
             with(binding.root) {
-                setChatTitle(item.id.toString())
+                setChatTitle(item.name)
                 setAuthorName(item.creatorUsername)
                 setImageUrl(item.emojiUrl)
                 hideRemoveButton()
