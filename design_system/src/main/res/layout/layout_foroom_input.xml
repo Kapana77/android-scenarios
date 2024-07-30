@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/inputEditText"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/contentLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textAppearance="@style/jostText1Regular"
-        android:textColor="@color/foroom_white"
+        android:layout_height="wrap_content"
         android:background="@drawable/background_rounded_8dp"
         android:backgroundTint="@color/foroom_layer_background"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:padding="16dp"/>
+        android:gravity="center_vertical">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/inputEditText"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textAppearance="@style/jostText1Regular"
+            android:textColor="@color/foroom_white" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textAppearance="@style/jostSmallTextRegular"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"/>
+        android:textAppearance="@style/jostSmallTextRegular"
+        android:visibility="gone" />
 
 </LinearLayout>
