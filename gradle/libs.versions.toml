@@ -19,6 +19,7 @@ gson = "2.11.0"
 lottie = "6.4.1"
 desugaring = "2.0.3"
 parcelize = "2.0.0"
+signalr = "7.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,9 +39,10 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gson" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 android-desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugaring" }
+microsoft-signalr = { group = "com.microsoft.signalr", name = "signalr", version.ref = "signalr" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "parcelize"  }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }

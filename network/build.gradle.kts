@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.kotlinx.coroutines)
     implementation(projects.shared)
+    implementation(libs.microsoft.signalr)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
