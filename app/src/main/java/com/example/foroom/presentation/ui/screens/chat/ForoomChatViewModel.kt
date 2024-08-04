@@ -1,20 +1,20 @@
 package com.example.foroom.presentation.ui.screens.chat
 
-import android.util.Log
-import com.example.network.web_socket.SignalrWebSocketClient
+import com.example.foroom.domain.usecase.MessageWebSocketUseCase
+import com.example.foroom.domain.usecase.UserInMemoryUseCase
 import com.example.shared.ui.viewModel.BaseViewModel
 
-class ForoomChatViewModel: BaseViewModel() {
-    private val wsClient = SignalrWebSocketClient("ws://89.168.75.214/Chat")
+class ForoomChatViewModel(
+    private val messagesUseCase: MessageWebSocketUseCase,
+    private val userInMemoryUseCase: UserInMemoryUseCase
+) : BaseViewModel() {
+    fun connect() = messagesUseCase.connect()
 
-    init {
-        wsClient.connect()
-        wsClient.onReceived {
-            Log.d("logkata", it)
-        }
-    }
+    fun disConnect() = messagesUseCase.disconnect()
 
-    fun sendMessage(message: String) {
-        wsClient.sendMessage(message)
-    }
+    fun sendMessage(chatId: Int, text: String) =
+        messagesUseCase.sendMessage("18bf48ab-f9c6-46ed-b3be-e5a0677b0082", chatId, text)
+
+    fun onMessage() = messagesUseCase.onMessageReceived()
+
 }

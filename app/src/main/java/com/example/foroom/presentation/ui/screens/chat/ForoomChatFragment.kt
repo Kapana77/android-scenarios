@@ -1,10 +1,12 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
+import androidx.lifecycle.lifecycleScope
 import com.example.design_system.R
 import com.example.foroom.databinding.FragmentForoomChatBinding
 import com.example.foroom.presentation.ui.model.ChatUI
@@ -12,8 +14,12 @@ import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAda
 import com.example.navigation.guest.ForoomNavigationArgumentsHolder
 import com.example.navigation.guest.navArgs
 import com.example.navigation.util.navigationHost
+import com.example.shared.extension.isSuccess
+import com.example.shared.extension.onClick
 import com.example.shared.extension.onGlobalLayout
+import com.example.shared.model.Result
 import com.example.shared.ui.fragment.BaseFragment
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -30,10 +36,41 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         ForoomMessagesAdapter()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        initSocketConnection()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+        setListeners()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.disConnect()
+    }
+
+    private fun initSocketConnection() {
+        lifecycleScope.launch {
+            viewModel.connect().collect { result ->
+                if (result.isSuccess) collectMessages()
+                else if (result is Result.Error) Log.d("logkata", result.exception.message.toString())
+            }
+        }
+    }
+
+    private suspend fun collectMessages() {
+        Log.d("logkata", "started collecting")
+        viewModel.onMessage().collect { message ->
+            Log.d("logkata", message.toString())
+            messagesAdapter.addMessage(message)
+            binding.messagesRecyclerView.smoothScrollToPosition(0)
+        }
     }
 
     private fun initViews() {
@@ -48,9 +85,17 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
                 navigationHost?.goBack()
             }
         }
+    }
 
-        binding.chatHeaderView.setOnClickListener {
-            viewModel.sendMessage("asdasd")
+    private fun setListeners() {
+        binding.sendMessageButton.onClick {
+            lifecycleScope.launch {
+                viewModel.sendMessage(navArgs.id.toInt(), binding.messageInput.text).collect {
+                    Log.d("logkata", it.toString())
+                    binding.messageInput.editText.text?.clear()
+                }
+
+            }
         }
     }
 

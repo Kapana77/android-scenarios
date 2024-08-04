@@ -16,7 +16,9 @@ class ForoomMessagesAdapter :
     ListAdapter<Message, ForoomMessagesAdapter.MessageViewHolder>(MessageDiffUtil()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList[position].isCurrentUser) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
+//        return if (currentList[position].isCurrentUser) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
+        // todo fix
+        return if (false) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -32,6 +34,10 @@ class ForoomMessagesAdapter :
         holder.onBind(currentList[position])
     }
 
+    fun addMessage(message: Message) {
+        submitList(listOf(message) + currentList)
+    }
+
     class SentMessageViewHolder(private val binding: ItemForoomMessageBinding) :
         MessageViewHolder(binding) {
         override fun onBind(message: Message) {
@@ -40,7 +46,7 @@ class ForoomMessagesAdapter :
                     gravity = Gravity.END
                     leftMargin = context.screenWidthOf(MESSAGE_VIEW_MARGIN_PERCENT).toInt()
                 }
-                setUp(message.message, message.senderUserName, message.sendDate)
+                setUp(message.text, message.senderName, message.sendDate)
 
                 type = ForoomMessageView.Type.SENT
             }
@@ -56,7 +62,7 @@ class ForoomMessagesAdapter :
                 updateLayoutParams<FrameLayout.LayoutParams> {
                     rightMargin = context.screenWidthOf(MESSAGE_VIEW_MARGIN_PERCENT).toInt()
                 }
-                setUp(message.userImage, message.message, message.senderUserName, message.sendDate)
+                setUp(message.senderAvatarUrl, message.text, message.senderName, message.sendDate)
             }
         }
 

@@ -1,36 +1,14 @@
 package com.example.network.web_socket
 
-import com.microsoft.signalr.HubConnection
-import com.microsoft.signalr.HubConnectionBuilder
+import com.example.shared.model.Result
+import kotlinx.coroutines.flow.Flow
 
-class SignalrWebSocketClient(private val url: String) {
+interface SignalrWebSocketClient {
+    fun connect(): Flow<Result<Unit>>
 
-    private lateinit var connection: HubConnection
+    fun disconnect()
 
-    fun connect() {
-        connection = HubConnectionBuilder.create(url).build()
-        connection.start()
-    }
+    fun <T> onReceived(dataClass: Class<T>): Flow<T>
 
-    fun disconnect() {
-        connection.close()
-    }
-
-    fun onReceived(block: (String)-> Unit) {
-        connection.on(
-            "ReceiveMessage",
-            block,
-            String::class.java
-        )
-    }
-
-    fun sendMessage(message: String) {
-        connection.invoke("""
-            {
-                "chatId": 1,
-                "userId": "asdsad",
-                "message": "$message"
-            }
-        """.trimIndent(), message)
-    }
+    fun sendMessage(data: Any): Flow<Result<Unit>>
 }

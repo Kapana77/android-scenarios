@@ -2,9 +2,12 @@ package com.example.foroom.di
 
 import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
+import com.example.foroom.domain.usecase.GetCurrentUserUseCase
 import com.example.foroom.domain.usecase.GetEmojisUseCase
 import com.example.foroom.domain.usecase.LogInUserUseCase
+import com.example.foroom.domain.usecase.MessageWebSocketUseCase
 import com.example.foroom.domain.usecase.RegisterUserUseCase
+import com.example.foroom.domain.usecase.UserInMemoryUseCase
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -26,5 +29,17 @@ val domainModule = module {
 
     single {
         GetChatsUseCase(get())
+    }
+
+    single {
+        MessageWebSocketUseCase(get())
+    }
+
+    single {
+        UserInMemoryUseCase(get())
+    }
+
+    single {
+        GetCurrentUserUseCase(get())
     }
 }

@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ChatUI(
+    val id: Long,
     val name: String,
     val emojiUrl: String,
     val creatorUsername: String,

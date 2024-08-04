@@ -1,11 +1,13 @@
-package com.example.foroom.data.datasource
+package com.example.foroom.data.datasource.rest
 
 import com.example.foroom.data.model.Image
+import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
 
-interface ForoomDataSource {
+interface ForoomRestDataSource {
+    suspend fun getCurrentUser(): UserEntity
 
     suspend fun getAvatars(): List<Image>
 
@@ -16,4 +18,5 @@ interface ForoomDataSource {
     suspend fun logInUser(request: LogInRequestEntity)
 
     suspend fun getChats(page: Int, limit: Int): ChatsResponseEntity
+
 }

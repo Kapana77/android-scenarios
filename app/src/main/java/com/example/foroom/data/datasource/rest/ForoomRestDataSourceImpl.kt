@@ -1,16 +1,22 @@
-package com.example.foroom.data.datasource
+package com.example.foroom.data.datasource.rest
 
 import com.example.foroom.data.api.ImagesApi
 import com.example.foroom.data.api.ForoomApi
 import com.example.foroom.data.model.Image
+import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
 
-class ForoomDataSourceImpl(
+class ForoomRestDataSourceImpl(
     private val imagesApi: ImagesApi,
     private val foroomApi: ForoomApi
-): ForoomDataSource {
+): ForoomRestDataSource {
+
+    override suspend fun getCurrentUser(): UserEntity {
+        return foroomApi.getCurrentUser()
+    }
+
     override suspend fun getAvatars(): List<Image> {
         return imagesApi.getAvatars()
     }

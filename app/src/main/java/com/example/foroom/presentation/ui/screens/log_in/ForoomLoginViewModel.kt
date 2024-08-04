@@ -2,7 +2,7 @@ package com.example.foroom.presentation.ui.screens.log_in
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.foroom.domain.model.LogInRequest
+import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.usecase.LogInUserUseCase
 import com.example.network.rest_client.networkExecutor
 import com.example.shared.model.Result

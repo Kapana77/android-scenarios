@@ -1,17 +1,22 @@
-package com.example.foroom.data.repository
+package com.example.foroom.data.repository.rest
 
-import com.example.foroom.data.datasource.ForoomDataSource
+import com.example.foroom.data.datasource.rest.ForoomRestDataSource
 import com.example.foroom.data.mapper.ForoomMapper
-import com.example.foroom.domain.model.ChatsResponse
-import com.example.foroom.domain.model.LogInRequest
-import com.example.foroom.domain.model.RegistrationRequest
-import com.example.foroom.domain.repository.ForoomRepository
+import com.example.foroom.domain.model.User
+import com.example.foroom.domain.model.response.ChatsResponse
+import com.example.foroom.domain.model.request.LogInRequest
+import com.example.foroom.domain.model.request.RegistrationRequest
+import com.example.foroom.domain.repository.rest.ForoomRestRepository
 import com.example.shared.model.Image
 
-class ForoomRepositoryImpl(
-    private val dataSource: ForoomDataSource,
+class ForoomRestRepositoryImpl(
+    private val dataSource: ForoomRestDataSource,
     private val mapper: ForoomMapper
-) : ForoomRepository {
+) : ForoomRestRepository {
+
+    override suspend fun getCurrentUser(): User {
+        return mapper.mapFromUserEntity(dataSource.getCurrentUser())
+    }
 
     override suspend fun getAvatars(): List<Image> {
         return dataSource.getAvatars().map {  image ->

@@ -7,6 +7,10 @@ android {
     namespace = "com.example.network"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         minSdk = 24
 
@@ -15,7 +19,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://89.168.75.214/\"")
+        }
+
         release {
+            buildConfigField("String", "BASE_URL", "\"http://89.168.75.214/\"")
+            
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -44,6 +54,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines)
     implementation(projects.shared)
     implementation(libs.microsoft.signalr)
+    implementation(libs.okhttp.logging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

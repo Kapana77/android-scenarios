@@ -1,5 +1,6 @@
 package com.example.foroom.data.api
 
+import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
@@ -9,6 +10,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface ForoomApi {
+    @GET("/users/currentUser")
+    suspend fun getCurrentUser(): UserEntity
 
     @POST("/users/register")
     suspend fun registerUser(@Body request: RegistrationRequestEntity)

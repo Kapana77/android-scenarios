@@ -3,10 +3,10 @@ package com.example.foroom.domain.model
 import java.time.LocalDateTime
 
 data class Message(
-    val id: Int,
-    val senderUserName: String,
+    val senderName: String,
+    val senderAvatarUrl: String,
     val sendDate: LocalDateTime,
-    val message: String,
-    val userImage: String,
-    val isCurrentUser: Boolean
+    val text: String,
+    val senderUserId: String,
+    val id: Int
 )

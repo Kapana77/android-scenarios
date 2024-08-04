@@ -20,6 +20,7 @@ lottie = "6.4.1"
 desugaring = "2.0.3"
 parcelize = "2.0.0"
 signalr = "7.0.0"
+okhttp-logging = "4.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref 
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 android-desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugaring" }
 microsoft-signalr = { group = "com.microsoft.signalr", name = "signalr", version.ref = "signalr" }
+okhttp-logging = { group="com.squareup.okhttp3", name="logging-interceptor", version.ref="okhttp-logging" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

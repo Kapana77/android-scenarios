@@ -5,7 +5,7 @@ import com.example.foroom.domain.model.Message
 
 class MessageDiffUtil: DiffUtil.ItemCallback<Message>() {
     override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {

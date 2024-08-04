@@ -35,6 +35,7 @@ class Input @JvmOverloads constructor(
     private val inputValidator = InputValidator()
 
     val editText get() = binding.inputEditText
+    val text get() = binding.inputEditText.text.toString()
     var shouldClearDescriptionOnTextChange = false
 
     var startView: View? = null

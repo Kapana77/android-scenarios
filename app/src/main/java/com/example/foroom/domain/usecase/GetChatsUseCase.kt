@@ -1,9 +1,9 @@
 package com.example.foroom.domain.usecase
 
-import com.example.foroom.domain.model.ChatsResponse
-import com.example.foroom.domain.repository.ForoomRepository
+import com.example.foroom.domain.model.response.ChatsResponse
+import com.example.foroom.domain.repository.rest.ForoomRestRepository
 
-class GetChatsUseCase(private val repository: ForoomRepository) {
+class GetChatsUseCase(private val repository: ForoomRestRepository) {
     suspend operator fun invoke(page: Int, limit: Int = DEFAULT_LIMIT): ChatsResponse {
         return repository.getChats(page, limit)
     }
