@@ -5,5 +5,5 @@ data class Chat(
     val emojiUrl: String,
     val creatorUsername: String,
     val likeCount: Int,
-    val id: Long
+    val id: Int
 )

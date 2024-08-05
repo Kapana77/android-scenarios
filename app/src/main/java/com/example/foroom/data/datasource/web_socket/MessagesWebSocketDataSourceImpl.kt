@@ -17,5 +17,9 @@ class MessagesWebSocketDataSourceImpl(private val client: ForoomWebSocketClient)
 
     override fun sendMessage(sendMessageRequest: SendMessageRequestEntity): Flow<Result<Unit>> =
         client.sendMessage(sendMessageRequest)
+
+    override fun joinGroup(groupName: String): Flow<Result<Unit>> = client.joinGroup(groupName)
+
+    override fun leaveGroup(groupName: String): Flow<Result<Unit>> = client.leaveGroup(groupName)
 }
 

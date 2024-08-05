@@ -17,4 +17,7 @@ class ForoomChatViewModel(
 
     fun onMessage() = messagesUseCase.onMessageReceived()
 
+    fun joinGroup(chatId: Int) = messagesUseCase.joinGroup(chatId.toString())
+
+    fun leaveGroup(chatId: Int) = messagesUseCase.leaveGroup(chatId.toString())
 }

@@ -17,4 +17,8 @@ class MessageWebSocketUseCase(private val repository: ForoomMessagesWebSocketRep
     fun sendMessage(userId: String, chatId: Int, text: String): Flow<Result<Unit>> =
         repository.sendMessage(SendMessageRequest(userId, chatId, text))
 
+    fun joinGroup(groupName: String): Flow<Result<Unit>> = repository.joinGroup(groupName)
+
+    fun leaveGroup(groupName: String): Flow<Result<Unit>> = repository.leaveGroup(groupName)
+
 }

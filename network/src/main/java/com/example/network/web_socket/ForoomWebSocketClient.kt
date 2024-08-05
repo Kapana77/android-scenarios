@@ -11,4 +11,8 @@ interface ForoomWebSocketClient {
     fun <T> onReceived(dataClass: Class<T>): Flow<T>
 
     fun sendMessage(data: Any): Flow<Result<Unit>>
+
+    fun joinGroup(groupName: String): Flow<Result<Unit>>
+
+    fun leaveGroup(groupName: String): Flow<Result<Unit>>
 }

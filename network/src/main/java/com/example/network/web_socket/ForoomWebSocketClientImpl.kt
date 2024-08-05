@@ -11,9 +11,10 @@ import kotlinx.coroutines.flow.callbackFlow
 class ForoomWebSocketClientImpl(private val hub: ForoomHub) : ForoomWebSocketClient {
 
     private var _connection: HubConnection? = null
-    private val connection: HubConnection get() = requireNotNull(_connection) {
-        "You have to call connect() first..."
-    }
+    private val connection: HubConnection
+        get() = requireNotNull(_connection) {
+            "You have to call connect() first..."
+        }
 
     override fun connect(): Flow<Result<Unit>> {
         _connection = HubConnectionBuilder.create(BuildConfig.BASE_URL + hub.path).build()
@@ -72,9 +73,48 @@ class ForoomWebSocketClientImpl(private val hub: ForoomHub) : ForoomWebSocketCli
         }
     }
 
+    override fun joinGroup(groupName: String): Flow<Result<Unit>> {
+        return callbackFlow {
+            send(Result.Loading)
+
+            val disposable = connection.invoke(JOIN_GROUP_FUNCTION, groupName).subscribe({
+                trySend(Result.Success(Unit))
+                close()
+            }, { error ->
+                trySend(Result.Error(Exception(error)))
+                close()
+            })
+
+            awaitClose {
+                disposable.dispose()
+            }
+        }
+    }
+
+    override fun leaveGroup(groupName: String): Flow<Result<Unit>> {
+        return callbackFlow {
+            send(Result.Loading)
+
+            val disposable = connection.invoke(LEAVE_GROUP_FUNCTION, groupName).subscribe({
+                trySend(Result.Success(Unit))
+                close()
+            }, { error ->
+                trySend(Result.Error(Exception(error)))
+                close()
+            })
+
+            awaitClose {
+                disposable.dispose()
+            }
+        }
+    }
+
     companion object {
         private const val RECEIVE_MESSAGE_FUNCTION = "receiveMessage"
         private const val SEND_MESSAGE_FUNCTION = "SendMessage"
+
+        private const val JOIN_GROUP_FUNCTION = "JoinGroup"
+        private const val LEAVE_GROUP_FUNCTION = "LeaveGroup"
     }
 
     enum class ForoomHub(val path: String) {

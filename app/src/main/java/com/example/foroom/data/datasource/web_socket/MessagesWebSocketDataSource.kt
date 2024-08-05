@@ -13,4 +13,8 @@ interface MessagesWebSocketDataSource {
     fun onMessageReceived(): Flow<MessageEntity>
 
     fun sendMessage(sendMessageRequest: SendMessageRequestEntity): Flow<Result<Unit>>
+
+    fun joinGroup(groupName: String): Flow<Result<Unit>>
+
+    fun leaveGroup(groupName: String): Flow<Result<Unit>>
 }

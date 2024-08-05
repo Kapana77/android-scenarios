@@ -23,4 +23,8 @@ class ForoomMessagesWebSocketRepositoryImpl(
 
     override fun sendMessage(sendMessageRequest: SendMessageRequest): Flow<Result<Unit>> =
         dataSource.sendMessage(foroomMapper.mapToSendMessageRequest(sendMessageRequest))
+
+    override fun joinGroup(groupName: String): Flow<Result<Unit>> = dataSource.joinGroup(groupName)
+
+    override fun leaveGroup(groupName: String): Flow<Result<Unit>> = dataSource.leaveGroup(groupName)
 }

@@ -14,4 +14,8 @@ interface ForoomMessagesWebSocketRepository {
     fun onMessageReceived(): Flow<Message>
 
     fun sendMessage(sendMessageRequest: SendMessageRequest): Flow<Result<Unit>>
+
+    fun joinGroup(groupName: String): Flow<Result<Unit>>
+
+    fun leaveGroup(groupName: String): Flow<Result<Unit>>
 }

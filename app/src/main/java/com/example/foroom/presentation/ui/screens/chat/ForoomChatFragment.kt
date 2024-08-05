@@ -1,6 +1,7 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.navigation.guest.ForoomNavigationArgumentsHolder
 import com.example.navigation.guest.navArgs
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.isError
+import com.example.shared.extension.isSuccess
 import com.example.shared.extension.onClick
 import com.example.shared.extension.onGlobalLayout
 import com.example.shared.ui.fragment.BaseFragment
@@ -62,6 +64,10 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
                 if (result.isError) navigationHost?.goBack()
             }
         }
+
+        viewModel.joinGroup(navArgs.id).collect {
+            Log.d("logkata", it.toString())
+        }
     }
 
     private suspend fun collectMessages() {
@@ -88,7 +94,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     private fun setListeners() {
         binding.sendMessageButton.onClick {
             lifecycleScope.launch {
-                viewModel.sendMessage(navArgs.id.toInt(), binding.messageInput.text).collect {
+                viewModel.sendMessage(navArgs.id, binding.messageInput.text).collect {
                     binding.messageInput.editText.text?.clear()
                 }
             }
