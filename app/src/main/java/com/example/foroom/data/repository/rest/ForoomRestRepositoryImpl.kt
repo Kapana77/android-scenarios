@@ -19,13 +19,13 @@ class ForoomRestRepositoryImpl(
     }
 
     override suspend fun getAvatars(): List<Image> {
-        return dataSource.getAvatars().map {  image ->
+        return dataSource.getAvatars().map { image ->
             mapper.mapImage(image)
         }
     }
 
     override suspend fun getEmojis(): List<Image> {
-        return dataSource.getEmojis().map {  image ->
+        return dataSource.getEmojis().map { image ->
             mapper.mapImage(image)
         }
     }
@@ -42,7 +42,23 @@ class ForoomRestRepositoryImpl(
         )
     }
 
-    override suspend fun getChats(page: Int, limit: Int): ChatsResponse {
-        return mapper.mapToChatsResponse(dataSource.getChats(page, limit))
+    override suspend fun getChats(
+        page: Int,
+        limit: Int,
+        name: String?,
+        popular: Boolean,
+        created: Boolean,
+        favorite: Boolean
+    ): ChatsResponse {
+        return mapper.mapToChatsResponse(
+            dataSource.getChats(
+                page,
+                limit,
+                name,
+                popular,
+                created,
+                favorite
+            )
+        )
     }
 }

@@ -11,7 +11,7 @@ import com.example.foroom.data.model.response.ChatsResponseEntity
 class ForoomRestDataSourceImpl(
     private val imagesApi: ImagesApi,
     private val foroomApi: ForoomApi
-): ForoomRestDataSource {
+) : ForoomRestDataSource {
 
     override suspend fun getCurrentUser(): UserEntity {
         return foroomApi.getCurrentUser()
@@ -35,8 +35,12 @@ class ForoomRestDataSourceImpl(
 
     override suspend fun getChats(
         page: Int,
-        limit: Int
+        limit: Int,
+        name: String?,
+        popular: Boolean,
+        created: Boolean,
+        favorite: Boolean
     ): ChatsResponseEntity {
-        return foroomApi.getChats(page, limit)
+        return foroomApi.getChats(page, limit, name, popular, created, favorite)
     }
 }

@@ -14,8 +14,9 @@ class PaginationHelperImpl<T>: PaginationHelper<T> {
         page++
     }
 
-    override fun clearItems() {
+    override fun clear() {
         items.clear()
+        page = FIRST_PAGE
     }
 
     companion object {

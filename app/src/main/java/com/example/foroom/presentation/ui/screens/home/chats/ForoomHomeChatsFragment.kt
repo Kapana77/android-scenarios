@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import com.example.foroom.databinding.FragmentForoomHomeChatsBinding
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
 import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChatsAdapter
@@ -36,6 +37,7 @@ class ForoomHomeChatsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        setListeners()
         setObservers()
     }
 
@@ -43,19 +45,25 @@ class ForoomHomeChatsFragment :
         binding.chatsRecyclerView.adapter = adapter
     }
 
+    private fun setListeners() {
+        binding.searchChatInput.input.editText.addTextChangedListener { text ->
+            viewModel.filterSearchByName(text?.toString())
+        }
+    }
+
     private fun setObservers() {
         viewModel.chatsLiveData.handleResult {
             onSuccess { chats ->
-                binding.root.showContent()
+                binding.contentLoaderView.showContent()
                 adapter.submitDataList(chats, viewModel.hasMorePages)
             }
 
             onLoading {
-                if (viewModel.requestCode.isInit()) binding.root.showLoader()
+                if (viewModel.requestCode.isInit()) binding.contentLoaderView.showLoader()
             }
 
             onError {
-                if (viewModel.requestCode.isInit()) binding.root.showEmptyPage()
+                if (viewModel.requestCode.isInit()) binding.contentLoaderView.showEmptyPage()
                 else adapter.showErrorState()
             }
         }

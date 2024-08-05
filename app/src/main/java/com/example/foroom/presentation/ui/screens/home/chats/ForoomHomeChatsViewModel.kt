@@ -25,6 +25,13 @@ class ForoomHomeChatsViewModel(
 
     private val paginationHelper = get<PaginationHelper<ChatUI>>()
 
+    private var searchConfiguration = SearchConfiguration()
+        set(value) {
+            field = value
+            onSearchConfigurationChange()
+        }
+
+
     var hasMorePages = true
         private set
 
@@ -37,7 +44,15 @@ class ForoomHomeChatsViewModel(
         this.requestCode = requestCode
 
         networkExecutor<ChatsResponse> {
-            execute { getChatsUseCase(paginationHelper.getPage()) }
+            execute {
+                getChatsUseCase(
+                    paginationHelper.getPage(),
+                    name = searchConfiguration.name,
+                    popular = searchConfiguration.popular,
+                    created = searchConfiguration.created,
+                    favorite = searchConfiguration.favorite
+                )
+            }
             loading { _chatsLiveData.postValue(Result.Loading) }
             error { _chatsLiveData.postValue(Result.Error(it)) }
 
@@ -47,6 +62,22 @@ class ForoomHomeChatsViewModel(
                 _chatsLiveData.postValue(Result.Success(paginationHelper.getItems()))
             }
         }
+    }
+
+    fun filterSearchByName(name: String?) {
+        searchConfiguration = SearchConfiguration(name = name)
+    }
+
+    fun filterSearchByPopular() {
+        searchConfiguration = SearchConfiguration(popular = true)
+    }
+
+    fun filterSearchByCreated() {
+        searchConfiguration = SearchConfiguration(created = true)
+    }
+
+    fun filterSearchByFavorite() {
+        searchConfiguration = SearchConfiguration(favorite = true)
     }
 
     private fun updateCurrentUserInMemory() {
@@ -62,10 +93,21 @@ class ForoomHomeChatsViewModel(
         }
     }
 
+    private fun onSearchConfigurationChange() {
+        paginationHelper.clear()
+        getChats(RequestCode.RC_INIT)
+    }
+
     private fun mapToChatUI(chats: List<Chat>) = chats.map { chat ->
         with(chat) {
             ChatUI(id, name, emojiUrl, creatorUsername, likeCount)
         }
     }
 
+    private data class SearchConfiguration(
+        val name: String? = null,
+        val popular: Boolean = false,
+        val created: Boolean = false,
+        val favorite: Boolean = false
+    )
 }

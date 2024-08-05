@@ -4,8 +4,15 @@ import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.repository.rest.ForoomRestRepository
 
 class GetChatsUseCase(private val repository: ForoomRestRepository) {
-    suspend operator fun invoke(page: Int, limit: Int = DEFAULT_LIMIT): ChatsResponse {
-        return repository.getChats(page, limit)
+    suspend operator fun invoke(
+        page: Int,
+        limit: Int = DEFAULT_LIMIT,
+        name: String? = null,
+        popular: Boolean = false,
+        created: Boolean = false,
+        favorite: Boolean = false
+    ): ChatsResponse {
+        return repository.getChats(page, limit, name, popular, created, favorite)
     }
 
     companion object {

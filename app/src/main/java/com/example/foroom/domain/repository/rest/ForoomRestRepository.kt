@@ -17,5 +17,12 @@ interface ForoomRestRepository {
 
     suspend fun logInUser(request: LogInRequest)
 
-    suspend fun getChats(page: Int, limit: Int): ChatsResponse
+    suspend fun getChats(
+        page: Int,
+        limit: Int,
+        name: String? = null,
+        popular: Boolean = false,
+        created: Boolean = false,
+        favorite: Boolean = false
+    ): ChatsResponse
 }

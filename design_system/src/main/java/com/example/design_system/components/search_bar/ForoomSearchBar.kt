@@ -13,6 +13,8 @@ class ForoomSearchBar @JvmOverloads constructor(
     private val binding =
         LayoutForoomSearchBarBinding.inflate(LayoutInflater.from(context), this, true)
 
+    val input get() = binding.searchInput
+
     init {
         resources.obtainAttributes(attrs, R.styleable.ForoomSearchBar).apply {
             binding.searchInput.editText.hint = getString(R.styleable.ForoomSearchBar_hint)

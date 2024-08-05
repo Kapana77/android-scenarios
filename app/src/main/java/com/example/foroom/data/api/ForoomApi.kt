@@ -22,6 +22,10 @@ interface ForoomApi {
     @GET("/chats")
     suspend fun getChats(
         @Query("page") page: Int,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("name") name: String? = null,
+        @Query("popular") popular: Boolean = false,
+        @Query("created") created: Boolean = false,
+        @Query("favorite") favorite: Boolean = false
     ): ChatsResponseEntity
 }
