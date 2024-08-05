@@ -3,7 +3,7 @@ package com.example.network.web_socket
 import com.example.shared.model.Result
 import kotlinx.coroutines.flow.Flow
 
-interface SignalrWebSocketClient {
+interface ForoomWebSocketClient {
     fun connect(): Flow<Result<Unit>>
 
     fun disconnect()

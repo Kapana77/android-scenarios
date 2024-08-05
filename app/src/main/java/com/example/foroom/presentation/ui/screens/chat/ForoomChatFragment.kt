@@ -1,7 +1,6 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,9 @@ import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAda
 import com.example.navigation.guest.ForoomNavigationArgumentsHolder
 import com.example.navigation.guest.navArgs
 import com.example.navigation.util.navigationHost
-import com.example.shared.extension.isSuccess
+import com.example.shared.extension.isError
 import com.example.shared.extension.onClick
 import com.example.shared.extension.onGlobalLayout
-import com.example.shared.model.Result
 import com.example.shared.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,7 +37,10 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     override fun onStart() {
         super.onStart()
 
-        initSocketConnection()
+        lifecycleScope.launch {
+            initSocketConnection()
+            collectMessages()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,19 +56,16 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         viewModel.disConnect()
     }
 
-    private fun initSocketConnection() {
-        lifecycleScope.launch {
-            viewModel.connect().collect { result ->
-                if (result.isSuccess) collectMessages()
-                else if (result is Result.Error) Log.d("logkata", result.exception.message.toString())
+    private suspend fun initSocketConnection() {
+        viewModel.connect().collect { result ->
+            view?.post {
+                if (result.isError) navigationHost?.goBack()
             }
         }
     }
 
     private suspend fun collectMessages() {
-        Log.d("logkata", "started collecting")
         viewModel.onMessage().collect { message ->
-            Log.d("logkata", message.toString())
             messagesAdapter.addMessage(message)
             binding.messagesRecyclerView.smoothScrollToPosition(0)
         }
@@ -91,10 +89,8 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         binding.sendMessageButton.onClick {
             lifecycleScope.launch {
                 viewModel.sendMessage(navArgs.id.toInt(), binding.messageInput.text).collect {
-                    Log.d("logkata", it.toString())
                     binding.messageInput.editText.text?.clear()
                 }
-
             }
         }
     }

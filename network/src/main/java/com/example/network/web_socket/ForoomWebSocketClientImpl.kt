@@ -8,19 +8,25 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-class SignalrWebSocketClientImpl(hub: ForoomHub) : SignalrWebSocketClient {
+class ForoomWebSocketClientImpl(private val hub: ForoomHub) : ForoomWebSocketClient {
 
-    private var connection: HubConnection =
-        HubConnectionBuilder.create(BuildConfig.BASE_URL + hub.path).build()
+    private var _connection: HubConnection? = null
+    private val connection: HubConnection get() = requireNotNull(_connection) {
+        "You have to call connect() first..."
+    }
 
     override fun connect(): Flow<Result<Unit>> {
+        _connection = HubConnectionBuilder.create(BuildConfig.BASE_URL + hub.path).build()
+
         return callbackFlow {
             send(Result.Loading)
 
             val disposable = connection.start().subscribe({
                 trySend(Result.Success(Unit))
+                close()
             }, {
                 trySend(Result.Error(Exception(it)))
+                close()
             })
 
             awaitClose {
@@ -30,7 +36,8 @@ class SignalrWebSocketClientImpl(hub: ForoomHub) : SignalrWebSocketClient {
     }
 
     override fun disconnect() {
-        connection.close()
+        _connection?.close()
+        _connection = null
     }
 
     override fun <T> onReceived(dataClass: Class<T>): Flow<T> {
@@ -53,8 +60,10 @@ class SignalrWebSocketClientImpl(hub: ForoomHub) : SignalrWebSocketClient {
 
             val disposable = connection.invoke(SEND_MESSAGE_FUNCTION, data).subscribe({
                 trySend(Result.Success(Unit))
+                close()
             }, { error ->
                 trySend(Result.Error(Exception(error)))
+                close()
             })
 
             awaitClose {

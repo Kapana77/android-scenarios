@@ -16,7 +16,7 @@ import com.example.foroom.data.repository.web_socket.ForoomMessagesWebSocketRepo
 import com.example.foroom.domain.repository.local.ForoomLocalRepository
 import com.example.foroom.domain.repository.rest.ForoomRestRepository
 import com.example.foroom.domain.repository.web_socket.ForoomMessagesWebSocketRepository
-import com.example.network.web_socket.SignalrWebSocketClientImpl
+import com.example.network.web_socket.ForoomWebSocketClientImpl
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -37,7 +37,7 @@ val dataModule = module {
     }
 
     single<MessagesWebSocketDataSource> {
-        MessagesWebSocketDataSourceImpl(get(named(SignalrWebSocketClientImpl.ForoomHub.CHAT)))
+        MessagesWebSocketDataSourceImpl(get(named(ForoomWebSocketClientImpl.ForoomHub.CHAT)))
     }
 
     single<ForoomUserInMemoryDataSource> {

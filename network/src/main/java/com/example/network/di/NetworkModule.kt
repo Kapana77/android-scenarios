@@ -1,8 +1,8 @@
 package com.example.network.di
 
 import com.example.network.BuildConfig
-import com.example.network.web_socket.SignalrWebSocketClient
-import com.example.network.web_socket.SignalrWebSocketClientImpl
+import com.example.network.web_socket.ForoomWebSocketClient
+import com.example.network.web_socket.ForoomWebSocketClientImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -25,7 +25,7 @@ val networkModule = module {
             .build()
     }
 
-    factory<SignalrWebSocketClient>(named(SignalrWebSocketClientImpl.ForoomHub.CHAT)) {
-        SignalrWebSocketClientImpl(SignalrWebSocketClientImpl.ForoomHub.CHAT)
+    factory<ForoomWebSocketClient>(named(ForoomWebSocketClientImpl.ForoomHub.CHAT)) {
+        ForoomWebSocketClientImpl(ForoomWebSocketClientImpl.ForoomHub.CHAT)
     }
 }
