@@ -15,7 +15,6 @@ import com.example.navigation.guest.ForoomNavigationArgumentsHolder
 import com.example.navigation.guest.navArgs
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.isError
-import com.example.shared.extension.isSuccess
 import com.example.shared.extension.onClick
 import com.example.shared.extension.onGlobalLayout
 import com.example.shared.ui.fragment.BaseFragment

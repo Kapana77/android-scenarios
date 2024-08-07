@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import com.example.foroom.R
 import com.example.foroom.databinding.FragmentForoomHomeChatsBinding
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
 import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChatsAdapter
@@ -43,6 +44,20 @@ class ForoomHomeChatsFragment :
 
     private fun initViews() {
         binding.chatsRecyclerView.adapter = adapter
+
+        with(binding.filterOptionsView) {
+            addOption(getString(R.string.chats_filter_popular))
+            addOption(getString(R.string.chats_filter_created))
+            addOption(getString(R.string.chats_filter_favourite))
+
+            onIndicated = { index ->
+                when(index) {
+                    FILTER_INDEX_POPULAR -> viewModel.filterSearchByPopular()
+                    FILTER_INDEX_CREATED -> viewModel.filterSearchByCreated()
+                    FILTER_INDEX_FAVOURITE -> viewModel.filterSearchByFavorite()
+                }
+            }
+        }
     }
 
     private fun setListeners() {
@@ -59,7 +74,10 @@ class ForoomHomeChatsFragment :
             }
 
             onLoading {
-                if (viewModel.requestCode.isInit()) binding.contentLoaderView.showLoader()
+                if (viewModel.requestCode.isInit()) {
+                    binding.contentLoaderView.showLoader()
+                    adapter.clearData()
+                }
             }
 
             onError {
@@ -67,5 +85,11 @@ class ForoomHomeChatsFragment :
                 else adapter.showErrorState()
             }
         }
+    }
+
+    companion object {
+        private const val FILTER_INDEX_POPULAR = 0
+        private const val FILTER_INDEX_CREATED = 1
+        private const val FILTER_INDEX_FAVOURITE = 2
     }
 }

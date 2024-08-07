@@ -23,16 +23,19 @@ class SlidingOptionsView @JvmOverloads constructor(
         set(value) {
             field = value
             value?.let { item ->
-                indicateView(item, isShown)
+                indicateView(item, indicatorView.width > ZERO_SIZE)
             }
         }
 
+    var onIndicated: ((Int) -> Unit)? = null
+
+    private var hasCalculatedSpacing = false
     private val optionsLinearLayout = LinearLayoutCompat(context).apply {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
     private val indicatorView = View(context).apply {
-        layoutParams = LayoutParams(0, 0)
+        layoutParams = LayoutParams(ZERO_SIZE, ZERO_SIZE)
         background = ContextCompat.getDrawable(context, R.drawable.background_rounded_8dp)
         background.setTint(context.getColor(R.color.foroom_secondary_green))
     }
@@ -59,7 +62,7 @@ class SlidingOptionsView @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
 
-        setOptionsSpacing()
+        if (!hasCalculatedSpacing) setOptionsSpacing()
         if (indicatedItem == null) indicatedItem = optionsLinearLayout.children.first()
     }
 
@@ -96,12 +99,16 @@ class SlidingOptionsView @JvmOverloads constructor(
                 }
             }
         }
+
+        hasCalculatedSpacing = true
     }
 
     private fun indicateView(target: View, animate: Boolean = true) {
         indicatorView.layoutParams.height = target.height
 
         if (animate) {
+            onIndicated?.invoke(optionsLinearLayout.indexOfChild(target))
+
             val positionAnimator = ValueAnimator.ofFloat(indicatorView.x, target.x)
             positionAnimator.interpolator = DecelerateInterpolator()
             positionAnimator.addUpdateListener { animator ->
@@ -116,12 +123,18 @@ class SlidingOptionsView @JvmOverloads constructor(
             widthAnimator.addUpdateListener { animator ->
                 indicatorView.post {
                     indicatorView.layoutParams.width = animator.animatedValue as Int
+                    indicatorView.requestLayout()
                 }
             }
+
             widthAnimator.start()
         } else {
             indicatorView.layoutParams.width = target.width
             indicatorView.translationX = target.x
         }
+    }
+
+    companion object {
+        private const val ZERO_SIZE = 0
     }
 }

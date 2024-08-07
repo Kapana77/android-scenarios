@@ -20,4 +20,7 @@
 
     // chats
     <string name="chats_search_hint">Search For Chat</string>
+    <string name="chats_filter_popular">Popular Chats</string>
+    <string name="chats_filter_created">Created Chats</string>
+    <string name="chats_filter_favourite">Favourite Chats</string>
 </resources>
