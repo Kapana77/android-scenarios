@@ -4,6 +4,7 @@ import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.network.model.response.UserTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,10 +15,10 @@ interface ForoomApi {
     suspend fun getCurrentUser(): UserEntity
 
     @POST("/users/register")
-    suspend fun registerUser(@Body request: RegistrationRequestEntity)
+    suspend fun registerUser(@Body request: RegistrationRequestEntity): UserTokenResponse
 
     @POST("/users/signin")
-    suspend fun logInUser(@Body request: LogInRequestEntity)
+    suspend fun logInUser(@Body request: LogInRequestEntity): UserTokenResponse
 
     @GET("/chats")
     suspend fun getChats(

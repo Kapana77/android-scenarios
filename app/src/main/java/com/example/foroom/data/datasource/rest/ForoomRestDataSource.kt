@@ -5,6 +5,7 @@ import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.network.model.response.UserTokenResponse
 
 interface ForoomRestDataSource {
     suspend fun getCurrentUser(): UserEntity
@@ -13,9 +14,9 @@ interface ForoomRestDataSource {
 
     suspend fun getEmojis(): List<Image>
 
-    suspend fun registerUser(request: RegistrationRequestEntity)
+    suspend fun registerUser(request: RegistrationRequestEntity): UserTokenResponse
 
-    suspend fun logInUser(request: LogInRequestEntity)
+    suspend fun logInUser(request: LogInRequestEntity): UserTokenResponse
 
     suspend fun getChats(
         page: Int,

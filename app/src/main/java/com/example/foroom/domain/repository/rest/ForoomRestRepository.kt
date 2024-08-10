@@ -4,6 +4,7 @@ import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.model.request.RegistrationRequest
+import com.example.network.model.response.UserTokenResponse
 import com.example.shared.model.Image
 
 interface ForoomRestRepository {
@@ -13,9 +14,9 @@ interface ForoomRestRepository {
 
     suspend fun getEmojis(): List<Image>
 
-    suspend fun registerUser(request: RegistrationRequest)
+    suspend fun registerUser(request: RegistrationRequest): UserTokenResponse
 
-    suspend fun logInUser(request: LogInRequest)
+    suspend fun logInUser(request: LogInRequest): UserTokenResponse
 
     suspend fun getChats(
         page: Int,

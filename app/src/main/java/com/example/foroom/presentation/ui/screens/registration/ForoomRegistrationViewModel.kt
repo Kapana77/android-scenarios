@@ -2,24 +2,32 @@ package com.example.foroom.presentation.ui.screens.registration
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.foroom.R
 import com.example.foroom.domain.model.request.RegistrationRequest
 import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.RegisterUserUseCase
+import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
+import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
+import com.example.network.auth.UserTokenRuntimeHolder
+import com.example.network.model.response.UserTokenResponse
 import com.example.network.rest_client.networkExecutor
 import com.example.shared.model.Image
 import com.example.shared.model.Result
 import com.example.shared.ui.viewModel.BaseViewModel
-import org.koin.core.component.KoinComponent
+import kotlinx.coroutines.launch
 
 class ForoomRegistrationViewModel(
     private val getAvatarsUseCase: GetAvatarsUseCase,
-    private val registerUserUseCase: RegisterUserUseCase
-) : BaseViewModel(), KoinComponent {
+    private val registerUserUseCase: RegisterUserUseCase,
+    private val userTokenRuntimeHolder: UserTokenRuntimeHolder,
+    private val userDataStore: ForoomUserDataStore,
+    private val getAndSaveUserDelegate: GetAndSaveUserDelegate
+) : BaseViewModel(), GetAndSaveUserDelegate by getAndSaveUserDelegate {
     val avatarsLiveData = MutableLiveData<Result<List<Image>>>()
 
-    private val _registrationLiveData = MutableLiveData<Result<Unit>>()
-    val registrationLiveData: LiveData<Result<Unit>> get() = _registrationLiveData
+    private val _registrationLiveData = MutableLiveData<Result<UserTokenResponse>>()
+    val registrationLiveData: LiveData<Result<UserTokenResponse>> get() = _registrationLiveData
 
     var userName: String = EMPTY_STRING
     var password: String = EMPTY_STRING
@@ -28,6 +36,8 @@ class ForoomRegistrationViewModel(
     var avatarId: Int = Image.BLANK_IMAGE_ID
 
     init {
+        getAndSaveUserDelegate.init(viewModelScope)
+
         getImages()
     }
 
@@ -54,13 +64,22 @@ class ForoomRegistrationViewModel(
             return
         }
 
-        networkExecutor {
+        networkExecutor<UserTokenResponse> {
             execute {
                 registerUserUseCase(RegistrationRequest(userName, password, avatarId))
             }
 
             onResult { result ->
                 _registrationLiveData.postValue(result)
+            }
+
+            success { response ->
+                userTokenRuntimeHolder.setUserToken(response.token)
+                getAndSaveUserData()
+
+                viewModelScope.launch {
+                    userDataStore.saveUserAuthToken(response.token)
+                }
             }
         }
     }

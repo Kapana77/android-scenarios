@@ -1,6 +1,8 @@
 package com.example.foroom.presentation.ui.di
 
 import com.example.foroom.domain.model.Chat
+import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
+import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegateImpl
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatViewModel
 import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsViewModel
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerViewModel
@@ -8,6 +10,8 @@ import com.example.foroom.presentation.ui.screens.home.create_chat.ForoomCreateC
 import com.example.foroom.presentation.ui.screens.home.profile.ForoomProfileViewModel
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginViewModel
 import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationViewModel
+import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
+import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStoreImpl
 import com.example.shared.util.pagination.PaginationHelper
 import com.example.shared.util.pagination.PaginationHelperImpl
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -17,6 +21,15 @@ val presentationModule get() = module {
     includes(registrationModule, logInModule, homeModule)
 
     factory<PaginationHelper<Chat>> { PaginationHelperImpl() }
+
+    single<ForoomUserDataStore> {
+        ForoomUserDataStoreImpl(get())
+    }
+
+    // delegate
+    factory<GetAndSaveUserDelegate> {
+        GetAndSaveUserDelegateImpl(get(), get())
+    }
 }
 
 val registrationModule = module {

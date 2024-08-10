@@ -58,6 +58,7 @@ dependencies {
     implementation(projects.navigation)
     implementation(projects.network)
     implementation(libs.retrofit)
+    implementation(libs.datastore)
     coreLibraryDesugaring(libs.android.desugaring)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

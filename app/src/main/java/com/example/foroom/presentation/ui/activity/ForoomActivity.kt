@@ -5,7 +5,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.example.foroom.R
 import com.example.foroom.databinding.ActivityForoomBinding
-import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
+import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
 import com.example.shared.ui.activity.BaseActivity
@@ -24,7 +24,7 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openNextPage(ForoomHomeContainerFragment(), false)
+        openNextPage(ForoomLoginFragment(), false)
 
         // prevent background clicks
         binding.loadingViewBackground.setOnClickListener {}

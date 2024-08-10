@@ -21,7 +21,6 @@ import com.example.shared.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatBinding>(),
     ForoomNavigationArgumentsHolder<ChatUI> {
     override val bundle: Bundle? get() = arguments
@@ -93,7 +92,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     private fun setListeners() {
         binding.sendMessageButton.onClick {
             lifecycleScope.launch {
-                viewModel.sendMessage(navArgs.id, binding.messageInput.text).collect {
+                viewModel.sendMessage(navArgs.id, binding.messageInput.text)?.collect {
                     binding.messageInput.editText.text?.clear()
                 }
             }

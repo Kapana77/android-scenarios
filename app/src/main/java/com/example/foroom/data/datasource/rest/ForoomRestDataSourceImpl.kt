@@ -7,6 +7,7 @@ import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.network.model.response.UserTokenResponse
 
 class ForoomRestDataSourceImpl(
     private val imagesApi: ImagesApi,
@@ -25,11 +26,11 @@ class ForoomRestDataSourceImpl(
         return imagesApi.getEmojis()
     }
 
-    override suspend fun registerUser(request: RegistrationRequestEntity) {
+    override suspend fun registerUser(request: RegistrationRequestEntity): UserTokenResponse {
         return foroomApi.registerUser(request)
     }
 
-    override suspend fun logInUser(request: LogInRequestEntity) {
+    override suspend fun logInUser(request: LogInRequestEntity): UserTokenResponse {
         return foroomApi.logInUser(request)
     }
 

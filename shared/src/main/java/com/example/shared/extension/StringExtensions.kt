@@ -33,7 +33,9 @@ fun String.parseTextWithSingleSpan(
 }
 
 fun String?.orEmpty() = this ?: EMPTY_STRING
+fun String?.orNA() = this ?: NA_STRING
 
 const val SPAN_START_SYMBOL = "["
 const val SPAN_END_SYMBOL = "]"
 const val EMPTY_STRING = ""
+const val NA_STRING = "N/A"

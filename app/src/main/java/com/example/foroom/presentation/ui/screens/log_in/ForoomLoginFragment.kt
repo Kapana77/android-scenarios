@@ -1,6 +1,7 @@
 package com.example.foroom.presentation.ui.screens.log_in
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.example.shared.extension.toast
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.util.loading.isLoading
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogInBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomLogInBinding
@@ -55,35 +57,45 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
 
     private fun setObservers() {
         viewModel.logInLiveData.handleResult {
-            onSuccess {
-                navigationHost?.openNextPage(ForoomHomeContainerFragment(), popBackStack = true)
-            }
-
             onError {  exception ->
-                exception.ifHttpError<AuthenticationError> { _, error ->
-                    error.usernameError?.let { message ->
-                        binding.userNameInput.setInputDescription(
-                            message,
-                            Input.DescriptionType.ERROR,
-                            true
-                        )
-                    }
-
-                    error.passwordError?.let { message ->
-                        binding.passwordInput.setInputDescription(
-                            message,
-                            Input.DescriptionType.ERROR,
-                            true
-                        )
-                    }
-                }.ifNot {
-                    context?.toast(exception.message)
-                }
+                handleLoginError(exception)
             }
 
             onResult { result ->
                 globalLoadingDelegate?.isLoading(result.isLoading)
             }
+        }
+
+        viewModel.getAndSaveUserResultLiveData.handleResult {
+            onSuccess {
+                navigationHost?.openNextPage(ForoomHomeContainerFragment(), popBackStack = true)
+            }
+
+            onError {
+                Log.d("logkata", "aeeee" + it.message.toString())
+            }
+        }
+    }
+
+    private fun handleLoginError(exception: Exception) {
+        exception.ifHttpError<AuthenticationError> { _, error ->
+            error.usernameError?.let { message ->
+                binding.userNameInput.setInputDescription(
+                    message,
+                    Input.DescriptionType.ERROR,
+                    true
+                )
+            }
+
+            error.passwordError?.let { message ->
+                binding.passwordInput.setInputDescription(
+                    message,
+                    Input.DescriptionType.ERROR,
+                    true
+                )
+            }
+        }.ifNot {
+            context?.toast(exception.message)
         }
     }
 

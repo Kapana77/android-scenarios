@@ -7,6 +7,7 @@ import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.model.request.RegistrationRequest
 import com.example.foroom.domain.repository.rest.ForoomRestRepository
+import com.example.network.model.response.UserTokenResponse
 import com.example.shared.model.Image
 
 class ForoomRestRepositoryImpl(
@@ -30,14 +31,14 @@ class ForoomRestRepositoryImpl(
         }
     }
 
-    override suspend fun registerUser(request: RegistrationRequest) {
-        dataSource.registerUser(
+    override suspend fun registerUser(request: RegistrationRequest): UserTokenResponse {
+        return dataSource.registerUser(
             mapper.mapToRegistrationRequest(request)
         )
     }
 
-    override suspend fun logInUser(request: LogInRequest) {
-        dataSource.logInUser(
+    override suspend fun logInUser(request: LogInRequest): UserTokenResponse {
+        return dataSource.logInUser(
             mapper.mapToLogInRequest(request)
         )
     }
