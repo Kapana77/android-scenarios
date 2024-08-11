@@ -8,6 +8,7 @@ import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.request.SendMessageRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.foroom.data.model.response.MessageHistoryResponseEntity
 import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
@@ -15,7 +16,8 @@ import com.example.foroom.domain.model.Message
 import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.request.RegistrationRequest
 import com.example.foroom.domain.model.request.SendMessageRequest
-import java.time.ZonedDateTime
+import com.example.foroom.domain.model.response.MessageHistoryResponse
+import java.time.LocalDateTime
 
 class ForoomMapperImpl : ForoomMapper {
 
@@ -66,11 +68,23 @@ class ForoomMapperImpl : ForoomMapper {
             Message(
                 username,
                 avatarUrl,
-                ZonedDateTime.parse(createdAt).toLocalDateTime(),
+                LocalDateTime.now(),
                 text,
                 userId,
                 id,
                 isCurrentUser = userId == currentUserId
+            )
+        }
+    }
+
+    override fun mapToMessageHistoryResponse(
+        responseEntity: MessageHistoryResponseEntity,
+        currentUserId: String
+    ): MessageHistoryResponse {
+        return with(responseEntity) {
+            MessageHistoryResponse(
+                messages = result.map { entity -> mapToMessage(entity, currentUserId) },
+                hasNext = hasNext
             )
         }
     }

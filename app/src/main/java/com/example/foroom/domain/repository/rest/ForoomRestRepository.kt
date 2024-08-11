@@ -4,6 +4,7 @@ import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.model.request.RegistrationRequest
+import com.example.foroom.domain.model.response.MessageHistoryResponse
 import com.example.network.model.response.UserTokenResponse
 import com.example.shared.model.Image
 
@@ -26,4 +27,11 @@ interface ForoomRestRepository {
         created: Boolean = false,
         favorite: Boolean = false
     ): ChatsResponse
+
+    suspend fun getMessageHistory(
+        currentUserId: String,
+        chatId: Int,
+        page: Int,
+        limit: Int
+    ): MessageHistoryResponse
 }

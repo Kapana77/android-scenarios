@@ -7,6 +7,7 @@ import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.foroom.data.model.response.MessageHistoryResponseEntity
 import com.example.network.model.response.UserTokenResponse
 
 class ForoomRestDataSourceImpl(
@@ -43,5 +44,9 @@ class ForoomRestDataSourceImpl(
         favorite: Boolean
     ): ChatsResponseEntity {
         return foroomApi.getChats(page, limit, name, popular, created, favorite)
+    }
+
+    override suspend fun getMessageHistory(chatId: Int, page: Int, limit: Int): MessageHistoryResponseEntity {
+        return foroomApi.getMessageHistory(chatId, page, limit)
     }
 }

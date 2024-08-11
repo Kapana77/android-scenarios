@@ -4,6 +4,7 @@ import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.domain.usecase.GetCurrentUserUseCase
 import com.example.foroom.domain.usecase.GetEmojisUseCase
+import com.example.foroom.domain.usecase.GetMessageHistoryUseCase
 import com.example.foroom.domain.usecase.LogInUserUseCase
 import com.example.foroom.domain.usecase.MessageWebSocketUseCase
 import com.example.foroom.domain.usecase.RegisterUserUseCase
@@ -36,5 +37,9 @@ val domainModule = module {
 
     single {
         GetCurrentUserUseCase(get())
+    }
+
+    single {
+        GetMessageHistoryUseCase(get())
     }
 }

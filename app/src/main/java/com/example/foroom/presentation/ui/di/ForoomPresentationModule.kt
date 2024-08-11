@@ -1,6 +1,7 @@
 package com.example.foroom.presentation.ui.di
 
 import com.example.foroom.domain.model.Chat
+import com.example.foroom.domain.model.Message
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegateImpl
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatViewModel
@@ -14,6 +15,7 @@ import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStor
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStoreImpl
 import com.example.shared.util.pagination.PaginationHelper
 import com.example.shared.util.pagination.PaginationHelperImpl
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -21,6 +23,7 @@ val presentationModule get() = module {
     includes(registrationModule, logInModule, homeModule)
 
     factory<PaginationHelper<Chat>> { PaginationHelperImpl() }
+    factory<PaginationHelper<Message>> { PaginationHelperImpl() }
 
     single<ForoomUserDataStore> {
         ForoomUserDataStoreImpl(get())
@@ -53,5 +56,7 @@ val homeModule = module {
     viewModelOf(::ForoomCreateChatViewModel)
 
     // chat
-    viewModelOf(::ForoomChatViewModel)
+    viewModel { params ->
+        ForoomChatViewModel(chatId = params.get(), get(), get(), get(), get())
+    }
 }

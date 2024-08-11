@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.foroom.databinding.LayoutForoomPaginationErrorBinding
 import com.example.foroom.databinding.LayoutForoomPaginationLoadingBinding
 import com.example.shared.util.diffutil.DefaultItemDiffCallback
-import com.example.shared.util.recyclerview.RecyclerViewBottomReachListener
+import com.example.shared.util.recyclerview.RecyclerViewEndReachListener
 import java.lang.ref.WeakReference
 
 /**
@@ -21,8 +21,9 @@ import java.lang.ref.WeakReference
  * */
 @Suppress("UNCHECKED_CAST")
 abstract class ForoomLoadingListAdapter<T : Any>(
-    private val onLoadMore: ()-> Unit = {},
-    private val onErrorRefresh: () -> Unit = {}
+    private val onLoadMore: () -> Unit = {},
+    private val onErrorRefresh: () -> Unit = {},
+    private val endReachType: RecyclerViewEndReachListener.Type = RecyclerViewEndReachListener.Type.BOTTOM
 ) : ListAdapter<ForoomLoadingListAdapter.LoadingListItemType,
         ForoomLoadingListAdapter.LoadingListDataViewHolder<T>>(DefaultItemDiffCallback()) {
 
@@ -34,7 +35,7 @@ abstract class ForoomLoadingListAdapter<T : Any>(
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = WeakReference(recyclerView)
-        recyclerView.addOnScrollListener(RecyclerViewBottomReachListener {
+        recyclerView.addOnScrollListener(RecyclerViewEndReachListener(endReachType) {
             if (!isErrorState && currentList.size > EMPTY_LIST_SIZE) onLoadMore()
         })
     }

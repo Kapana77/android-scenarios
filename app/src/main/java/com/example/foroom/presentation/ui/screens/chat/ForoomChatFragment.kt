@@ -1,7 +1,6 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import com.example.shared.extension.onGlobalLayout
 import com.example.shared.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatBinding>(),
     ForoomNavigationArgumentsHolder<ChatUI> {
@@ -28,17 +28,27 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
 
     override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomChatBinding
         get() = FragmentForoomChatBinding::inflate
-    override val viewModel: ForoomChatViewModel by viewModel()
+    override val viewModel: ForoomChatViewModel by viewModel {
+        parametersOf(navArgs.id)
+    }
 
     private val messagesAdapter by lazy {
-        ForoomMessagesAdapter()
+        ForoomMessagesAdapter(
+            onLoadMore = {
+                viewModel.getMessageHistory()
+            },
+            onErrorRefresh = {
+                viewModel.getMessageHistory()
+            }
+        )
     }
 
     override fun onStart() {
         super.onStart()
 
+        viewModel.connect()
+        observeConnection()
         lifecycleScope.launch {
-            initSocketConnection()
             collectMessages()
         }
     }
@@ -53,25 +63,25 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     override fun onStop() {
         super.onStop()
 
-        viewModel.leaveGroup(navArgs.id)
+        viewModel.leaveGroup()
         viewModel.disConnect()
     }
 
-    private suspend fun initSocketConnection() {
-        viewModel.connect().collect { result ->
-            view?.post {
-                if (result.isError) navigationHost?.goBack()
-            }
-        }
-
-        viewModel.joinGroup(navArgs.id).collect {
-            Log.d("logkata", it.toString())
+    private fun observeConnection() {
+        viewModel.connectionLiveData.observe(viewLifecycleOwner) { result ->
+            if (result.isError) navigationHost?.goBack()
         }
     }
 
     private fun collectMessages() {
+        viewModel.messageHistoryLiveData.handleResult {
+            onSuccess { messages ->
+                messagesAdapter.submitDataList(messages, viewModel.hasMoreMessages)
+            }
+        }
+
         viewModel.messagesLiveData.observe(viewLifecycleOwner) { messages ->
-            messagesAdapter.submitList(messages)
+            messagesAdapter.submitDataList(messages, viewModel.hasMoreMessages)
             binding.messagesRecyclerView.smoothScrollToPosition(0)
         }
     }
@@ -93,7 +103,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     private fun setListeners() {
         binding.sendMessageButton.onClick {
             lifecycleScope.launch {
-                viewModel.sendMessage(navArgs.id, binding.messageInput.text)?.collect {
+                viewModel.sendMessage(binding.messageInput.text).collect {
                     binding.messageInput.editText.text?.clear()
                 }
             }

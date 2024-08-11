@@ -3,9 +3,10 @@ package com.example.foroom.data.repository.rest
 import com.example.foroom.data.datasource.rest.ForoomRestDataSource
 import com.example.foroom.data.mapper.ForoomMapper
 import com.example.foroom.domain.model.User
-import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.model.request.RegistrationRequest
+import com.example.foroom.domain.model.response.ChatsResponse
+import com.example.foroom.domain.model.response.MessageHistoryResponse
 import com.example.foroom.domain.repository.rest.ForoomRestRepository
 import com.example.network.model.response.UserTokenResponse
 import com.example.shared.model.Image
@@ -60,6 +61,18 @@ class ForoomRestRepositoryImpl(
                 created,
                 favorite
             )
+        )
+    }
+
+    override suspend fun getMessageHistory(
+        currentUserId: String,
+        chatId: Int,
+        page: Int,
+        limit: Int
+    ): MessageHistoryResponse {
+        return mapper.mapToMessageHistoryResponse(
+            dataSource.getMessageHistory(chatId, page, limit),
+            currentUserId
         )
     }
 }

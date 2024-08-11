@@ -4,6 +4,7 @@ import com.example.foroom.data.model.UserEntity
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
+import com.example.foroom.data.model.response.MessageHistoryResponseEntity
 import com.example.network.model.response.UserTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,4 +30,11 @@ interface ForoomApi {
         @Query("created") created: Boolean = false,
         @Query("favorite") favorite: Boolean = false
     ): ChatsResponseEntity
+
+    @GET("/messages")
+    suspend fun getMessageHistory(
+        @Query("chatId") chatId: Int,
+        @Query("page") page: Int,
+        @Query("limit") limit: Int,
+    ): MessageHistoryResponseEntity
 }
