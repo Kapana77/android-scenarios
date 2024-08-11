@@ -8,5 +8,6 @@ data class Message(
     val sendDate: LocalDateTime,
     val text: String,
     val senderUserId: String,
-    val id: Int
+    val id: Int,
+    val isCurrentUser: Boolean
 )

@@ -16,9 +16,7 @@ class ForoomMessagesAdapter :
     ListAdapter<Message, ForoomMessagesAdapter.MessageViewHolder>(MessageDiffUtil()) {
 
     override fun getItemViewType(position: Int): Int {
-//        return if (currentList[position].isCurrentUser) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
-        // todo fix
-        return if (false) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
+        return if (currentList[position].isCurrentUser) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {

@@ -27,7 +27,7 @@ interface ForoomMapper {
 
     fun mapToChatsResponse(responseEntity: ChatsResponseEntity): ChatsResponse
 
-    fun mapToMessage(messageEntity: MessageEntity): Message
+    fun mapToMessage(messageEntity: MessageEntity, currentUserId: String): Message
 
     fun mapToSendMessageRequest(request: SendMessageRequest): SendMessageRequestEntity
 }

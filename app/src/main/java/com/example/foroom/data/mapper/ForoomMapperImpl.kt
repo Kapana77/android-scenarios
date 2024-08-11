@@ -61,7 +61,7 @@ class ForoomMapperImpl : ForoomMapper {
         }
     }
 
-    override fun mapToMessage(messageEntity: MessageEntity): Message {
+    override fun mapToMessage(messageEntity: MessageEntity, currentUserId: String): Message {
         return with(messageEntity) {
             Message(
                 username,
@@ -69,7 +69,8 @@ class ForoomMapperImpl : ForoomMapper {
                 ZonedDateTime.parse(createdAt).toLocalDateTime(),
                 text,
                 userId,
-                id
+                id,
+                isCurrentUser = userId == currentUserId
             )
         }
     }

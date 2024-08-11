@@ -53,6 +53,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     override fun onStop() {
         super.onStop()
 
+        viewModel.leaveGroup(navArgs.id)
         viewModel.disConnect()
     }
 
@@ -68,9 +69,9 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         }
     }
 
-    private suspend fun collectMessages() {
-        viewModel.onMessage().collect { message ->
-            messagesAdapter.addMessage(message)
+    private fun collectMessages() {
+        viewModel.messagesLiveData.observe(viewLifecycleOwner) { messages ->
+            messagesAdapter.submitList(messages)
             binding.messagesRecyclerView.smoothScrollToPosition(0)
         }
     }

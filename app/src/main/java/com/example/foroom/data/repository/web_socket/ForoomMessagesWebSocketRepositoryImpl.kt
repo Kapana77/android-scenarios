@@ -17,8 +17,8 @@ class ForoomMessagesWebSocketRepositoryImpl(
 
     override fun disconnect() = dataSource.disconnect()
 
-    override fun onMessageReceived(): Flow<Message> = dataSource.onMessageReceived().map { entity ->
-        foroomMapper.mapToMessage(entity)
+    override fun onMessageReceived(currentUserId: String): Flow<Message> = dataSource.onMessageReceived().map { entity ->
+        foroomMapper.mapToMessage(entity, currentUserId)
     }
 
     override fun sendMessage(sendMessageRequest: SendMessageRequest): Flow<Result<Unit>> =

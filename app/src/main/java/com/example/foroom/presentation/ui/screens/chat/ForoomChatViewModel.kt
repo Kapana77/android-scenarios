@@ -1,6 +1,9 @@
 package com.example.foroom.presentation.ui.screens.chat
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.foroom.domain.model.Message
 import com.example.foroom.domain.usecase.MessageWebSocketUseCase
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
 import com.example.shared.ui.viewModel.BaseViewModel
@@ -12,6 +15,10 @@ class ForoomChatViewModel(
 ) : BaseViewModel() {
 
     private var userId: String? = null
+
+    private val _messagesLiveData = MutableLiveData<List<Message>>()
+    val messagesLiveData: LiveData<List<Message>> get() = _messagesLiveData
+    private val messages = mutableListOf<Message>()
 
     init {
         getUserId()
@@ -25,8 +32,12 @@ class ForoomChatViewModel(
         messagesUseCase.sendMessage(userId = id, chatId, text)
     }
 
-
-    fun onMessage() = messagesUseCase.onMessageReceived()
+    private suspend fun onMessage(userId: String) {
+        messagesUseCase.onMessageReceived(userId).collect { message ->
+            messages.add(0, message)
+            _messagesLiveData.postValue(messages.toList())
+        }
+    }
 
     fun joinGroup(chatId: Int) = messagesUseCase.joinGroup(chatId.toString())
 
@@ -36,6 +47,7 @@ class ForoomChatViewModel(
         viewModelScope.launch {
             userDataStore.getUser().collect { user ->
                 userId = user.id
+                onMessage(user.id)
             }
         }
     }

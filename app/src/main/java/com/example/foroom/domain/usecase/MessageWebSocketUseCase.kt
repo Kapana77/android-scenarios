@@ -12,7 +12,8 @@ class MessageWebSocketUseCase(private val repository: ForoomMessagesWebSocketRep
 
     fun disconnect() = repository.disconnect()
 
-    fun onMessageReceived(): Flow<Message> = repository.onMessageReceived()
+    fun onMessageReceived(currentUserId: String): Flow<Message> =
+        repository.onMessageReceived(currentUserId)
 
     fun sendMessage(userId: String, chatId: Int, text: String): Flow<Result<Unit>> =
         repository.sendMessage(SendMessageRequest(userId, chatId, text))

@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="96dp"
+        android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         app:reverseLayout="true" />

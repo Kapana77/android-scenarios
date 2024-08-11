@@ -11,7 +11,7 @@ interface ForoomMessagesWebSocketRepository {
 
     fun disconnect()
 
-    fun onMessageReceived(): Flow<Message>
+    fun onMessageReceived(currentUserId: String): Flow<Message>
 
     fun sendMessage(sendMessageRequest: SendMessageRequest): Flow<Result<Unit>>
 
