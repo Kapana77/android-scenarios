@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
 import com.example.design_system.databinding.LayoutForoomChatHeaderBinding
 import com.example.shared.extension.loadImageUrl
 
@@ -14,13 +15,10 @@ class ForoomChatHeaderView @JvmOverloads constructor(
         LayoutForoomChatHeaderBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setChatImageUrl(url: String) {
-        binding.chatImageView.image.loadImageUrl(url)
-    }
-
-    fun setOnCloseButtonClickListener(block: ()-> Unit) {
-        binding.closeButton.setOnClickListener {
-            block()
-        }
+        binding.chatImageView.image.loadImageUrl(
+            url,
+            ForoomShimmerDrawableBuilder.getDefaultDrawable(context)
+        )
     }
 
     fun setAuthorName(name: String) {

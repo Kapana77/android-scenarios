@@ -37,4 +37,9 @@ interface ForoomApi {
         @Query("page") page: Int,
         @Query("limit") limit: Int,
     ): MessageHistoryResponseEntity
+
+    @POST()
+    suspend fun createChat(
+
+    )
 }

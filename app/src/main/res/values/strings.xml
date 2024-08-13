@@ -23,4 +23,9 @@
     <string name="chats_filter_popular">Popular Chats</string>
     <string name="chats_filter_created">Created Chats</string>
     <string name="chats_filter_favourite">Favourite Chats</string>
+
+    // create chat
+    <string name="create_chat_title">Create New Chat</string>
+    <string name="create_chat_chat_name">Chat Name</string>
+    <string name="create_chat">Create Chat</string>
 </resources>

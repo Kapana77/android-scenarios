@@ -22,6 +22,7 @@ parcelize = "2.0.0"
 signalr = "7.0.0"
 okhttp-logging = "4.12.0"
 datastore = "1.1.1"
+splashscreen = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,7 @@ android-desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", v
 microsoft-signalr = { group = "com.microsoft.signalr", name = "signalr", version.ref = "signalr" }
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref="splashscreen"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

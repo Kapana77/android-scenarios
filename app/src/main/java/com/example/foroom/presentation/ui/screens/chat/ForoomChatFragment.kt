@@ -1,9 +1,11 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.example.design_system.R
@@ -74,15 +76,11 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     }
 
     private fun collectMessages() {
-        viewModel.messageHistoryLiveData.handleResult {
-            onSuccess { messages ->
-                messagesAdapter.submitDataList(messages, viewModel.hasMoreMessages)
-            }
-        }
-
         viewModel.messagesLiveData.observe(viewLifecycleOwner) { messages ->
+            val shouldScrollToBottom = !binding.messagesRecyclerView.canScrollVertically(1)
+
             messagesAdapter.submitDataList(messages, viewModel.hasMoreMessages)
-            binding.messagesRecyclerView.smoothScrollToPosition(0)
+            if (shouldScrollToBottom) binding.messagesRecyclerView.smoothScrollToPosition(0)
         }
     }
 
@@ -93,10 +91,10 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
             setChatTitle(navArgs.name)
             setAuthorName(navArgs.creatorUsername)
             setChatImageUrl(navArgs.emojiUrl)
+        }
 
-            setOnCloseButtonClickListener {
-                navigationHost?.goBack()
-            }
+        binding.closeButton.onClick {
+            navigationHost?.goBack()
         }
     }
 
@@ -105,6 +103,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
             lifecycleScope.launch {
                 viewModel.sendMessage(binding.messageInput.text).collect {
                     binding.messageInput.editText.text?.clear()
+                    binding.messagesRecyclerView.smoothScrollToPosition(0)
                 }
             }
         }

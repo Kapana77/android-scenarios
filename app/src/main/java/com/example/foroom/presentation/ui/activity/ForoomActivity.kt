@@ -1,19 +1,26 @@
 package com.example.foroom.presentation.ui.activity
 
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import com.example.foroom.R
 import com.example.foroom.databinding.ActivityForoomBinding
+import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
+import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationFragment
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
 import com.example.shared.ui.activity.BaseActivity
 import com.example.shared.util.loading.GlobalLoadingDelegate
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate,
     BaseActivity<ActivityForoomBinding>(ActivityForoomBinding::inflate) {
     override val fragmentContainerId: Int = R.id.fragmentContainerView
+    private val viewModel by viewModel<ForoomActivityViewModel>()
+
     override fun getHostFragmentManager(): FragmentManager {
         return supportFragmentManager
     }
@@ -24,10 +31,10 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openNextPage(ForoomLoginFragment(), false)
 
         // prevent background clicks
         binding.loadingViewBackground.setOnClickListener {}
+        setObservers()
     }
 
     override fun showGlobalLoading() {
@@ -36,6 +43,23 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate,
 
     override fun hideGlobalLoading() {
         globalLoadingVisible(false)
+    }
+
+    private fun setObservers() {
+        viewModel.currentUserLiveData.handleResult {
+            val splashScreen = installSplashScreen()
+            splashScreen.setKeepOnScreenCondition { true }
+
+            onSuccess {
+                openNextPage(ForoomHomeContainerFragment(), false)
+                splashScreen.setKeepOnScreenCondition { false }
+            }
+
+            onError {
+                openNextPage(ForoomLoginFragment(), false)
+                splashScreen.setKeepOnScreenCondition { false }
+            }
+        }
     }
 
     private fun globalLoadingVisible(visible: Boolean) {

@@ -28,10 +28,11 @@ class ForoomChatViewModel(
 
     private val _messagesLiveData = MutableLiveData<List<Message>>()
     val messagesLiveData: LiveData<List<Message>> get() = _messagesLiveData
-    private val messages = mutableListOf<Message>()
+    private val newMessages = mutableListOf<Message>()
 
     private val _messageHistoryLiveData = MutableLiveData<Result<List<Message>>>()
     val messageHistoryLiveData: LiveData<Result<List<Message>>> get() = _messageHistoryLiveData
+    private val messageHistory get() = (_messageHistoryLiveData.value as? Result.Success)?.data.orEmpty()
 
     private val _connectionLiveData = MutableLiveData<Result<Unit>>()
     val connectionLiveData: LiveData<Result<Unit>> get() = _connectionLiveData
@@ -41,10 +42,13 @@ class ForoomChatViewModel(
     fun connect() {
         viewModelScope.launch {
             messagesUseCase.connect().collect { result ->
-                _connectionLiveData.postValue(result)
-
                 if (result.isSuccess) {
                     getUserId()
+                    joinGroup().collect { joinResult ->
+                        _connectionLiveData.postValue(joinResult)
+                    }
+                } else {
+                    _connectionLiveData.postValue(result)
                 }
             }
             messagesUseCase.joinGroup(chatId.toString())
@@ -80,15 +84,15 @@ class ForoomChatViewModel(
             success { response ->
                 paginationHelper.addPage(response.messages)
                 hasMoreMessages = response.hasNext
-                _messageHistoryLiveData.postValue(Result.Success(paginationHelper.getItems()))
+                combineMessages()
             }
         }
     }
 
     private suspend fun onMessage() {
         messagesUseCase.onMessageReceived(userId).collect { message ->
-            messages.add(FIRST_INDEX, message)
-            _messagesLiveData.postValue(messages.toList())
+            newMessages.add(FIRST_INDEX, message)
+            combineMessages()
         }
     }
 
@@ -100,6 +104,10 @@ class ForoomChatViewModel(
                 onMessage()
             }
         }
+    }
+
+    private fun combineMessages() {
+        _messagesLiveData.postValue(newMessages + paginationHelper.getItems())
     }
 
     companion object {

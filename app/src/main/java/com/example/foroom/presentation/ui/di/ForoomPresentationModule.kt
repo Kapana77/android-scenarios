@@ -2,12 +2,13 @@ package com.example.foroom.presentation.ui.di
 
 import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.Message
+import com.example.foroom.presentation.ui.activity.ForoomActivityViewModel
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegateImpl
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatViewModel
 import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsViewModel
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerViewModel
-import com.example.foroom.presentation.ui.screens.home.create_chat.ForoomCreateChatViewModel
+import com.example.foroom.presentation.ui.screens.create_chat.ForoomCreateChatViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.ForoomProfileViewModel
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginViewModel
 import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationViewModel
@@ -33,6 +34,9 @@ val presentationModule get() = module {
     factory<GetAndSaveUserDelegate> {
         GetAndSaveUserDelegateImpl(get(), get())
     }
+
+    // activity
+    viewModelOf(::ForoomActivityViewModel)
 }
 
 val registrationModule = module {

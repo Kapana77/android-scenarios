@@ -59,6 +59,7 @@ dependencies {
     implementation(projects.network)
     implementation(libs.retrofit)
     implementation(libs.datastore)
+    implementation(libs.splashscreen)
     coreLibraryDesugaring(libs.android.desugaring)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
