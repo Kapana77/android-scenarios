@@ -28,4 +28,11 @@
     <string name="create_chat_title">Create New Chat</string>
     <string name="create_chat_chat_name">Chat Name</string>
     <string name="create_chat">Create Chat</string>
+
+    // profile
+    <string name="profile_created_chats">Created Chats</string>
+    <string name="profile_favourite_chats">Favourite Chats</string>
+    <string name="profile_change_username">Change Username</string>
+    <string name="profile_change_password">Change Password</string>
+    <string name="profile_sign_out">Sign Out</string>
 </resources>

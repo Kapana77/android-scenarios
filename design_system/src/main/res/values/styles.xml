@@ -48,4 +48,11 @@
             <enum name="received" value="2" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ForoomListItem">
+        <attr name="imageStart" format="reference"/>
+        <attr name="title" format="string"/>
+        <attr name="imageEnd" format="reference"/>
+        <attr name="hasBottomDivider" format="boolean"/>
+    </declare-styleable>
 </resources>

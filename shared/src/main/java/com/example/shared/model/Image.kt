@@ -9,8 +9,10 @@ data class Image(
 
     companion object {
         fun getBlankImages(size: Int) = (0 until size).map {
-            Image(BLANK_IMAGE_ID, EMPTY_STRING)
+            getBlankImage()
         }
+
+        fun getBlankImage() = Image(BLANK_IMAGE_ID, EMPTY_STRING)
 
         const val BLANK_IMAGE_ID = -1
     }

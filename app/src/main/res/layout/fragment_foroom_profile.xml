@@ -5,21 +5,81 @@
     android:layout_height="match_parent"
     android:background="@mipmap/foroom_background_primary">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile fragment nigga"
-        android:textAppearance="@style/jostText1Regular"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.example.design_system.components.image_view.CircleImageView
+        android:id="@+id/userImageView"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textAppearance="@style/jostTitleRegular"
+        app:layout_constraintTop_toBottomOf="@+id/userImageView" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_rounded_16dp"
+        android:backgroundTint="@color/foroom_layer_background"
+        app:layout_constraintTop_toBottomOf="@id/userNameTextView"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="16dp">
+
+        <com.example.design_system.components.list.ForoomListItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile_created_chats"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_chat_history"
+            app:hasBottomDivider="true"
+            android:paddingBottom="16dp"/>
+
+        <com.example.design_system.components.list.ForoomListItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile_favourite_chats"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_star"
+            app:hasBottomDivider="true"
+            android:paddingVertical="16dp"/>
+
+        <com.example.design_system.components.list.ForoomListItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile_change_username"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_edit_user"
+            app:hasBottomDivider="true"
+            android:paddingVertical="16dp"/>
+
+        <com.example.design_system.components.list.ForoomListItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile_change_password"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_lock"
+            app:hasBottomDivider="true"
+            android:paddingVertical="16dp"/>
+
+        <com.example.design_system.components.list.ForoomListItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/profile_sign_out"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_sign_out"
+            android:paddingTop="16dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
