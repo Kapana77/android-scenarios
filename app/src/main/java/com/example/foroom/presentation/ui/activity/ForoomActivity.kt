@@ -1,7 +1,6 @@
 package com.example.foroom.presentation.ui.activity
 
 import android.os.Bundle
-import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
@@ -9,17 +8,20 @@ import com.example.foroom.R
 import com.example.foroom.databinding.ActivityForoomBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
-import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationFragment
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
 import com.example.shared.ui.activity.BaseActivity
+import com.example.shared.util.events.ForoomEventsHub
+import com.example.shared.util.events.ForoomEventsHubHolder
 import com.example.shared.util.loading.GlobalLoadingDelegate
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate,
+class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEventsHubHolder,
     BaseActivity<ActivityForoomBinding>(ActivityForoomBinding::inflate) {
     override val fragmentContainerId: Int = R.id.fragmentContainerView
     private val viewModel by viewModel<ForoomActivityViewModel>()
+    override val eventsHub: ForoomEventsHub = get()
 
     override fun getHostFragmentManager(): FragmentManager {
         return supportFragmentManager

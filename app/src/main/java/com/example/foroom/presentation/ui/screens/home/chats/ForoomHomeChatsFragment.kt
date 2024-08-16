@@ -9,10 +9,12 @@ import com.example.foroom.R
 import com.example.foroom.databinding.FragmentForoomHomeChatsBinding
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
 import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChatsAdapter
+import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.ui.viewModel.BaseViewModel
+import com.example.shared.util.events.observeEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomHomeChatsFragment :
@@ -49,24 +51,32 @@ class ForoomHomeChatsFragment :
             addOption(getString(R.string.chats_filter_popular))
             addOption(getString(R.string.chats_filter_created))
             addOption(getString(R.string.chats_filter_favourite))
-
-            onIndicated = { index ->
-                when(index) {
-                    FILTER_INDEX_POPULAR -> viewModel.filterSearchByPopular()
-                    FILTER_INDEX_CREATED -> viewModel.filterSearchByCreated()
-                    FILTER_INDEX_FAVOURITE -> viewModel.filterSearchByFavorite()
-                }
-            }
         }
     }
 
     private fun setListeners() {
+        binding.filterOptionsView.onIndicated = { index ->
+            when(index) {
+                FILTER_INDEX_POPULAR -> viewModel.filterSearchByPopular()
+                FILTER_INDEX_CREATED -> viewModel.filterSearchByCreated()
+                FILTER_INDEX_FAVOURITE -> viewModel.filterSearchByFavorite()
+            }
+        }
+
         binding.searchChatInput.input.editText.addTextChangedListener { text ->
             viewModel.filterSearchByName(text?.toString())
         }
     }
 
     private fun setObservers() {
+        eventsHub?.observeEvent<ForoomHomeChatsEvents.FilterCreatedChats>(viewLifecycleOwner) {
+            binding.filterOptionsView.indicateAt(FILTER_INDEX_CREATED)
+        }
+
+        eventsHub?.observeEvent<ForoomHomeChatsEvents.FilterFavouriteChats>(viewLifecycleOwner) {
+            binding.filterOptionsView.indicateAt(FILTER_INDEX_FAVOURITE)
+        }
+
         viewModel.chatsLiveData.handleResult {
             onSuccess { chats ->
                 binding.contentLoaderView.showContent()

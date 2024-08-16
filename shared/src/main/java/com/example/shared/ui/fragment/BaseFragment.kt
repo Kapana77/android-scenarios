@@ -12,6 +12,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.shared.model.Result
 import com.example.shared.ui.ResultHandler
 import com.example.shared.ui.viewModel.BaseViewModel
+import com.example.shared.util.events.ForoomEventsHubHolder
 import com.example.shared.util.loading.GlobalLoadingDelegate
 
 abstract class BaseFragment<VM : BaseViewModel, T : ViewBinding> : Fragment() {
@@ -22,6 +23,7 @@ abstract class BaseFragment<VM : BaseViewModel, T : ViewBinding> : Fragment() {
     protected val binding get() = _binding!!
 
     protected val globalLoadingDelegate get() = activity as? GlobalLoadingDelegate
+    protected val eventsHub get() = (activity as? ForoomEventsHubHolder)?.eventsHub
 
     override fun onCreateView(
         inflater: LayoutInflater,

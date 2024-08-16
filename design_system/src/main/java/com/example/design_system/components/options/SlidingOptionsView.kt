@@ -20,13 +20,7 @@ class SlidingOptionsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle) {
     var indicatedItem: View? = null
-        set(value) {
-            field = value
-            value?.let { item ->
-                indicateView(item, indicatorView.width > ZERO_SIZE)
-            }
-        }
-
+        private set
     var onIndicated: ((Int) -> Unit)? = null
 
     private var hasCalculatedSpacing = false
@@ -52,7 +46,7 @@ class SlidingOptionsView @JvmOverloads constructor(
 
         children.forEach { child ->
             if (child != optionsLinearLayout && child != indicatorView) {
-                child.onClick { indicatedItem = child }
+                child.onClick { indicateView(child) }
                 removeView(child)
                 optionsLinearLayout.addView(child)
             }
@@ -62,8 +56,14 @@ class SlidingOptionsView @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
 
-        if (!hasCalculatedSpacing) setOptionsSpacing()
-        if (indicatedItem == null) indicatedItem = optionsLinearLayout.children.first()
+        if (!hasCalculatedSpacing) {
+            setOptionsSpacing()
+        }
+
+        indicateView(
+            indicatedItem ?: optionsLinearLayout.children.first(),
+            false
+        )
     }
 
     fun addOption(optionText: String) {
@@ -74,15 +74,13 @@ class SlidingOptionsView @JvmOverloads constructor(
         ).apply {
             root.text = optionText
             root.onClick {
-                indicatedItem = root
+                indicateView(root)
             }
         }
     }
 
     fun indicateAt(index: Int) {
-        onGlobalLayout {
-            indicatedItem = optionsLinearLayout.getChildAt(index)
-        }
+        indicateView(optionsLinearLayout.getChildAt(index))
     }
 
     private fun setOptionsSpacing() {
@@ -104,7 +102,10 @@ class SlidingOptionsView @JvmOverloads constructor(
     }
 
     private fun indicateView(target: View, animate: Boolean = true) {
+        if (target == indicatedItem && indicatorView.width != ZERO_SIZE) return
+
         indicatorView.layoutParams.height = target.height
+        indicatedItem = target
 
         if (animate) {
             onIndicated?.invoke(optionsLinearLayout.indexOfChild(target))
@@ -113,7 +114,7 @@ class SlidingOptionsView @JvmOverloads constructor(
             positionAnimator.interpolator = DecelerateInterpolator()
             positionAnimator.addUpdateListener { animator ->
                 indicatorView.post {
-                    indicatorView.translationX = animator.animatedValue as Float
+                    indicatorView.x = animator.animatedValue as Float
                 }
             }
             positionAnimator.start()
@@ -129,8 +130,11 @@ class SlidingOptionsView @JvmOverloads constructor(
 
             widthAnimator.start()
         } else {
-            indicatorView.layoutParams.width = target.width
-            indicatorView.translationX = target.x
+            indicatedItem?.onGlobalLayout {
+                indicatorView.layoutParams.width = target.width
+                indicatorView.x = target.x
+                indicatorView.requestLayout()
+            }
         }
     }
 

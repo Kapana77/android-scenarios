@@ -37,6 +37,7 @@
         android:paddingVertical="16dp">
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/createdChatsItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/profile_created_chats"
@@ -46,6 +47,7 @@
             android:paddingBottom="16dp"/>
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/favoriteChatsItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/profile_favourite_chats"

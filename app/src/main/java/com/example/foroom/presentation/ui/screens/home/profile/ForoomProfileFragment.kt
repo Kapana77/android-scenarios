@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
 import com.example.foroom.databinding.FragmentForoomProfileBinding
+import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
+import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
+import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType
 import com.example.shared.extension.loadImageUrl
+import com.example.shared.extension.onClick
 import com.example.shared.ui.fragment.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +23,7 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+        setListeners()
         setObservers()
     }
 
@@ -26,6 +31,18 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
         binding.userImageView.image.setImageDrawable(
             ForoomShimmerDrawableBuilder.getDefaultDrawable(requireContext())
         )
+    }
+
+    private fun setListeners() {
+        binding.createdChatsItem.onClick {
+            eventsHub?.sendEvent(ForoomHomeEvents.HomeNavigationEvents(HomeNavigationType.CHATS))
+            eventsHub?.sendEvent(ForoomHomeChatsEvents.FilterCreatedChats)
+        }
+
+        binding.favoriteChatsItem.onClick {
+            eventsHub?.sendEvent(ForoomHomeEvents.HomeNavigationEvents(HomeNavigationType.CHATS))
+            eventsHub?.sendEvent(ForoomHomeChatsEvents.FilterFavouriteChats)
+        }
     }
 
     private fun setObservers() {

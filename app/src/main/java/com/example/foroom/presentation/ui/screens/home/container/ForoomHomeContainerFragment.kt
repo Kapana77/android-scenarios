@@ -8,10 +8,13 @@ import com.example.foroom.R
 import com.example.foroom.databinding.FragmentForoomContainerHomeBinding
 import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsFragment
 import com.example.foroom.presentation.ui.screens.create_chat.ForoomCreateChatFragment
+import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
+import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType
 import com.example.foroom.presentation.ui.screens.home.profile.ForoomProfileFragment
 import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
 import com.example.shared.ui.fragment.BaseFragment
+import com.example.shared.util.events.observeEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomHomeContainerFragment :
@@ -26,7 +29,9 @@ class ForoomHomeContainerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setUpNavigation()
+        setObservers()
     }
 
     private fun setUpNavigation() = with(binding.navBar) {
@@ -49,6 +54,20 @@ class ForoomHomeContainerFragment :
         }
 
         selectAt(0)
+    }
+
+    private fun setObservers() {
+        eventsHub?.observeEvent<ForoomHomeEvents.HomeNavigationEvents>(viewLifecycleOwner) { event ->
+            when (event.type) {
+                HomeNavigationType.CHATS -> {
+                    binding.homeNavigationChats.performClick()
+                }
+
+                HomeNavigationType.PROFILE -> {
+                    binding.homeNavigationProfile.performClick()
+                }
+            }
+        }
     }
 
     private fun addOrShowPage(fragment: BaseFragment<*, *>) {
