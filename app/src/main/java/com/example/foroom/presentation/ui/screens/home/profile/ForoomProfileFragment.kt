@@ -9,6 +9,8 @@ import com.example.foroom.databinding.FragmentForoomProfileBinding
 import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_password.ForoomChangePasswordBottomSheet
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_username.ForoomChangeUsernameBottomSheet
 import com.example.shared.extension.loadImageUrl
 import com.example.shared.extension.onClick
 import com.example.shared.ui.fragment.BaseFragment
@@ -42,6 +44,14 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
         binding.favoriteChatsItem.onClick {
             eventsHub?.sendEvent(ForoomHomeEvents.HomeNavigationEvents(HomeNavigationType.CHATS))
             eventsHub?.sendEvent(ForoomHomeChatsEvents.FilterFavouriteChats)
+        }
+
+        binding.changeUsernameItem.onClick {
+            ForoomChangeUsernameBottomSheet().show(childFragmentManager, null)
+        }
+
+        binding.changePasswordItem.onClick {
+            ForoomChangePasswordBottomSheet().show(childFragmentManager, null)
         }
     }
 

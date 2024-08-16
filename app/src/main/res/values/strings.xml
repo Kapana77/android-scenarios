@@ -6,6 +6,7 @@
     <string name="hint_repeat_password">Repeat Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
+    <string name="confirm">Confirm</string>
 
     // registration
     <string name="registration_log_in">Or if you already have an account, [Log In]</string>
@@ -35,4 +36,8 @@
     <string name="profile_change_username">Change Username</string>
     <string name="profile_change_password">Change Password</string>
     <string name="profile_sign_out">Sign Out</string>
+
+    // action sheets
+    <string name="change_username_new_username">New Username</string>
+    <string name="change_password_new_password">New Password</string>
 </resources>

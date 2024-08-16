@@ -57,6 +57,7 @@
             android:paddingVertical="16dp"/>
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/changeUsernameItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/profile_change_username"
@@ -66,6 +67,7 @@
             android:paddingVertical="16dp"/>
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/changePasswordItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/profile_change_password"
