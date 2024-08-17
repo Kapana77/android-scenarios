@@ -6,9 +6,9 @@ import android.widget.LinearLayout
 import com.example.design_system.components.image_view.CircleImageView
 import com.example.design_system.components.selection_indicator.SelectionIndicatorView
 import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
-import com.example.shared.model.Image
 import com.example.shared.extension.dpToPx
 import com.example.shared.extension.loadImageUrl
+import com.example.shared.model.Image
 
 class ImageChooserItemView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
@@ -38,6 +38,7 @@ class ImageChooserItemView @JvmOverloads constructor(
                 bottomMargin = MARGIN_SIZE.dpToPx(context).toInt()
             }
         }
+
         addView(imageView)
 
         selectionIndicatorView = SelectionIndicatorView(context).apply {
@@ -46,6 +47,7 @@ class ImageChooserItemView @JvmOverloads constructor(
                 INDICATOR_HEIGHT.dpToPx(context).toInt()
             )
         }
+
         addView(selectionIndicatorView)
     }
 

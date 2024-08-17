@@ -13,12 +13,13 @@ class ForoomProfileViewModel(
 ): BaseViewModel() {
     private val _currentUserLiveData = MutableLiveData<User>()
     val currentUserLiveData: LiveData<User> get() = _currentUserLiveData
+    val remoteAvatarUrl get() = _currentUserLiveData.value?.avatarUrl
 
     init {
         getCurrentUser()
     }
 
-    private fun getCurrentUser() {
+    fun getCurrentUser() {
         viewModelScope.launch {
             userDataStore.getUser().collect { user ->
                 _currentUserLiveData.value = user

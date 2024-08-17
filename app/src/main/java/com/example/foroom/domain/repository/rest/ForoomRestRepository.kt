@@ -34,4 +34,6 @@ interface ForoomRestRepository {
         page: Int,
         limit: Int
     ): MessageHistoryResponse
+
+    suspend fun changeAvatar(avatarId: Int)
 }

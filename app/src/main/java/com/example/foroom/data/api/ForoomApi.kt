@@ -1,6 +1,7 @@
 package com.example.foroom.data.api
 
 import com.example.foroom.data.model.UserEntity
+import com.example.foroom.data.model.request.ChangeUserAvatarRequest
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
@@ -9,6 +10,7 @@ import com.example.network.model.response.UserTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface ForoomApi {
@@ -38,8 +40,6 @@ interface ForoomApi {
         @Query("limit") limit: Int,
     ): MessageHistoryResponseEntity
 
-    @POST()
-    suspend fun createChat(
-
-    )
+    @PUT("/Users/ChangeAvatar")
+    suspend fun changeAvatar(@Body request: ChangeUserAvatarRequest)
 }

@@ -10,12 +10,8 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.example.design_system.R
 import com.example.shared.util.lock.SafeInteractionLock
-import com.example.shared.util.lock.SafeInteractionLockImpl
-import com.facebook.shimmer.Shimmer
-import com.facebook.shimmer.ShimmerDrawable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
 class SelectionIndicatorView @JvmOverloads constructor(
@@ -26,7 +22,7 @@ class SelectionIndicatorView @JvmOverloads constructor(
             field = value
             paint.color = value
         }
-    var isExpanded = true
+    var isExpanded = false
         private set
     var animationDuration: Long = ANIMATION_DURATION
 
@@ -40,6 +36,8 @@ class SelectionIndicatorView @JvmOverloads constructor(
     private val animator
         get() = if (isExpanded) ValueAnimator.ofFloat(POINT_ZERO, width / HALF_DIVIDER)
         else ValueAnimator.ofFloat(width / HALF_DIVIDER, POINT_ZERO)
+    private val indicatorRectF = RectF()
+
     private val paint = Paint().apply {
         color = indicatorColor
         style = Paint.Style.FILL
@@ -85,23 +83,23 @@ class SelectionIndicatorView @JvmOverloads constructor(
     }
 
     private fun animateIndication() {
-        post {
-            animator.apply {
-                duration = animationDuration
-                interpolator = accelerateDecelerateInterpolator
+        animator.apply {
+            duration = animationDuration
+            interpolator = accelerateDecelerateInterpolator
 
-                addUpdateListener { animator ->
-                    animationProgress = animator.animatedValue as Float
-                    postInvalidate()
-                }
-            }.start()
-        }
+            addUpdateListener { animator ->
+                animationProgress = animator.animatedValue as Float
+                invalidate()
+            }
+        }.start()
     }
 
     private fun createRect(animatedValue: Float): RectF {
-        return RectF(
-            middlePoint - animatedValue, 0f, middlePoint + animatedValue, height.toFloat()
-        )
+        return indicatorRectF.apply {
+            left = middlePoint - animatedValue
+            right = middlePoint + animatedValue
+            bottom = height.toFloat()
+        }
     }
 
     companion object {

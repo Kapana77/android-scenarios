@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.viewbinding.ViewBinding
-import com.example.shared.model.Result
-import com.example.shared.ui.ResultHandler
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.util.events.ForoomEventsHubHolder
 import com.example.shared.util.loading.GlobalLoadingDelegate
@@ -54,7 +51,4 @@ abstract class BaseFragment<VM : BaseViewModel, T : ViewBinding> : Fragment() {
 
         _binding = null
     }
-
-    protected fun <T> LiveData<Result<T>>.handleResult(block: ResultHandler<T>.() -> Unit) =
-        ResultHandler<T>().apply(block).handle(this, viewLifecycleOwner)
 }

@@ -1,5 +1,6 @@
 package com.example.foroom.di
 
+import com.example.foroom.domain.usecase.ChangeUserAvatarUseCase
 import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.domain.usecase.GetCurrentUserUseCase
@@ -41,5 +42,9 @@ val domainModule = module {
 
     single {
         GetMessageHistoryUseCase(get())
+    }
+
+    single {
+        ChangeUserAvatarUseCase(get())
     }
 }

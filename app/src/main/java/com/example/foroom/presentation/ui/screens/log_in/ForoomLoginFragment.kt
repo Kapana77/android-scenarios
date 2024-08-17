@@ -15,6 +15,7 @@ import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
 import com.example.network.ifHttpError
 import com.example.network.model.response.AuthenticationError
+import com.example.shared.extension.handleResult
 import com.example.shared.extension.ifNot
 import com.example.shared.extension.isLoading
 import com.example.shared.extension.onClick
@@ -56,7 +57,7 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
     }
 
     private fun setObservers() {
-        viewModel.logInLiveData.handleResult {
+        viewModel.logInLiveData.handleResult(viewLifecycleOwner) {
             onError {  exception ->
                 handleLoginError(exception)
             }
@@ -66,7 +67,7 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
             }
         }
 
-        viewModel.getAndSaveUserResultLiveData.handleResult {
+        viewModel.getAndSaveUserResultLiveData.handleResult(viewLifecycleOwner) {
             onSuccess {
                 navigationHost?.openNextPage(ForoomHomeContainerFragment(), popBackStack = true)
             }

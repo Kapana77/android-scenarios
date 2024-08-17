@@ -16,6 +16,7 @@ import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
 import com.example.network.ifHttpError
 import com.example.network.model.response.AuthenticationError
+import com.example.shared.extension.handleResult
 import com.example.shared.extension.ifNot
 import com.example.shared.extension.isLoading
 import com.example.shared.extension.loadImageUrl
@@ -69,7 +70,7 @@ class ForoomRegistrationFragment :
     }
 
     private fun setObservers() {
-        viewModel.avatarsLiveData.handleResult {
+        viewModel.avatarsLiveData.handleResult(viewLifecycleOwner) {
             with(binding.listView) {
                 onSuccess { data ->
                     images = data
@@ -87,7 +88,7 @@ class ForoomRegistrationFragment :
             }
         }
 
-        viewModel.registrationLiveData.handleResult {
+        viewModel.registrationLiveData.handleResult(viewLifecycleOwner) {
             onSuccess {
                 navigationHost?.openNextPage(ForoomHomeContainerFragment())
             }

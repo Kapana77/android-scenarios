@@ -14,6 +14,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="4dp"
+        android:elevation="2dp"
+        android:src="@drawable/ic_edit"
+        android:scaleType="centerCrop"
+        android:padding="4dp"
+        android:background="@drawable/background_stroke_2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userImageView"
+        app:layout_constraintEnd_toEndOf="@+id/userImageView" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/userNameTextView"
         android:layout_width="match_parent"

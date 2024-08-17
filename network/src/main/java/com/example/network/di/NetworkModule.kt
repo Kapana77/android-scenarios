@@ -6,6 +6,7 @@ import com.example.network.auth.UserTokenRuntimeHolderImpl
 import com.example.network.web_socket.ForoomWebSocketClient
 import com.example.network.web_socket.ForoomWebSocketClientImpl
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -30,6 +31,9 @@ val networkModule = module {
 
             chain.proceed(newRequest)
         }
+        newClientBuilder.addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
 
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)

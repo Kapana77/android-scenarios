@@ -75,4 +75,8 @@ class ForoomRestRepositoryImpl(
             currentUserId
         )
     }
+
+    override suspend fun changeAvatar(avatarId: Int) {
+        dataSource.changeAvatar(avatarId)
+    }
 }

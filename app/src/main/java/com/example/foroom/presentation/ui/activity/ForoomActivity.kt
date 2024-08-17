@@ -10,6 +10,7 @@ import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeConta
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
+import com.example.shared.extension.handleResult
 import com.example.shared.ui.activity.BaseActivity
 import com.example.shared.util.events.ForoomEventsHub
 import com.example.shared.util.events.ForoomEventsHubHolder
@@ -48,7 +49,7 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
     }
 
     private fun setObservers() {
-        viewModel.currentUserLiveData.handleResult {
+        viewModel.currentUserLiveData.handleResult(this) {
             val splashScreen = installSplashScreen()
             splashScreen.setKeepOnScreenCondition { true }
 

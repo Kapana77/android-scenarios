@@ -12,6 +12,7 @@ import com.example.foroom.presentation.ui.screens.home.chats.adapter.ForoomChats
 import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
+import com.example.shared.extension.handleResult
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.util.events.observeEvent
@@ -77,7 +78,7 @@ class ForoomHomeChatsFragment :
             binding.filterOptionsView.indicateAt(FILTER_INDEX_FAVOURITE)
         }
 
-        viewModel.chatsLiveData.handleResult {
+        viewModel.chatsLiveData.handleResult(viewLifecycleOwner) {
             onSuccess { chats ->
                 binding.contentLoaderView.showContent()
                 adapter.submitDataList(chats, viewModel.hasMorePages)

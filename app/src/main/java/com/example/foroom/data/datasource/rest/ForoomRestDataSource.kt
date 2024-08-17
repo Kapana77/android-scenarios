@@ -33,4 +33,6 @@ interface ForoomRestDataSource {
         page: Int,
         limit: Int
     ): MessageHistoryResponseEntity
+
+    suspend fun changeAvatar(avatarId: Int)
 }

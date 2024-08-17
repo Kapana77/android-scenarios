@@ -8,6 +8,7 @@ import androidx.core.widget.addTextChangedListener
 import com.example.foroom.R
 import com.example.foroom.databinding.FragmentForoomCreateChatBinding
 import com.example.navigation.util.navigationHost
+import com.example.shared.extension.handleResult
 import com.example.shared.extension.onClick
 import com.example.shared.model.Image
 import com.example.shared.ui.fragment.BaseFragment
@@ -32,7 +33,7 @@ class ForoomCreateChatFragment :
     }
 
     private fun setObservers() {
-        viewModel.emojisLiveData.handleResult {
+        viewModel.emojisLiveData.handleResult(viewLifecycleOwner) {
             onSuccess { images ->
                 binding.chatImageChooser.images = images
             }

@@ -10,10 +10,13 @@ import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeCh
 import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_password.ForoomChangePasswordBottomSheet
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_profile_picture.ForoomChangeProfilePictureBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_username.ForoomChangeUsernameBottomSheet
+import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.shared.extension.loadImageUrl
 import com.example.shared.extension.onClick
 import com.example.shared.ui.fragment.BaseFragment
+import com.example.shared.util.events.observeEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoomProfileBinding>() {
@@ -53,6 +56,13 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
         binding.changePasswordItem.onClick {
             ForoomChangePasswordBottomSheet().show(childFragmentManager, null)
         }
+
+        binding.userImageView.onClick {
+            viewModel.remoteAvatarUrl?.let { url ->
+                ForoomChangeProfilePictureBottomSheet.newInstance(url)
+                    .show(childFragmentManager, null)
+            }
+        }
     }
 
     private fun setObservers() {
@@ -63,6 +73,17 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
             )
 
             binding.userNameTextView.text = user.userName
+        }
+
+        eventsHub?.observeEvent<ProfileScreenEvents.LocalProfileImageChange>(viewLifecycleOwner) { event ->
+            binding.userImageView.image.loadImageUrl(
+                event.newImageUrl,
+                ForoomShimmerDrawableBuilder.getDefaultDrawable(requireContext())
+            )
+        }
+
+        eventsHub?.observeEvent<ProfileScreenEvents.ReloadProfile>(viewLifecycleOwner) {
+            viewModel.getCurrentUser()
         }
     }
 }

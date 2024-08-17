@@ -35,6 +35,10 @@ class ImageChooserListView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
+    fun selectImageAt(index: Int) {
+        imageSelectedAt(index)
+    }
+
     private fun onDataChanged() {
         removeAllViews()
         chooserItemViews.clear()
@@ -59,7 +63,7 @@ class ImageChooserListView @JvmOverloads constructor(
         }
 
         adjustRowSpacing()
-        onImageChooseCallback(images.first())
+        onImageChooseCallback(images[selectedIndex])
     }
 
     private fun createImage(column: Int, row: Int): View {
@@ -67,7 +71,7 @@ class ImageChooserListView @JvmOverloads constructor(
 
         return ImageChooserItemView(context).apply {
             setOnClickListener {
-                onImageClick(column, row)
+                imageSelectedAt(index)
             }
             setImage(images[index])
             isImageSelected = index == selectedIndex
@@ -75,18 +79,16 @@ class ImageChooserListView @JvmOverloads constructor(
         }
     }
 
-    private fun onImageClick(column: Int, row: Int) {
+    private fun imageSelectedAt(index: Int) {
         if (!isChoosingEnabled) return
 
-        val clickIndex = getImageIndex(row, column)
-
-        if (clickIndex == selectedIndex) return
+        if (index == selectedIndex) return
 
         chooserItemViews[selectedIndex].isImageSelected = false
-        chooserItemViews[clickIndex].isImageSelected = true
+        chooserItemViews[index].isImageSelected = true
 
-        onImageChooseCallback(images[clickIndex])
-        selectedIndex = clickIndex
+        onImageChooseCallback(images[index])
+        selectedIndex = index
     }
 
     private fun adjustFillerViews(container: LinearLayoutCompat) {
