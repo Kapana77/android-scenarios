@@ -57,9 +57,9 @@ class ForoomChangeProfilePictureBottomSheet :
                     image.url == originalImageUrl
                 }
 
-                binding.root.isChoosingEnabled = true
-                binding.root.selectImageAt(index)
+                binding.root.selectImageAt(index, true)
                 binding.root.images = images
+                binding.root.isChoosingEnabled = true
 
                 viewModel.selectedAvatarId = images[index].id
             }

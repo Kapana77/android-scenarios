@@ -35,7 +35,9 @@ class ImageChooserListView @JvmOverloads constructor(
         orientation = VERTICAL
     }
 
-    fun selectImageAt(index: Int) {
+    fun selectImageAt(index: Int, cacheIfChoosingNotEnabled: Boolean = false) {
+        if (cacheIfChoosingNotEnabled) selectedIndex = index
+
         imageSelectedAt(index)
     }
 
