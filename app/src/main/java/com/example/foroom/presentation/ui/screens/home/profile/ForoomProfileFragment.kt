@@ -83,7 +83,7 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
         }
 
         eventsHub?.observeEvent<ProfileScreenEvents.ReloadProfile>(viewLifecycleOwner) {
-            viewModel.getCurrentUser()
+            viewModel.getAndSaveUserData()
         }
     }
 }

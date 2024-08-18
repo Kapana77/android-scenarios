@@ -15,7 +15,22 @@ internal class InputValidator {
 
         validations.forEach { validation ->
             if (!validation.isValid(text)) {
-                input.setInputDescription(validation.messageRes, Input.DescriptionType.ERROR, true)
+
+                validation.message?.let { message ->
+                    input.setInputDescription(
+                        message,
+                        Input.DescriptionType.ERROR,
+                        true
+                    )
+                }
+
+                validation.messageRes?.let { messageRes ->
+                    input.setInputDescription(
+                        messageRes,
+                        Input.DescriptionType.ERROR,
+                        true
+                    )
+                }
 
                 return false
             }
@@ -26,7 +41,9 @@ internal class InputValidator {
 }
 
 interface InputValidation {
-    val messageRes: Int
+    val message: String? get() = null
+
+    val messageRes: Int? get() = null
 
     fun isValid(text: String): Boolean
 }

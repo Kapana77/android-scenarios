@@ -170,6 +170,10 @@ class Input @JvmOverloads constructor(
         inputValidator.addValidation(validation)
     }
 
+    fun addValidations(vararg validations: InputValidation) {
+        validations.forEach(::addValidation)
+    }
+
     fun validate(): Boolean {
         return inputValidator.validate(this)
     }

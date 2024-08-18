@@ -1,25 +1,36 @@
 package com.example.foroom.presentation.ui.screens.home.profile
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foroom.domain.model.User
+import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
+import com.example.shared.extension.successValueOrNull
 import com.example.shared.ui.viewModel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class ForoomProfileViewModel(
-    private val userDataStore: ForoomUserDataStore
-): BaseViewModel() {
-    private val _currentUserLiveData = MutableLiveData<User>()
+    private val userDataStore: ForoomUserDataStore,
+    private val getAndSaveUserDelegate: GetAndSaveUserDelegate
+) : BaseViewModel(), GetAndSaveUserDelegate by getAndSaveUserDelegate {
+    private val _currentUserLiveData = MediatorLiveData<User>()
     val currentUserLiveData: LiveData<User> get() = _currentUserLiveData
     val remoteAvatarUrl get() = _currentUserLiveData.value?.avatarUrl
 
     init {
+        getAndSaveUserDelegate.init(viewModelScope)
+
         getCurrentUser()
+
+        _currentUserLiveData.addSource(getAndSaveUserResultLiveData) { result ->
+            result.successValueOrNull?.let { user ->
+                _currentUserLiveData.value = user
+            }
+        }
     }
 
-    fun getCurrentUser() {
+    private fun getCurrentUser() {
         viewModelScope.launch {
             userDataStore.getUser().collect { user ->
                 _currentUserLiveData.value = user

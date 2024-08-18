@@ -4,7 +4,9 @@ import com.example.foroom.data.api.ImagesApi
 import com.example.foroom.data.api.ForoomApi
 import com.example.foroom.data.model.Image
 import com.example.foroom.data.model.UserEntity
+import com.example.foroom.data.model.request.ChangePasswordRequest
 import com.example.foroom.data.model.request.ChangeUserAvatarRequest
+import com.example.foroom.data.model.request.ChangeUsernameRequest
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
@@ -53,5 +55,17 @@ class ForoomRestDataSourceImpl(
 
     override suspend fun changeAvatar(avatarId: Int) {
         foroomApi.changeAvatar(ChangeUserAvatarRequest(avatarId))
+    }
+
+    override suspend fun changeUsername(newUsername: String) {
+        foroomApi.changeUsername(ChangeUsernameRequest(newUsername))
+    }
+
+    override suspend fun changePassword(newPassword: String) {
+        foroomApi.changePassword(ChangePasswordRequest(newPassword))
+    }
+
+    override suspend fun signOut() {
+        foroomApi.signOut()
     }
 }

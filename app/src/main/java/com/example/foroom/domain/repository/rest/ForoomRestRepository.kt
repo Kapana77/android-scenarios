@@ -36,4 +36,10 @@ interface ForoomRestRepository {
     ): MessageHistoryResponse
 
     suspend fun changeAvatar(avatarId: Int)
+
+    suspend fun changeUsername(newUsername: String)
+
+    suspend fun changePassword(newPassword: String)
+
+    suspend fun signOut()
 }

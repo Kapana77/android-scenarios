@@ -79,4 +79,16 @@ class ForoomRestRepositoryImpl(
     override suspend fun changeAvatar(avatarId: Int) {
         dataSource.changeAvatar(avatarId)
     }
+
+    override suspend fun changeUsername(newUsername: String) {
+        dataSource.changeUsername(newUsername)
+    }
+
+    override suspend fun changePassword(newPassword: String) {
+        dataSource.changePassword(newPassword)
+    }
+
+    override suspend fun signOut() {
+        dataSource.signOut()
+    }
 }
