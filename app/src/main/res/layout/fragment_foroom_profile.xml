@@ -89,6 +89,7 @@
             android:paddingVertical="16dp"/>
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/signOutItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/profile_sign_out"

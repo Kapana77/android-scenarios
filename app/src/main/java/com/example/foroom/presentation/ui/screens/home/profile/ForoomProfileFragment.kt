@@ -13,6 +13,10 @@ import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.cha
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_profile_picture.ForoomChangeProfilePictureBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_username.ForoomChangeUsernameBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
+import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
+import com.example.navigation.host.openNextPage
+import com.example.navigation.util.navigationHost
+import com.example.shared.extension.handleResult
 import com.example.shared.extension.loadImageUrl
 import com.example.shared.extension.onClick
 import com.example.shared.ui.fragment.BaseFragment
@@ -57,6 +61,10 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
             ForoomChangePasswordBottomSheet().show(childFragmentManager, null)
         }
 
+        binding.signOutItem.onClick {
+            viewModel.signOut()
+        }
+
         binding.userImageView.onClick {
             viewModel.remoteAvatarUrl?.let { url ->
                 ForoomChangeProfilePictureBottomSheet.newInstance(url)
@@ -75,6 +83,16 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
             binding.userNameTextView.text = user.userName
         }
 
+        viewModel.signOutLiveData.handleResult(viewLifecycleOwner) {
+            onSuccess {
+                navigationHost?.openNextPage(
+                    ForoomLoginFragment(),
+                    popBackStack = true,
+                    animate = false
+                )
+            }
+        }
+
         eventsHub?.observeEvent<ProfileScreenEvents.LocalProfileImageChange>(viewLifecycleOwner) { event ->
             binding.userImageView.image.loadImageUrl(
                 event.newImageUrl,
@@ -84,6 +102,10 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
 
         eventsHub?.observeEvent<ProfileScreenEvents.ReloadProfile>(viewLifecycleOwner) {
             viewModel.getAndSaveUserData()
+        }
+
+        eventsHub?.observeEvent<ProfileScreenEvents.SignOut>(viewLifecycleOwner) {
+            viewModel.signOut()
         }
     }
 }

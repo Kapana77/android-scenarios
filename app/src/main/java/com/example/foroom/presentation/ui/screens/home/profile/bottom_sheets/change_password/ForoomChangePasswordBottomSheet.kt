@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheetFragment
+import com.example.design_system.components.input.Input
 import com.example.foroom.R
 import com.example.foroom.databinding.LayoutChangePasswordBottomSheetBinding
+import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
+import com.example.foroom.presentation.ui.util.validator.BlankInputValidation
+import com.example.shared.extension.handleResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomChangePasswordBottomSheet :
@@ -19,6 +23,52 @@ class ForoomChangePasswordBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViews()
+        setObservers()
+    }
+
+    override fun onActionButtonClick() {
+        if (!binding.passwordInput.validate() || !binding.repeatPasswordInput.validate()) return
+
+        val password = binding.passwordInput.text
+        val repeatPassword = binding.repeatPasswordInput.text
+
+        if (password != repeatPassword) {
+            binding.repeatPasswordInput.setInputDescription(
+                R.string.password_does_not_match_error,
+                Input.DescriptionType.ERROR,
+                true
+            )
+
+            return
+        }
+
+        viewModel.changePassword(password)
+    }
+
+    private fun initViews() {
         buttonText = getString(R.string.confirm)
+
+        binding.passwordInput.addValidation(BlankInputValidation)
+        binding.repeatPasswordInput.addValidation(BlankInputValidation)
+    }
+
+    private fun setObservers() {
+        viewModel.changePasswordLiveData.handleResult(viewLifecycleOwner) {
+            onSuccess {
+                dismiss()
+                eventsHub?.sendEvent(ProfileScreenEvents.SignOut)
+            }
+
+            onError {
+                // todo handle error
+                isCancelable = true
+            }
+
+            onLoading {
+                // todo handle loading
+                isCancelable = false
+            }
+        }
     }
 }

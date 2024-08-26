@@ -5,6 +5,8 @@ import com.example.foroom.domain.model.Message
 import com.example.foroom.presentation.ui.activity.ForoomActivityViewModel
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegateImpl
+import com.example.foroom.presentation.ui.delegate.sign_out.SignOutDelegate
+import com.example.foroom.presentation.ui.delegate.sign_out.SignOutDelegateImpl
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatViewModel
 import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsViewModel
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerViewModel
@@ -36,6 +38,10 @@ val presentationModule get() = module {
     // delegate
     factory<GetAndSaveUserDelegate> {
         GetAndSaveUserDelegateImpl(get(), get())
+    }
+
+    factory<SignOutDelegate> {
+        SignOutDelegateImpl(get(), get())
     }
 
     // activity

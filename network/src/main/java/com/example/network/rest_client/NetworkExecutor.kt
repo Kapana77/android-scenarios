@@ -3,7 +3,7 @@ package com.example.network.rest_client
 import androidx.lifecycle.viewModelScope
 import com.example.network.Error
 import com.example.shared.model.Result
-import com.example.shared.ui.delegate.ForoomDelegate
+import com.example.shared.ui.delegate.BaseForoomDelegate
 import com.example.shared.ui.viewModel.BaseViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -83,5 +83,5 @@ class NetworkExecutor<T : Any> internal constructor(parentJob: Job) {
 fun <T : Any> BaseViewModel.networkExecutor(block: NetworkExecutor<T>.() -> Unit) =
     NetworkExecutor<T>(viewModelScope.coroutineContext.job).apply(block).makeNetworkCall()
 
-fun <T : Any> ForoomDelegate.parentNetworkExecutor(block: NetworkExecutor<T>.() -> Unit) =
+fun <T : Any> BaseForoomDelegate.parentNetworkExecutor(block: NetworkExecutor<T>.() -> Unit) =
     NetworkExecutor<T>(parentScope.coroutineContext.job).apply(block).makeNetworkCall()
