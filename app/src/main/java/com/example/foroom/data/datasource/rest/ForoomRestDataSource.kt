@@ -1,14 +1,13 @@
 package com.example.foroom.data.datasource.rest
 
+import com.example.foroom.data.model.ChatEntity
 import com.example.foroom.data.model.Image
 import com.example.foroom.data.model.UserEntity
-import com.example.foroom.data.model.request.ChangePasswordRequest
 import com.example.foroom.data.model.request.LogInRequestEntity
 import com.example.foroom.data.model.request.RegistrationRequestEntity
 import com.example.foroom.data.model.response.ChatsResponseEntity
 import com.example.foroom.data.model.response.MessageHistoryResponseEntity
 import com.example.network.model.response.UserTokenResponse
-import retrofit2.http.Body
 
 interface ForoomRestDataSource {
     suspend fun getCurrentUser(): UserEntity
@@ -35,6 +34,8 @@ interface ForoomRestDataSource {
         page: Int,
         limit: Int
     ): MessageHistoryResponseEntity
+
+    suspend fun createChat(name: String, emojiId: Int): ChatEntity
 
     suspend fun changeAvatar(avatarId: Int)
 

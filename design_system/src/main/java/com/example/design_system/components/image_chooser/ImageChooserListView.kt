@@ -20,6 +20,9 @@ class ImageChooserListView @JvmOverloads constructor(
     var columns = 3
     var selectedIndex = 0
         private set
+    var selectedImage: Image? = null
+        private set
+
     var images: List<Image> = emptyList()
         set(value) {
             field = value
@@ -91,6 +94,7 @@ class ImageChooserListView @JvmOverloads constructor(
 
         onImageChooseCallback(images[index])
         selectedIndex = index
+        selectedImage = images[index]
     }
 
     private fun adjustFillerViews(container: LinearLayoutCompat) {

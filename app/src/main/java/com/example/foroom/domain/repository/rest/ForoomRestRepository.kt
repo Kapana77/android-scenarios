@@ -1,5 +1,6 @@
 package com.example.foroom.domain.repository.rest
 
+import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.model.request.LogInRequest
@@ -34,6 +35,8 @@ interface ForoomRestRepository {
         page: Int,
         limit: Int
     ): MessageHistoryResponse
+
+    suspend fun createChat(name: String, emojiId: Int): Chat
 
     suspend fun changeAvatar(avatarId: Int)
 

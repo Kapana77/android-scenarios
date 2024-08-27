@@ -78,6 +78,10 @@ class ForoomHomeChatsFragment :
             binding.filterOptionsView.indicateAt(FILTER_INDEX_FAVOURITE)
         }
 
+        eventsHub?.observeEvent<ForoomHomeChatsEvents.RefreshChats>(viewLifecycleOwner) {
+            viewModel.getChats(BaseViewModel.RequestCode.RC_INIT)
+        }
+
         viewModel.chatsLiveData.handleResult(viewLifecycleOwner) {
             onSuccess { chats ->
                 binding.contentLoaderView.showContent()

@@ -2,6 +2,7 @@ package com.example.foroom.data.repository.rest
 
 import com.example.foroom.data.datasource.rest.ForoomRestDataSource
 import com.example.foroom.data.mapper.ForoomMapper
+import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.request.LogInRequest
 import com.example.foroom.domain.model.request.RegistrationRequest
@@ -74,6 +75,10 @@ class ForoomRestRepositoryImpl(
             dataSource.getMessageHistory(chatId, page, limit),
             currentUserId
         )
+    }
+
+    override suspend fun createChat(name: String, emojiId: Int): Chat {
+        return mapper.mapToChat(dataSource.createChat(name, emojiId))
     }
 
     override suspend fun changeAvatar(avatarId: Int) {

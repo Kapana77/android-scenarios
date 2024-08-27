@@ -56,4 +56,8 @@ fun <T : Parcelable> ForoomNavigationHost.openNextPage(
     }, addToBackStack = addToBackStack, animate = animate)
 }
 
+fun ForoomNavigationHost.removeFragment(fragment: BaseFragment<*, *>) {
+    getHostFragmentManager().beginTransaction().remove(fragment).commit()
+}
+
 internal const val EXTRA_ARGUMENTS = "arguments"

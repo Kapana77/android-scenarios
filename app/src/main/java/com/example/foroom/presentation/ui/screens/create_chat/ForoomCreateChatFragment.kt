@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import com.example.foroom.R
 import com.example.foroom.databinding.FragmentForoomCreateChatBinding
+import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
+import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
+import com.example.navigation.host.openNextPage
+import com.example.navigation.host.removeFragment
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.handleResult
 import com.example.shared.extension.onClick
@@ -46,6 +50,23 @@ class ForoomCreateChatFragment :
         viewModel.currentUserNameLiveData.observe(viewLifecycleOwner) { userName ->
             binding.chatHeaderView.setAuthorName(userName)
         }
+
+        viewModel.createChatLiveData.handleResult(viewLifecycleOwner) {
+            onLoading {
+                globalLoadingDelegate?.showGlobalLoading()
+            }
+
+            onError {
+                globalLoadingDelegate?.hideGlobalLoading()
+            }
+
+            onSuccess { chat ->
+                globalLoadingDelegate?.hideGlobalLoading()
+                eventsHub?.sendEvent(ForoomHomeChatsEvents.RefreshChats)
+                navigationHost?.openNextPage(ForoomChatFragment(), args = chat, animate = false)
+                navigationHost?.removeFragment(this@ForoomCreateChatFragment)
+            }
+        }
     }
 
     private fun setListeners() {
@@ -62,6 +83,15 @@ class ForoomCreateChatFragment :
 
         binding.closeButton.onClick {
             navigationHost?.goBack()
+        }
+
+        binding.createChatButton.onClick {
+            binding.chatImageChooser.selectedImage?.id?.let { emojiId ->
+                viewModel.createChat(
+                    binding.chatNameInput.text,
+                    emojiId
+                )
+            }
         }
     }
 

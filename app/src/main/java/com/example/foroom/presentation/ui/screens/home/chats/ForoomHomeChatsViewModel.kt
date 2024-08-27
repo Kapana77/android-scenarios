@@ -37,6 +37,8 @@ class ForoomHomeChatsViewModel(
     fun getChats(requestCode: RequestCode) {
         this.requestCode = requestCode
 
+        if (requestCode == RequestCode.RC_INIT) paginationHelper.clear()
+
         networkExecutor<ChatsResponse> {
             execute {
                 getChatsUseCase(
@@ -75,7 +77,6 @@ class ForoomHomeChatsViewModel(
     }
 
     private fun onSearchConfigurationChange() {
-        paginationHelper.clear()
         getChats(RequestCode.RC_INIT)
     }
 
