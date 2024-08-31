@@ -88,7 +88,7 @@ class ForoomHomeChatsViewModel(
 
     private data class SearchConfiguration(
         val name: String? = null,
-        val popular: Boolean = false,
+        val popular: Boolean = true,
         val created: Boolean = false,
         val favorite: Boolean = false
     )

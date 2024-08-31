@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlin.reflect.KClass
 
 internal class ForoomEventsHubImpl : ForoomEventsHub {
-    private val eventsLiveData = MutableLiveData<Any>()
+    private val eventsLiveData = MutableLiveData<Any?>()
 
     @Suppress("UNCHECKED_CAST")
     override fun <T: Any> observeEvent(
@@ -14,8 +14,9 @@ internal class ForoomEventsHubImpl : ForoomEventsHub {
         onEvent: (T) -> Unit
     ) {
         eventsLiveData.observe(lifecycleOwner) { event ->
-            if (event::class == eventClass) {
+            if (event != null && event::class == eventClass) {
                 onEvent(event as T)
+                eventsLiveData.value = null
             }
         }
     }
