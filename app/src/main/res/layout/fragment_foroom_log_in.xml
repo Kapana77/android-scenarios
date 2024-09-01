@@ -29,16 +29,6 @@
         android:inputType="textPassword"
         app:hint="@string/hint_password" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/login_forgot_password"
-        android:textAppearance="@style/jostSmallTextRegular"
-        android:textColor="@color/foroom_main_green" />
-
     <com.example.design_system.components.button.PrimaryButton
         android:id="@+id/logInButton"
         android:layout_width="match_parent"
