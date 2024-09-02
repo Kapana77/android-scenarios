@@ -12,10 +12,6 @@ interface ForoomNavigationHost {
     fun goBack()
 }
 
-fun ForoomNavigationHost.popBackStack() {
-    getHostFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-}
-
 fun ForoomNavigationHost.openNextPage(
     fragment: BaseFragment<*, *>,
     addToBackStack: Boolean = true,
@@ -33,16 +29,16 @@ fun ForoomNavigationHost.openNextPage(
         )
     }
 
+    if (popBackStack) {
+        getHostFragmentManager().fragments.forEach(transaction::remove)
+    } else if (addToBackStack) transaction.addToBackStack(null)
+
     transaction.add(
         fragmentContainerId,
         fragment
     )
 
-    if (popBackStack) popBackStack()
-    else if (addToBackStack) transaction.addToBackStack(null)
-
     transaction.commit()
-
 }
 
 fun <T : Parcelable> ForoomNavigationHost.openNextPage(
