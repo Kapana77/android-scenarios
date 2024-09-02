@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheetFragment
 import com.example.design_system.components.input.Input
-import com.example.design_system.components.input.validator.InputValidation
 import com.example.foroom.R
 import com.example.foroom.databinding.LayoutChangeUsernameBottomSheetBinding
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.foroom.presentation.ui.util.validator.BlankInputValidation
 import com.example.foroom.presentation.ui.util.validator.SizeInputValidation
 import com.example.network.ifHttpError
+import com.example.network.model.response.AuthenticationError
 import com.example.shared.extension.handleResult
+import com.example.shared.extension.ifNot
+import com.example.shared.extension.orEmpty
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomChangeUsernameBottomSheet :
@@ -52,9 +53,14 @@ class ForoomChangeUsernameBottomSheet :
             }
 
             onError { error ->
-                // todo handle error
-                error.localizedMessage?.let { message ->
-                    binding.root.setInputDescription(message, Input.DescriptionType.ERROR, true)
+                error.ifHttpError<AuthenticationError> { _, e ->
+                    binding.root.setInputDescription(
+                        e.usernameError.orEmpty(),
+                        Input.DescriptionType.ERROR,
+                        true
+                    )
+                }.ifNot {
+                    // todo handle error
                 }
 
                 isCancelable = true

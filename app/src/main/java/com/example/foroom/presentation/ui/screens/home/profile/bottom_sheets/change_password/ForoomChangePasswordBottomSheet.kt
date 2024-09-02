@@ -10,7 +10,11 @@ import com.example.foroom.R
 import com.example.foroom.databinding.LayoutChangePasswordBottomSheetBinding
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.foroom.presentation.ui.util.validator.BlankInputValidation
+import com.example.network.ifHttpError
+import com.example.network.model.response.AuthenticationError
 import com.example.shared.extension.handleResult
+import com.example.shared.extension.ifNot
+import com.example.shared.extension.orEmpty
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomChangePasswordBottomSheet :
@@ -60,8 +64,17 @@ class ForoomChangePasswordBottomSheet :
                 eventsHub?.sendEvent(ProfileScreenEvents.SignOut)
             }
 
-            onError {
-                // todo handle error
+            onError { error ->
+                error.ifHttpError<AuthenticationError> { _, e ->
+                    binding.passwordInput.setInputDescription(
+                        e.passwordError.orEmpty(),
+                        Input.DescriptionType.ERROR,
+                        true
+                    )
+                }.ifNot {
+                    // todo handle error
+                }
+
                 isCancelable = true
             }
 
