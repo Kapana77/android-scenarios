@@ -49,10 +49,13 @@ class ForoomNavigationBar @JvmOverloads constructor(
     }
 
     private fun onNavigationButtonClick(button: View) {
-        navigationButtons.forEach { b ->
-            b.isSelected = false
+        if (button.isFocusable) {
+            navigationButtons.forEach { b ->
+                b.isSelected = false
+            }
+            button.isSelected = true
         }
-        button.isSelected = true
+
         onNavigationButtonClick.invoke(button)
     }
 

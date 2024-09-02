@@ -28,6 +28,7 @@
             android:id="@+id/homeNavigationCreateChat"
             android:layout_width="42dp"
             android:layout_height="42dp"
+            android:focusable="false"
             android:layout_marginHorizontal="8dp"
             android:src="@mipmap/ic_add_fill"
             android:scaleType="centerCrop"/>
