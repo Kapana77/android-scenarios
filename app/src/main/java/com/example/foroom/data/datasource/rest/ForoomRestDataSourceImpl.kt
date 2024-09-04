@@ -74,4 +74,12 @@ class ForoomRestDataSourceImpl(
     override suspend fun signOut() {
         foroomApi.signOut()
     }
+
+    override suspend fun favoriteChat(id: Int) {
+        foroomApi.favoriteChat(id)
+    }
+
+    override suspend fun unfavoriteChat(id: Int) {
+        foroomApi.unfavoriteChat(id)
+    }
 }

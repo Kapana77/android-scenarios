@@ -44,4 +44,8 @@ interface ForoomRestDataSource {
     suspend fun changePassword(newPassword: String)
 
     suspend fun signOut()
+
+    suspend fun favoriteChat(id: Int)
+
+    suspend fun unfavoriteChat(id: Int)
 }

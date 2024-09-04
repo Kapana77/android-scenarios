@@ -15,6 +15,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ForoomApi {
@@ -58,4 +59,10 @@ interface ForoomApi {
 
     @POST("Users/SignOut")
     suspend fun signOut()
+
+    @PUT("chats/{id}/favorite")
+    suspend fun favoriteChat(@Path("id") id: Int)
+
+    @PUT("chats/{id}/unfavorite")
+    suspend fun unfavoriteChat(@Path("id") id: Int)
 }

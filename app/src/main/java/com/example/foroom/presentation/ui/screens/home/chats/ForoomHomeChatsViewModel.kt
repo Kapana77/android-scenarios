@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.response.ChatsResponse
+import com.example.foroom.domain.usecase.ChangeChatIsFavoriteUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.network.rest_client.networkExecutor
@@ -13,7 +14,8 @@ import com.example.shared.util.pagination.PaginationHelper
 import org.koin.core.component.get
 
 class ForoomHomeChatsViewModel(
-    private val getChatsUseCase: GetChatsUseCase
+    private val getChatsUseCase: GetChatsUseCase,
+    private val changeChatIsFavoriteUseCase: ChangeChatIsFavoriteUseCase
 ) : BaseViewModel() {
     private val _chatsLiveData = MutableLiveData<Result<List<ChatUI>>>()
     val chatsLiveData: LiveData<Result<List<ChatUI>>> get() = _chatsLiveData
@@ -25,7 +27,6 @@ class ForoomHomeChatsViewModel(
             field = value
             onSearchConfigurationChange()
         }
-
 
     var hasMorePages = true
         private set

@@ -96,4 +96,12 @@ class ForoomRestRepositoryImpl(
     override suspend fun signOut() {
         dataSource.signOut()
     }
+
+    override suspend fun favoriteChat(id: Int) {
+        dataSource.favoriteChat(id)
+    }
+
+    override suspend fun unfavoriteChat(id: Int) {
+        dataSource.unfavoriteChat(id)
+    }
 }
