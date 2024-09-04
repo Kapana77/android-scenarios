@@ -35,6 +35,10 @@ class ForoomHomeChatsFragment :
                     animate = false
                 )
             }
+
+            onFavoriteButtonClicked = { chat ->
+                viewModel.changeChatFavorite(chat)
+            }
         }
     }
 

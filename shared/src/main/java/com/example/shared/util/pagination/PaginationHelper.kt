@@ -9,5 +9,7 @@ interface PaginationHelper<T> {
 
     fun getItems(): List<T>
 
+    fun setItems(items: List<T>)
+
     fun clear()
 }

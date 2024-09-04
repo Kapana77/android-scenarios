@@ -77,13 +77,39 @@ class ForoomHomeChatsViewModel(
         searchConfiguration = SearchConfiguration(favorite = true)
     }
 
+    fun changeChatFavorite(chatUI: ChatUI) {
+        networkExecutor {
+            execute { changeChatIsFavoriteUseCase(chatUI.id, !chatUI.isFavorite) }
+
+            success {
+                val updatedChats = updateFavoriteInChats(chatUI)
+
+                paginationHelper.setItems(updatedChats)
+                _chatsLiveData.postValue(Result.Success(updatedChats))
+            }
+        }
+    }
+
+    private fun updateFavoriteInChats(chat: ChatUI): MutableList<ChatUI> {
+        val chats = paginationHelper.getItems().toMutableList()
+
+        if (searchConfiguration.favorite) {
+            chats.remove(chat)
+        } else {
+            val indexOfChat = chats.indexOf(chat)
+            chats[indexOfChat] = chat.copy(isFavorite = !chat.isFavorite)
+        }
+
+        return chats
+    }
+
     private fun onSearchConfigurationChange() {
         getChats(RequestCode.RC_INIT)
     }
 
     private fun mapToChatUI(chats: List<Chat>) = chats.map { chat ->
         with(chat) {
-            ChatUI(id, name, emojiUrl, creatorUsername, likeCount)
+            ChatUI(id, name, emojiUrl, creatorUsername, likeCount, isFavorite)
         }
     }
 

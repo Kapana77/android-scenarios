@@ -10,7 +10,6 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.core.view.updateLayoutParams
-import androidx.core.view.updateMargins
 import com.example.design_system.R
 import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
 import com.example.design_system.databinding.LayoutForoomChatBinding
@@ -18,9 +17,7 @@ import com.example.shared.extension.loadImageUrl
 import com.example.shared.extension.onClick
 import kotlin.math.abs
 import kotlin.math.cos
-import kotlin.math.pow
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 class ForoomChatCardView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
@@ -90,5 +87,14 @@ class ForoomChatCardView @JvmOverloads constructor(
 
     fun showRemoveButton() {
         binding.removeButton.isVisible = true
+    }
+
+    fun setIsFavorite(isFavorite: Boolean) {
+        binding.starButton.setColorFilter(
+            context.getColor(
+                if (isFavorite) R.color.foroom_main_green
+                else R.color.foroom_gray_light
+            )
+        )
     }
 }

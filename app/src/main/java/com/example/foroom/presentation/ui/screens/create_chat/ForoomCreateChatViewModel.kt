@@ -66,6 +66,6 @@ class ForoomCreateChatViewModel(
     }
 
     private fun mapToChatUI(chat: Chat) = with(chat) {
-        ChatUI(id, name, emojiUrl, creatorUsername, likeCount)
+        ChatUI(id, name, emojiUrl, creatorUsername, likeCount, isFavorite)
     }
 }

@@ -7,6 +7,11 @@ class PaginationHelperImpl<T>: PaginationHelper<T> {
 
     override fun getItems(): List<T> = items
 
+    override fun setItems(items: List<T>) {
+        this.items.clear()
+        this.items.addAll(items)
+    }
+
     override fun getPage(): Int = page
 
     override fun addPage(items: List<T>) {
