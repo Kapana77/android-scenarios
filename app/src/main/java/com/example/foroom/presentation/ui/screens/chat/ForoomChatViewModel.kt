@@ -7,6 +7,7 @@ import com.example.foroom.domain.model.Message
 import com.example.foroom.domain.model.response.MessageHistoryResponse
 import com.example.foroom.domain.usecase.GetMessageHistoryUseCase
 import com.example.foroom.domain.usecase.MessageWebSocketUseCase
+import com.example.foroom.presentation.ui.model.MessageUI
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
 import com.example.network.rest_client.networkExecutor
 import com.example.shared.extension.isSuccess
@@ -26,13 +27,9 @@ class ForoomChatViewModel(
 
     private lateinit var userId: String
 
-    private val _messagesLiveData = MutableLiveData<List<Message>>()
-    val messagesLiveData: LiveData<List<Message>> get() = _messagesLiveData
+    private val _messagesLiveData = MutableLiveData<List<MessageUI>>()
+    val messagesLiveData: LiveData<List<MessageUI>> get() = _messagesLiveData
     private val newMessages = mutableListOf<Message>()
-
-    private val _messageHistoryLiveData = MutableLiveData<Result<List<Message>>>()
-    val messageHistoryLiveData: LiveData<Result<List<Message>>> get() = _messageHistoryLiveData
-    private val messageHistory get() = (_messageHistoryLiveData.value as? Result.Success)?.data.orEmpty()
 
     private val _connectionLiveData = MutableLiveData<Result<Unit>>()
     val connectionLiveData: LiveData<Result<Unit>> get() = _connectionLiveData
@@ -73,14 +70,6 @@ class ForoomChatViewModel(
                 )
             }
 
-            loading {
-                _messageHistoryLiveData.postValue(Result.Loading)
-            }
-
-            error { error ->
-                _messageHistoryLiveData.postValue(Result.Error(error))
-            }
-
             success { response ->
                 paginationHelper.addPage(response.messages)
                 hasMoreMessages = response.hasNext
@@ -107,7 +96,28 @@ class ForoomChatViewModel(
     }
 
     private fun combineMessages() {
-        _messagesLiveData.postValue(newMessages + paginationHelper.getItems())
+        val combined = newMessages + paginationHelper.getItems()
+
+        _messagesLiveData.postValue(mapToMessageUI(combined))
+    }
+
+    private fun mapToMessageUI(messages: List<Message>): List<MessageUI> {
+        return messages.mapIndexed { index, message ->
+            with(message) {
+                val isMerged = messages.getOrNull(index - 1)?.senderUserId == senderUserId
+
+                MessageUI(
+                    senderName,
+                    senderAvatarUrl,
+                    sendDate,
+                    text,
+                    senderUserId,
+                    id,
+                    isCurrentUser,
+                    isMerged
+                )
+            }
+        }
     }
 
     companion object {

@@ -10,12 +10,6 @@ class ForoomShowcaseActivity : BaseActivity<ActivityForoomShowcaseBinding>(
 ) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding.message.setUp(
-            "takeksa",
-            "@shioTakeksi",
-            null
-        )
     }
 }
 

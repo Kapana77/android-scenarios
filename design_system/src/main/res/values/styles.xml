@@ -42,13 +42,6 @@
         <attr name="hint" />
     </declare-styleable>
 
-    <declare-styleable name="ForoomMessageView">
-        <attr name="messageType" format="enum">
-            <enum name="sent" value="1" />
-            <enum name="received" value="2" />
-        </attr>
-    </declare-styleable>
-
     <declare-styleable name="ForoomListItem">
         <attr name="imageStart" format="reference"/>
         <attr name="title" format="string"/>

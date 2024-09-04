@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.updateLayoutParams
 import com.example.design_system.components.message.ForoomMessageView
+import com.example.design_system.R
 import com.example.foroom.databinding.ItemForoomMessageBinding
-import com.example.foroom.domain.model.Message
+import com.example.foroom.presentation.ui.model.MessageUI
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.screenWidthOf
 import com.example.shared.util.recyclerview.RecyclerViewEndReachListener
@@ -15,14 +16,14 @@ import com.example.shared.util.recyclerview.RecyclerViewEndReachListener
 class ForoomMessagesAdapter(
     onLoadMore: () -> Unit,
     onErrorRefresh: () -> Unit
-) : ForoomLoadingListAdapter<Message>(
+) : ForoomLoadingListAdapter<MessageUI>(
     onLoadMore,
     onErrorRefresh,
     RecyclerViewEndReachListener.Type.TOP
 ) {
 
     override fun getDataItemViewType(
-        item: LoadingListItemType.DataItem<Message>,
+        item: LoadingListItemType.DataItem<MessageUI>,
         position: Int
     ): Int {
         return if (item.data.isCurrentUser) VIEW_TYPE_SENT else VIEW_TYPE_RECEIVED
@@ -31,7 +32,7 @@ class ForoomMessagesAdapter(
     override fun onCreateDataItemViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LoadingListDataViewHolder<Message> {
+    ): LoadingListDataViewHolder<MessageUI> {
         val binding =
             ItemForoomMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -42,15 +43,20 @@ class ForoomMessagesAdapter(
 
     class SentMessageViewHolder(private val binding: ItemForoomMessageBinding) :
         MessageViewHolder(binding) {
-        override fun onBind(item: Message, position: Int) {
+        override fun onBind(item: MessageUI, position: Int) {
             with(binding.messageView) {
                 updateLayoutParams<FrameLayout.LayoutParams> {
                     gravity = Gravity.END
                     leftMargin = context.screenWidthOf(MESSAGE_VIEW_MARGIN_PERCENT).toInt()
+                    bottomMargin = resources.getDimensionPixelSize(
+                        if (item.isMerged) R.dimen.spacing_2
+                        else R.dimen.spacing_12
+                    )
                 }
+
                 setUp(item.text, item.senderName, item.sendDate)
 
-                type = ForoomMessageView.Type.SENT
+                messageType = ForoomMessageView.MessageType.Sent(item.isMerged)
             }
         }
 
@@ -58,12 +64,18 @@ class ForoomMessagesAdapter(
 
     class ReceivedMessageViewHolder(private val binding: ItemForoomMessageBinding) :
         MessageViewHolder(binding) {
-        override fun onBind(item: Message, position: Int) {
+        override fun onBind(item: MessageUI, position: Int) {
             with(binding.messageView) {
-                type = ForoomMessageView.Type.RECEIVED
+                messageType = ForoomMessageView.MessageType.Received(item.isMerged)
+
                 updateLayoutParams<FrameLayout.LayoutParams> {
                     rightMargin = context.screenWidthOf(MESSAGE_VIEW_MARGIN_PERCENT).toInt()
+                    bottomMargin = resources.getDimensionPixelSize(
+                        if (item.isMerged) R.dimen.spacing_2
+                        else R.dimen.spacing_12
+                    )
                 }
+
                 setUp(item.senderAvatarUrl, item.text, item.senderName, item.sendDate)
             }
         }
@@ -71,7 +83,7 @@ class ForoomMessagesAdapter(
     }
 
     abstract class MessageViewHolder(binding: ItemForoomMessageBinding) :
-        LoadingListDataViewHolder<Message>(binding)
+        LoadingListDataViewHolder<MessageUI>(binding)
 
     companion object {
         private const val VIEW_TYPE_SENT = 1
