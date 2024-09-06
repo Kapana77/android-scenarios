@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // shared
+    <string name="hint_username">მომხმარებლის სახელი</string>
+    <string name="hint_password">პაროლი</string>
+    <string name="hint_repeat_password">გაიმეორეთ პაროლი</string>
+    <string name="sign_up">რეგისტრაცია</string>
+    <string name="log_in">ავტორიზაცია</string>
+    <string name="confirm">დადასტურება</string>
+    <string name="username_size_error">მომხმარებლის სახელი მოკლეა</string>
+
+    // registration
+    <string name="registration_log_in">ან თუ უკვე გაქვს ანგარიში, [გაიარა ავტორიზაცია]</string>
+
+    // validation
+    <string name="blank_input_error">გთხოვთ შეავსოთ ველი</string>
+    <string name="blank_avatar_id_error">გთხოვთ აირჩიოთ ავატარი</string>
+    <string name="password_does_not_match_error">პაროლები არ ემთხვევა</string>
+
+    // chats
+    <string name="chats_search_hint">მოძებნე ჩატი</string>
+    <string name="chats_filter_popular">პოპულარული</string>
+    <string name="chats_filter_created">შექმნილი</string>
+    <string name="chats_filter_favourite">ფავორიტი</string>
+
+    // create chat
+    <string name="create_chat_title">ახალი ჩატის შექმნა</string>
+    <string name="create_chat_chat_name">ჩატის სახელი</string>
+    <string name="create_chat">შექმენი ჩატი</string>
+
+    // profile
+    <string name="profile_created_chats">შექმნილი ჩატები</string>
+    <string name="profile_favourite_chats">ფავორიტი ჩატები</string>
+    <string name="profile_change_username">სახელის შეცვლა</string>
+    <string name="profile_change_password">პაროლის შეცვლა</string>
+    <string name="profile_sign_out">გამოსვლა</string>
+
+    // action sheets
+    <string name="change_username_new_username">ახალი სახელი</string>
+    <string name="change_password_new_password">ახალი პაროლი</string>
+</resources>

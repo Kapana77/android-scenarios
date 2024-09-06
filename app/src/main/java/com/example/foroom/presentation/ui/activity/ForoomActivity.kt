@@ -1,5 +1,6 @@
 package com.example.foroom.presentation.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
@@ -8,6 +9,8 @@ import com.example.foroom.R
 import com.example.foroom.databinding.ActivityForoomBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
+import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
+import com.example.foroom.presentation.ui.util.locale_manager.ForoomLocaleManager
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
 import com.example.shared.extension.handleResult
@@ -15,6 +18,7 @@ import com.example.shared.ui.activity.BaseActivity
 import com.example.shared.util.events.ForoomEventsHub
 import com.example.shared.util.events.ForoomEventsHubHolder
 import com.example.shared.util.loading.GlobalLoadingDelegate
+import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +26,7 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
     BaseActivity<ActivityForoomBinding>(ActivityForoomBinding::inflate) {
     override val fragmentContainerId: Int = R.id.fragmentContainerView
     private val viewModel by viewModel<ForoomActivityViewModel>()
+    private val userDataStore = get<ForoomUserDataStore>()
     override val eventsHub: ForoomEventsHub = get()
 
     override fun getHostFragmentManager(): FragmentManager {
@@ -30,6 +35,17 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
 
     override fun goBack() {
         onBackPressedDispatcher.onBackPressed()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        val savedLocale = runBlocking { userDataStore.getUserLocale() }
+
+        super.attachBaseContext(
+            ForoomLocaleManager.wrapContext(
+                base,
+                savedLocale ?: ForoomLocaleManager.ForoomLocale.GE.code
+            )
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

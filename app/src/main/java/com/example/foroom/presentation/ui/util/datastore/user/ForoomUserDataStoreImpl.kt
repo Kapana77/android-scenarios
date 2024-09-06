@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.foroom.domain.model.User
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStore {
@@ -16,6 +17,7 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
     private val avatarUrlKey = stringPreferencesKey(AVATAR_URL_PREFERENCES_KEY)
     private val userIdKey = stringPreferencesKey(USER_ID_PREFERENCES_KEY)
     private val userTokenKey = stringPreferencesKey(USER_TOKEN_PREFERENCES_KEY)
+    private val userLocaleKey = stringPreferencesKey(USER_LOCALE_PREFERENCES_KEY)
 
     override suspend fun saveUser(user: User) {
         context.dataStore.edit { prefs ->
@@ -47,6 +49,18 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
         data[userTokenKey]!!
     }
 
+    override suspend fun saveUserLocale(locale: String) {
+        context.dataStore.edit { prefs ->
+            prefs[userLocaleKey] = locale
+        }
+    }
+
+    override suspend fun getUserLocale(): String? {
+        return context.dataStore.data.map { data ->
+            data[userLocaleKey]
+        }.first()
+    }
+
     override suspend fun clearUserData() {
         context.dataStore.edit { prefs ->
             prefs.clear()
@@ -59,5 +73,6 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
         private const val AVATAR_URL_PREFERENCES_KEY = "avatarUrl"
         private const val USER_ID_PREFERENCES_KEY = "userId"
         private const val USER_TOKEN_PREFERENCES_KEY = "userToken"
+        private const val USER_LOCALE_PREFERENCES_KEY = "userLocale"
     }
 }

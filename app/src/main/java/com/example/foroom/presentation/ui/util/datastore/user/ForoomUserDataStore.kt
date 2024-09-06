@@ -13,5 +13,9 @@ interface ForoomUserDataStore {
 
     suspend fun getUserAuthToken(): Flow<String>
 
+    suspend fun saveUserLocale(locale: String)
+
+    suspend fun getUserLocale(): String?
+
     suspend fun clearUserData()
 }
