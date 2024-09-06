@@ -51,10 +51,12 @@ class ForoomChangeLanguageBottomSheet :
 
     private fun setListeners() {
         binding.languageButtonGeo.onClick {
+            dismiss()
             appLanguageDelegate?.changeAppLanguage(ForoomLanguage.KA, LanguageChangePoint.POFILE)
         }
 
         binding.languageButtonEng.onClick {
+            dismiss()
             appLanguageDelegate?.changeAppLanguage(ForoomLanguage.EN, LanguageChangePoint.POFILE)
         }
     }
