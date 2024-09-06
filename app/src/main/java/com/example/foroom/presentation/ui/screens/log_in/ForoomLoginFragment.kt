@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.design_system.components.input.Input
 import com.example.foroom.databinding.FragmentForoomLogInBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
@@ -23,12 +25,13 @@ import com.example.shared.extension.onClick
 import com.example.shared.extension.orEmpty
 import com.example.shared.extension.toast
 import com.example.shared.ui.fragment.BaseFragment
+import com.example.shared.util.language_change.LanguageChangePoint
 import com.example.shared.util.loading.isLoading
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
-class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogInBinding>() {
+class ForoomLoginFragment : BaseFragment<ForoomLoginViewModel, FragmentForoomLogInBinding>() {
     override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomLogInBinding
         get() = FragmentForoomLogInBinding::inflate
     override val viewModel: ForoomLoginViewModel by viewModel()
@@ -45,8 +48,10 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
         initInputs()
 
         lifecycleScope.launch {
-            viewModel.getUserLanguage()?.let { language ->
-                binding.languageSelector.selectLanguage(language)
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                appLanguageDelegate?.getAppLanguage()?.let { language ->
+                    binding.languageSelector.selectLanguage(language)
+                }
             }
         }
     }
@@ -64,16 +69,13 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
         }
 
         binding.languageSelector.onLanguageSelected = { language ->
-            lifecycleScope.launch {
-                viewModel.updateUserLanguage(language)
-                activity?.recreate()
-            }
+            appLanguageDelegate?.changeAppLanguage(language, LanguageChangePoint.LOG_IN)
         }
     }
 
     private fun setObservers() {
         viewModel.logInLiveData.handleResult(viewLifecycleOwner) {
-            onError {  exception ->
+            onError { exception ->
                 handleLoginError(exception)
             }
 

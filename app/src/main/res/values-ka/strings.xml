@@ -10,7 +10,7 @@
     <string name="username_size_error">მომხმარებლის სახელი მოკლეა</string>
 
     // registration
-    <string name="registration_log_in">ან თუ უკვე გაქვს ანგარიში, [გაიარა ავტორიზაცია]</string>
+    <string name="registration_log_in">თუ გაქვს ანგარიში, [გაიარე ავტორიზაცია]</string>
 
     // validation
     <string name="blank_input_error">გთხოვთ შეავსოთ ველი</string>

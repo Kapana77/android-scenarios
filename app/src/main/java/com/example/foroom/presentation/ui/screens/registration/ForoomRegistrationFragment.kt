@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.design_system.R
 import com.example.design_system.components.input.Input
 import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
@@ -26,7 +29,9 @@ import com.example.shared.extension.orEmpty
 import com.example.shared.extension.toast
 import com.example.shared.model.Image
 import com.example.shared.ui.fragment.BaseFragment
+import com.example.shared.util.language_change.LanguageChangePoint
 import com.example.shared.util.loading.isLoading
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomRegistrationFragment :
@@ -49,6 +54,14 @@ class ForoomRegistrationFragment :
         binding.logInTextView.makeTextClickable(requireContext().getColor(R.color.foroom_main_green)) {
             navigationHost?.goBack()
         }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                appLanguageDelegate?.getAppLanguage()?.let { language ->
+                    binding.languageSelector.selectLanguage(language)
+                }
+            }
+        }
     }
 
     private fun setListeners() {
@@ -66,6 +79,10 @@ class ForoomRegistrationFragment :
             val isRepeatPasswordValid = binding.repeatPasswordInput.validate()
 
             if (isUsernameValid && isPasswordValid && isRepeatPasswordValid) viewModel.register()
+        }
+
+        binding.languageSelector.onLanguageSelected = { language ->
+            appLanguageDelegate?.changeAppLanguage(language, LanguageChangePoint.REGISTRATION)
         }
     }
 

@@ -11,6 +11,7 @@ import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStor
 import com.example.foroom.presentation.ui.util.exception.ForoomUnauthorizedUserException
 import com.example.network.auth.UserTokenRuntimeHolder
 import com.example.network.rest_client.networkExecutor
+import com.example.shared.model.ForoomLanguage
 import com.example.shared.model.Result
 import com.example.shared.ui.viewModel.BaseViewModel
 import kotlinx.coroutines.cancel
@@ -45,5 +46,13 @@ class ForoomActivityViewModel(
                 cancel()
             }
         }
+    }
+
+    suspend fun updateUserLanguage(language: ForoomLanguage) {
+        userDataStore.saveUserLanguage(language.langName)
+    }
+
+    suspend fun getUserLanguage() = userDataStore.getUserLanguage()?.let { language ->
+        ForoomLanguage.fromName(language)
     }
 }

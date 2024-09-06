@@ -14,6 +14,7 @@ import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAdapter
 import com.example.navigation.guest.ForoomNavigationArgumentsHolder
 import com.example.navigation.guest.navArgs
+import com.example.navigation.guest.requireNavArgs
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.isError
 import com.example.shared.extension.onClick
@@ -31,7 +32,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     override val inflate: (LayoutInflater, ViewGroup?, Boolean) -> FragmentForoomChatBinding
         get() = FragmentForoomChatBinding::inflate
     override val viewModel: ForoomChatViewModel by viewModel {
-        parametersOf(navArgs.id)
+        parametersOf(requireNavArgs.id)
     }
 
     private val messagesAdapter by lazy {
@@ -88,9 +89,9 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         initMessagesRecyclerView()
 
         with(binding.chatHeaderView) {
-            setChatTitle(navArgs.name)
-            setAuthorName(navArgs.creatorUsername)
-            setChatImageUrl(navArgs.emojiUrl)
+            setChatTitle(requireNavArgs.name)
+            setAuthorName(requireNavArgs.creatorUsername)
+            setChatImageUrl(requireNavArgs.emojiUrl)
         }
 
         binding.closeButton.onClick {

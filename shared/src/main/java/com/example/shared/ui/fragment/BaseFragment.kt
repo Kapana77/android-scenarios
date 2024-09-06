@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.util.events.ForoomEventsHubHolder
+import com.example.shared.util.language_change.AppLanguageDelegate
 import com.example.shared.util.loading.GlobalLoadingDelegate
 
 abstract class BaseFragment<VM : BaseViewModel, T : ViewBinding> : Fragment() {
@@ -21,6 +22,7 @@ abstract class BaseFragment<VM : BaseViewModel, T : ViewBinding> : Fragment() {
 
     protected val globalLoadingDelegate get() = activity as? GlobalLoadingDelegate
     protected val eventsHub get() = (activity as? ForoomEventsHubHolder)?.eventsHub
+    protected val appLanguageDelegate get() = activity as? AppLanguageDelegate
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -52,14 +52,6 @@ class ForoomLoginViewModel(
         }
     }
 
-    suspend fun updateUserLanguage(language: ForoomLanguage) {
-        userDataStore.saveUserLanguage(language.langName)
-    }
-
-    suspend fun getUserLanguage() = userDataStore.getUserLanguage()?.let { language ->
-        ForoomLanguage.fromName(language)
-    }
-
     companion object {
         private const val EMPTY_STRING = ""
     }
