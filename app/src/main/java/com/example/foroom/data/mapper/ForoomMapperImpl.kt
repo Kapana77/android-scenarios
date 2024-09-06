@@ -59,7 +59,7 @@ class ForoomMapperImpl : ForoomMapper {
 
     override fun mapToChat(chatEntity: ChatEntity): Chat {
         return with(chatEntity) {
-            Chat(name, emojiUrl, creatorUsername, likeCount, id, isFavorite)
+            Chat(name, emojiUrl, creatorUsername, likeCount, id, isFavorite, createdByCurrentUser)
         }
     }
 

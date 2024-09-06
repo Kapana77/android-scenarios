@@ -5,6 +5,7 @@ import com.example.foroom.domain.usecase.ChangeUserAvatarUseCase
 import com.example.foroom.domain.usecase.ChangeUsernameUseCase
 import com.example.foroom.domain.usecase.CreateChatUseCase
 import com.example.foroom.domain.usecase.ChangeChatIsFavoriteUseCase
+import com.example.foroom.domain.usecase.DeleteChatUseCase
 import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.domain.usecase.GetCurrentUserUseCase
@@ -71,5 +72,9 @@ val domainModule = module {
 
     single {
         ChangeChatIsFavoriteUseCase(get())
+    }
+
+    single {
+        DeleteChatUseCase(get())
     }
 }

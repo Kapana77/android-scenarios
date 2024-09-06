@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.foroom.domain.model.Chat
 import com.example.foroom.domain.model.response.ChatsResponse
 import com.example.foroom.domain.usecase.ChangeChatIsFavoriteUseCase
+import com.example.foroom.domain.usecase.DeleteChatUseCase
 import com.example.foroom.domain.usecase.GetChatsUseCase
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.network.rest_client.networkExecutor
@@ -15,7 +16,8 @@ import org.koin.core.component.get
 
 class ForoomHomeChatsViewModel(
     private val getChatsUseCase: GetChatsUseCase,
-    private val changeChatIsFavoriteUseCase: ChangeChatIsFavoriteUseCase
+    private val changeChatIsFavoriteUseCase: ChangeChatIsFavoriteUseCase,
+    private val deleteChatUseCase: DeleteChatUseCase
 ) : BaseViewModel() {
     private val _chatsLiveData = MutableLiveData<Result<List<ChatUI>>>()
     val chatsLiveData: LiveData<Result<List<ChatUI>>> get() = _chatsLiveData
@@ -90,6 +92,19 @@ class ForoomHomeChatsViewModel(
         }
     }
 
+    fun deleteChat(chatUI: ChatUI) {
+        networkExecutor {
+            execute { deleteChatUseCase(chatUI.id) }
+
+            success {
+                val updatedChats = updateRemovedChat(chatUI)
+
+                paginationHelper.setItems(updatedChats)
+                _chatsLiveData.postValue(Result.Success(updatedChats))
+            }
+        }
+    }
+
     private fun updateFavoriteInChats(chat: ChatUI): MutableList<ChatUI> {
         val chats = paginationHelper.getItems().toMutableList()
 
@@ -103,13 +118,21 @@ class ForoomHomeChatsViewModel(
         return chats
     }
 
+    private fun updateRemovedChat(chat: ChatUI): MutableList<ChatUI> {
+        val chats = paginationHelper.getItems().toMutableList()
+
+        chats.remove(chat)
+
+        return chats
+    }
+
     private fun onSearchConfigurationChange() {
         getChats(RequestCode.RC_INIT)
     }
 
     private fun mapToChatUI(chats: List<Chat>) = chats.map { chat ->
         with(chat) {
-            ChatUI(id, name, emojiUrl, creatorUsername, likeCount, isFavorite)
+            ChatUI(id, name, emojiUrl, creatorUsername, likeCount, isFavorite, createdByCurrentUser)
         }
     }
 

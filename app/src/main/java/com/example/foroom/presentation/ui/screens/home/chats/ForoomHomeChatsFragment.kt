@@ -39,6 +39,10 @@ class ForoomHomeChatsFragment :
             onFavoriteButtonClicked = { chat ->
                 viewModel.changeChatFavorite(chat)
             }
+
+            onRemoveButtonClicked = { chat ->
+                viewModel.deleteChat(chat)
+            }
         }
     }
 

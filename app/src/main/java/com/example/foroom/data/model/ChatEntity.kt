@@ -6,5 +6,6 @@ data class ChatEntity(
     val creatorUsername: String,
     val likeCount: Int,
     val id: Int,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val createdByCurrentUser: Boolean
 )

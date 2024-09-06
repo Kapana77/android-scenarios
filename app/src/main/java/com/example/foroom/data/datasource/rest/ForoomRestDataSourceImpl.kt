@@ -82,4 +82,8 @@ class ForoomRestDataSourceImpl(
     override suspend fun unfavoriteChat(id: Int) {
         foroomApi.unfavoriteChat(id)
     }
+
+    override suspend fun deleteChat(id: Int) {
+        foroomApi.deleteChat(id)
+    }
 }

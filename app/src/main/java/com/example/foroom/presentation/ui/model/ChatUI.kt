@@ -10,5 +10,6 @@ data class ChatUI(
     val emojiUrl: String,
     val creatorUsername: String,
     val likeCount: Int,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val createdByCurrentUser: Boolean
 ): Parcelable

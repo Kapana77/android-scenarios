@@ -48,4 +48,6 @@ interface ForoomRestDataSource {
     suspend fun favoriteChat(id: Int)
 
     suspend fun unfavoriteChat(id: Int)
+
+    suspend fun deleteChat(id: Int)
 }

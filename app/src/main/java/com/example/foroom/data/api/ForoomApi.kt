@@ -12,6 +12,7 @@ import com.example.foroom.data.model.response.ChatsResponseEntity
 import com.example.foroom.data.model.response.MessageHistoryResponseEntity
 import com.example.network.model.response.UserTokenResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -65,4 +66,7 @@ interface ForoomApi {
 
     @PUT("chats/{id}/unfavorite")
     suspend fun unfavoriteChat(@Path("id") id: Int)
+
+    @DELETE("chats/{id}")
+    suspend fun deleteChat(@Path("id") id: Int)
 }

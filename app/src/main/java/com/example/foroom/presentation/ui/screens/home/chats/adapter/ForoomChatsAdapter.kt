@@ -11,7 +11,8 @@ class ForoomChatsAdapter(
     onLoadMore: () -> Unit
 ) : ForoomLoadingListAdapter<ChatUI>(onLoadMore) {
     var onSendButtonClicked: (ChatUI) -> Unit = {}
-    var onFavoriteButtonClicked: (ChatUI)-> Unit = {}
+    var onFavoriteButtonClicked: (ChatUI) -> Unit = {}
+    var onRemoveButtonClicked: (ChatUI)-> Unit = {}
 
     override fun onCreateDataItemViewHolder(
         parent: ViewGroup, viewType: Int
@@ -41,7 +42,7 @@ class ForoomChatsAdapter(
                 }
 
                 onRemoveButtonClick = {
-
+                    onRemoveButtonClicked(getChatItem())
                 }
             }
         }
@@ -56,8 +57,10 @@ class ForoomChatsAdapter(
                 setChatTitle(item.name)
                 setAuthorName(item.creatorUsername)
                 setImageUrl(item.emojiUrl)
-                hideRemoveButton()
                 setIsFavorite(item.isFavorite)
+
+                if (item.createdByCurrentUser) showRemoveButton() else hideRemoveButton()
+
                 rotation = angle
             }
         }
