@@ -89,6 +89,16 @@
             android:paddingVertical="16dp"/>
 
         <com.example.design_system.components.list.ForoomListItem
+            android:id="@+id/changeLanguageItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageEnd="@drawable/ic_chevron_right"
+            app:imageStart="@drawable/ic_language"
+            android:paddingVertical="16dp"
+            app:hasBottomDivider="true"
+            app:title="@string/profile_change_language"/>
+
+        <com.example.design_system.components.list.ForoomListItem
             android:id="@+id/signOutItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

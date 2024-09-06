@@ -8,6 +8,7 @@ import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheet
 import com.example.design_system.components.input.Input
 import com.example.foroom.R
 import com.example.foroom.databinding.LayoutChangePasswordBottomSheetBinding
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_language.ForoomChangeLanguageViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.foroom.presentation.ui.util.validator.BlankInputValidation
 import com.example.network.ifHttpError
@@ -18,11 +19,11 @@ import com.example.shared.extension.orEmpty
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ForoomChangePasswordBottomSheet :
-    ForoomActionBottomSheetFragment<ForoomChangePasswordViewModel, LayoutChangePasswordBottomSheetBinding>() {
+    ForoomActionBottomSheetFragment<ForoomChangeLanguageViewModel, LayoutChangePasswordBottomSheetBinding>() {
 
     override val inflateContent: (LayoutInflater, ViewGroup?, Boolean) -> LayoutChangePasswordBottomSheetBinding =
         LayoutChangePasswordBottomSheetBinding::inflate
-    override val viewModel: ForoomChangePasswordViewModel by viewModel()
+    override val viewModel: ForoomChangeLanguageViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

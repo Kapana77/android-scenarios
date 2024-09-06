@@ -36,7 +36,11 @@
     <string name="profile_favourite_chats">Favourite Chats</string>
     <string name="profile_change_username">Change Username</string>
     <string name="profile_change_password">Change Password</string>
+    <string name="profile_change_language">Change Language</string>
     <string name="profile_sign_out">Sign Out</string>
+
+    <string name="profile_change_language_georgian">Georgian</string>
+    <string name="profile_change_language_english">English</string>
 
     // action sheets
     <string name="change_username_new_username">New Username</string>

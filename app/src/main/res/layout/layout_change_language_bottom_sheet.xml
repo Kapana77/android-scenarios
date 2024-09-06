@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.example.design_system.components.button.SecondaryButton
+        android:id="@+id/languageButtonGeo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@mipmap/ic_flag_geo"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_change_language_georgian" />
+
+    <com.example.design_system.components.button.SecondaryButton
+        android:id="@+id/languageButtonEng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawableStart="@mipmap/ic_flag_uk"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_change_language_english" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

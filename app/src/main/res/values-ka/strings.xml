@@ -33,7 +33,11 @@
     <string name="profile_favourite_chats">ფავორიტი ჩატები</string>
     <string name="profile_change_username">სახელის შეცვლა</string>
     <string name="profile_change_password">პაროლის შეცვლა</string>
+    <string name="profile_change_language">ენის შეცვლა</string>
     <string name="profile_sign_out">გამოსვლა</string>
+
+    <string name="profile_change_language_georgian">ქართული</string>
+    <string name="profile_change_language_english">ინგლისური</string>
 
     // action sheets
     <string name="change_username_new_username">ახალი სახელი</string>

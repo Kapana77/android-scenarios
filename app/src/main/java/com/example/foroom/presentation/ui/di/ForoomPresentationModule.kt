@@ -12,7 +12,7 @@ import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsView
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerViewModel
 import com.example.foroom.presentation.ui.screens.create_chat.ForoomCreateChatViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.ForoomProfileViewModel
-import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_password.ForoomChangePasswordViewModel
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_language.ForoomChangeLanguageViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_profile_picture.ForoomChangeProfilePictureViewModel
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_username.ForoomChangeUsernameViewModel
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginViewModel
@@ -75,6 +75,6 @@ val homeModule = module {
 
     // bottom sheets
     viewModelOf(::ForoomChangeUsernameViewModel)
-    viewModelOf(::ForoomChangePasswordViewModel)
+    viewModelOf(::ForoomChangeLanguageViewModel)
     viewModelOf(::ForoomChangeProfilePictureViewModel)
 }

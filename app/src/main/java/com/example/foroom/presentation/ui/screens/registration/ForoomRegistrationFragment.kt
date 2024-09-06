@@ -27,10 +27,12 @@ import com.example.shared.extension.makeTextClickable
 import com.example.shared.extension.onClick
 import com.example.shared.extension.orEmpty
 import com.example.shared.extension.toast
+import com.example.shared.model.ForoomLanguage
 import com.example.shared.model.Image
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.util.language_change.LanguageChangePoint
 import com.example.shared.util.loading.isLoading
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -57,9 +59,9 @@ class ForoomRegistrationFragment :
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                appLanguageDelegate?.getAppLanguage()?.let { language ->
-                    binding.languageSelector.selectLanguage(language)
-                }
+                val language = appLanguageDelegate?.getAppLanguage() ?: ForoomLanguage.KA
+                binding.languageSelector.selectLanguage(language)
+                cancel()
             }
         }
     }

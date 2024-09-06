@@ -9,6 +9,7 @@ import com.example.foroom.databinding.FragmentForoomProfileBinding
 import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType
+import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_language.ForoomChangeLanguageBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_password.ForoomChangePasswordBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_profile_picture.ForoomChangeProfilePictureBottomSheet
 import com.example.foroom.presentation.ui.screens.home.profile.bottom_sheets.change_username.ForoomChangeUsernameBottomSheet
@@ -59,6 +60,10 @@ class ForoomProfileFragment : BaseFragment<ForoomProfileViewModel, FragmentForoo
 
         binding.changePasswordItem.onClick {
             ForoomChangePasswordBottomSheet().show(childFragmentManager, null)
+        }
+
+        binding.changeLanguageItem.onClick {
+            ForoomChangeLanguageBottomSheet().show(childFragmentManager, null)
         }
 
         binding.signOutItem.onClick {

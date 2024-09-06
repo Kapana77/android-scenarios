@@ -54,8 +54,6 @@ class ForoomLanguageChooserView @JvmOverloads constructor(
                 }
             }
         }
-
-        selectLanguage(selectedIndex)
     }
 
     fun selectLanguage(language: ForoomLanguage) {

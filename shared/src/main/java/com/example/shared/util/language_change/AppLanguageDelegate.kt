@@ -11,7 +11,7 @@ interface AppLanguageDelegate {
 enum class LanguageChangePoint(val value: Int) {
     LOG_IN(1),
     REGISTRATION(2),
-    SETTINGS(3);
+    POFILE(3);
 
     companion object {
         fun fromValue(value: Int) = entries.find { point -> point.value == value }

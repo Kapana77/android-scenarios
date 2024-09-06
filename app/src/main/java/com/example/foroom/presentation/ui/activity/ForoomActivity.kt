@@ -13,7 +13,6 @@ import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeConta
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
 import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationFragment
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
-import com.example.navigation.guest.setNavArgs
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.hasBackStack
 import com.example.navigation.host.openNextPage
@@ -130,14 +129,17 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
         val targetPage = when (languageChangeRecreatePoint) {
             LanguageChangePoint.LOG_IN, null -> ForoomLoginFragment()
             LanguageChangePoint.REGISTRATION -> ForoomRegistrationFragment()
-            LanguageChangePoint.SETTINGS -> ForoomHomeContainerFragment().apply {
-                setNavArgs(ForoomHomeContainerInitialScreenIndex(ForoomHomeContainerFragment.PAGE_INDEX_SETTINGS))
-            }
+            LanguageChangePoint.POFILE -> ForoomHomeContainerFragment()
         }
 
         val previousScreensAvailable = hasBackStack()
         popBackStack()
-        openNextPage(targetPage, addToBackStack = previousScreensAvailable, animate = false)
+        openNextPage(
+            targetPage,
+            addToBackStack = previousScreensAvailable,
+            animate = false,
+            args = ForoomHomeContainerInitialScreenIndex(ForoomHomeContainerFragment.PAGE_INDEX_PROFILE)
+        )
     }
 
     private fun globalLoadingVisible(visible: Boolean) {

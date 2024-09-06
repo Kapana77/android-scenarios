@@ -10,6 +10,7 @@ import com.example.design_system.databinding.LayoutForoomActionBottomSheetBindin
 import com.example.shared.extension.onClick
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.util.events.ForoomEventsHubHolder
+import com.example.shared.util.language_change.AppLanguageDelegate
 import com.example.shared.util.loading.GlobalLoadingDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -22,8 +23,8 @@ abstract class ForoomActionBottomSheetFragment<VM : BaseViewModel, T : ViewBindi
     protected val binding get() = _binding!!
 
     protected val globalLoadingDelegate get() = activity as? GlobalLoadingDelegate
-
     protected val eventsHub get() = (activity as? ForoomEventsHubHolder)?.eventsHub
+    protected val appLanguageDelegate get() = activity as? AppLanguageDelegate
 
     private var baseBinding: LayoutForoomActionBottomSheetBinding? = null
 

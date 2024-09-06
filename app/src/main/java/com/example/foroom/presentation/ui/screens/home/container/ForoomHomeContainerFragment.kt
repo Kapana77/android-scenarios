@@ -97,7 +97,7 @@ class ForoomHomeContainerFragment :
 
     companion object {
         const val PAGE_INDEX_CHATS = 0
-        const val PAGE_INDEX_SETTINGS = 2
+        const val PAGE_INDEX_PROFILE = 2
     }
 }
 

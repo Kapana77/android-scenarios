@@ -24,6 +24,12 @@
         <item name="android:textColor">@color/foroom_white</item>
     </style>
 
+    <style name="jostText2Medium">
+        <item name="font">@font/jost_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/foroom_white</item>
+    </style>
+
     <style name="jostSmallTextRegular">
         <item name="font">@font/jost_regular</item>
         <item name="android:textSize">12sp</item>
