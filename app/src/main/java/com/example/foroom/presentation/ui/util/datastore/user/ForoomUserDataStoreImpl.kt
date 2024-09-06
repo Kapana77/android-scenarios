@@ -17,7 +17,7 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
     private val avatarUrlKey = stringPreferencesKey(AVATAR_URL_PREFERENCES_KEY)
     private val userIdKey = stringPreferencesKey(USER_ID_PREFERENCES_KEY)
     private val userTokenKey = stringPreferencesKey(USER_TOKEN_PREFERENCES_KEY)
-    private val userLocaleKey = stringPreferencesKey(USER_LOCALE_PREFERENCES_KEY)
+    private val userLanguageKey = stringPreferencesKey(USER_LANGUAGE_PREFERENCES_KEY)
 
     override suspend fun saveUser(user: User) {
         context.dataStore.edit { prefs ->
@@ -49,15 +49,15 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
         data[userTokenKey]!!
     }
 
-    override suspend fun saveUserLocale(locale: String) {
+    override suspend fun saveUserLanguage(language: String) {
         context.dataStore.edit { prefs ->
-            prefs[userLocaleKey] = locale
+            prefs[userLanguageKey] = language
         }
     }
 
-    override suspend fun getUserLocale(): String? {
+    override suspend fun getUserLanguage(): String? {
         return context.dataStore.data.map { data ->
-            data[userLocaleKey]
+            data[userLanguageKey]
         }.first()
     }
 
@@ -73,6 +73,6 @@ class ForoomUserDataStoreImpl(private val context: Context) : ForoomUserDataStor
         private const val AVATAR_URL_PREFERENCES_KEY = "avatarUrl"
         private const val USER_ID_PREFERENCES_KEY = "userId"
         private const val USER_TOKEN_PREFERENCES_KEY = "userToken"
-        private const val USER_LOCALE_PREFERENCES_KEY = "userLocale"
+        private const val USER_LANGUAGE_PREFERENCES_KEY = "userLanguage"
     }
 }

@@ -10,10 +10,10 @@ import com.example.foroom.databinding.ActivityForoomBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
-import com.example.foroom.presentation.ui.util.locale_manager.ForoomLocaleManager
 import com.example.navigation.host.ForoomNavigationHost
 import com.example.navigation.host.openNextPage
 import com.example.shared.extension.handleResult
+import com.example.shared.model.ForoomLanguage
 import com.example.shared.ui.activity.BaseActivity
 import com.example.shared.util.events.ForoomEventsHub
 import com.example.shared.util.events.ForoomEventsHubHolder
@@ -38,12 +38,12 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
     }
 
     override fun attachBaseContext(base: Context?) {
-        val savedLocale = runBlocking { userDataStore.getUserLocale() }
+        val savedLocale = runBlocking { userDataStore.getUserLanguage() }
 
         super.attachBaseContext(
-            ForoomLocaleManager.wrapContext(
+            wrapContext(
                 base,
-                savedLocale ?: ForoomLocaleManager.ForoomLocale.GE.code
+                savedLocale ?: ForoomLanguage.KA.langName
             )
         )
     }
@@ -70,12 +70,12 @@ class ForoomActivity : ForoomNavigationHost, GlobalLoadingDelegate, ForoomEvents
             splashScreen.setKeepOnScreenCondition { true }
 
             onSuccess {
-                openNextPage(ForoomHomeContainerFragment(), false)
+                openNextPage(ForoomHomeContainerFragment(), false, animate = false)
                 splashScreen.setKeepOnScreenCondition { false }
             }
 
             onError {
-                openNextPage(ForoomLoginFragment(), false)
+                openNextPage(ForoomLoginFragment(), false, animate = false)
                 splashScreen.setKeepOnScreenCondition { false }
             }
         }

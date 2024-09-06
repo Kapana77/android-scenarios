@@ -4,9 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/foroom_background_primary"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="24dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.example.design_system.components.language_chooser.ForoomLanguageChooserView
+            android:id="@+id/languageSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            app:languages="ka, en" />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
@@ -43,4 +56,9 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
         app:buttonType="dark_gray" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

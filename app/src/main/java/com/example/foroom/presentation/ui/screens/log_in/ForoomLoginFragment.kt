@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import com.example.design_system.components.input.Input
 import com.example.foroom.databinding.FragmentForoomLogInBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
@@ -23,6 +24,7 @@ import com.example.shared.extension.orEmpty
 import com.example.shared.extension.toast
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.util.loading.isLoading
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -41,6 +43,12 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
 
     private fun initViews() {
         initInputs()
+
+        lifecycleScope.launch {
+            viewModel.getUserLanguage()?.let { language ->
+                binding.languageSelector.selectLanguage(language)
+            }
+        }
     }
 
     private fun setListeners() {
@@ -53,6 +61,13 @@ class ForoomLoginFragment: BaseFragment<ForoomLoginViewModel, FragmentForoomLogI
             val passwordValid = binding.passwordInput.validate()
 
             if (userNameValid && passwordValid) viewModel.logIn()
+        }
+
+        binding.languageSelector.onLanguageSelected = { language ->
+            lifecycleScope.launch {
+                viewModel.updateUserLanguage(language)
+                activity?.recreate()
+            }
         }
     }
 

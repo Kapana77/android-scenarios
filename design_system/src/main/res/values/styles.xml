@@ -22,8 +22,8 @@
         <attr name="description" format="string" />
         <attr name="hint" format="string" />
         <attr name="android:inputType" />
-        <attr name="inputPaddingStart" format="dimension"/>
-        <attr name="inputPaddingEnd" format="dimension"/>
+        <attr name="inputPaddingStart" format="dimension" />
+        <attr name="inputPaddingEnd" format="dimension" />
         <attr name="descriptionType" format="enum">
             <enum name="info" value="1" />
             <enum name="error" value="2" />
@@ -43,9 +43,13 @@
     </declare-styleable>
 
     <declare-styleable name="ForoomListItem">
-        <attr name="imageStart" format="reference"/>
-        <attr name="title" format="string"/>
-        <attr name="imageEnd" format="reference"/>
-        <attr name="hasBottomDivider" format="boolean"/>
+        <attr name="imageStart" format="reference" />
+        <attr name="title" format="string" />
+        <attr name="imageEnd" format="reference" />
+        <attr name="hasBottomDivider" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ForoomLanguageChooserView">
+        <attr name="languages" format="string" />
     </declare-styleable>
 </resources>
