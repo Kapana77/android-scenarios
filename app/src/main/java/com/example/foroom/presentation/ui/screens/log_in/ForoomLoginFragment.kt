@@ -1,7 +1,6 @@
 package com.example.foroom.presentation.ui.screens.log_in
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,10 +88,6 @@ class ForoomLoginFragment : BaseFragment<ForoomLoginViewModel, FragmentForoomLog
         viewModel.getAndSaveUserResultLiveData.handleResult(viewLifecycleOwner) {
             onSuccess {
                 navigationHost?.openNextPage(ForoomHomeContainerFragment(), popBackStack = true)
-            }
-
-            onError {
-                Log.d("logkata", "aeeee" + it.message.toString())
             }
         }
     }

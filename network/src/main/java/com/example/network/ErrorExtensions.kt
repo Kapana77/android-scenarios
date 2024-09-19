@@ -12,7 +12,9 @@ inline fun <reified ERROR> Exception.ifHttpError(block: (Int, ERROR) -> Unit): B
             return false
         }
 
-        block(code(), errorObject)
+        if (errorObject != null) block(code(), errorObject)
+
+        return errorObject != null
     }
 
     return false

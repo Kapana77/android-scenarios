@@ -1,11 +1,9 @@
 package com.example.foroom.presentation.ui.screens.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.example.design_system.R
@@ -13,12 +11,13 @@ import com.example.foroom.databinding.FragmentForoomChatBinding
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAdapter
 import com.example.navigation.guest.ForoomNavigationArgumentsHolder
-import com.example.navigation.guest.navArgs
 import com.example.navigation.guest.requireNavArgs
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.isError
 import com.example.shared.extension.onClick
 import com.example.shared.extension.onGlobalLayout
+import com.example.shared.extension.resetSoftInputMode
+import com.example.shared.extension.setSoftInputModeResize
 import com.example.shared.ui.fragment.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -70,6 +69,12 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
         viewModel.disConnect()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        resetSoftInputMode()
+    }
+
     private fun observeConnection() {
         viewModel.connectionLiveData.observe(viewLifecycleOwner) { result ->
             if (result.isError) navigationHost?.goBack()
@@ -86,6 +91,8 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     }
 
     private fun initViews() {
+        setSoftInputModeResize()
+
         initMessagesRecyclerView()
 
         with(binding.chatHeaderView) {

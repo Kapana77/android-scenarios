@@ -47,6 +47,10 @@ class ForoomChatCardView @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
+        post { setRotationalVerticalMargins() }
+    }
+
+    private fun setRotationalVerticalMargins() {
         if (calculatedRotationMargin || height == 0 || width == 0) return
 
         val negativeRotation = -abs(rotation)

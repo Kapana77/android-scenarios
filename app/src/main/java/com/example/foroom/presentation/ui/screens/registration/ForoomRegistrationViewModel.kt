@@ -9,10 +9,9 @@ import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.RegisterUserUseCase
 import com.example.foroom.presentation.ui.delegate.saveuser.GetAndSaveUserDelegate
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
-import com.example.network.auth.UserTokenRuntimeHolder
+import com.example.shared.util.runtime.user_token.UserTokenRuntimeHolder
 import com.example.network.model.response.UserTokenResponse
 import com.example.network.rest_client.networkExecutor
-import com.example.shared.model.ForoomLanguage
 import com.example.shared.model.Image
 import com.example.shared.model.Result
 import com.example.shared.ui.viewModel.BaseViewModel

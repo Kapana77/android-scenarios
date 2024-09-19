@@ -1,4 +1,4 @@
-package com.example.network.auth
+package com.example.shared.util.runtime.user_token
 
 class UserTokenRuntimeHolderImpl: UserTokenRuntimeHolder {
     private var userToken: String? = null
