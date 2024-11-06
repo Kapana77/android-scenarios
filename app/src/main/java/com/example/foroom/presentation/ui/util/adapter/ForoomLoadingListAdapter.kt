@@ -35,9 +35,10 @@ abstract class ForoomLoadingListAdapter<T : Any>(
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = WeakReference(recyclerView)
-        recyclerView.addOnScrollListener(RecyclerViewEndReachListener(endReachType) {
-            if (!isErrorState && currentList.size > EMPTY_LIST_SIZE) onLoadMore()
-        })
+        // todo research if we need this
+//        recyclerView.addOnScrollListener(RecyclerViewEndReachListener(endReachType) {
+//            if (!isErrorState && currentList.size > EMPTY_LIST_SIZE) onLoadMore()
+//        })
     }
 
     final override fun getItemViewType(position: Int): Int {
@@ -50,7 +51,11 @@ abstract class ForoomLoadingListAdapter<T : Any>(
 
     override fun onBindViewHolder(holder: LoadingListDataViewHolder<T>, position: Int) {
         val item = getItem(position)
-        (item as? LoadingListItemType.DataItem<T>)?.let { holder.onBind(it.data, position) }
+        (item as? LoadingListItemType.DataItem<T>)?.let {
+            holder.onBind(it.data, position)
+        }
+
+        if (item is LoadingListItemType.LoadingItem) onLoadMore()
     }
 
     /**

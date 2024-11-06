@@ -34,7 +34,7 @@ class ForoomChatViewModel(
     private val _connectionLiveData = MutableLiveData<Result<Unit>>()
     val connectionLiveData: LiveData<Result<Unit>> get() = _connectionLiveData
 
-    var hasMoreMessages = true
+    var hasMoreMessages = false
 
     fun connect() {
         viewModelScope.launch {

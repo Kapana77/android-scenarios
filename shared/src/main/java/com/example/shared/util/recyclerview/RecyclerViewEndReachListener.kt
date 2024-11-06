@@ -2,6 +2,7 @@ package com.example.shared.util.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
 
+// todo research if we need this
 class RecyclerViewEndReachListener(
     private val type: Type,
     private val onBottomReach: () -> Unit
