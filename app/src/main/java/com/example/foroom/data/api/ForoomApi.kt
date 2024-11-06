@@ -20,16 +20,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ForoomApi {
-    @GET("/users/currentUser")
+    @GET("api/users/currentUser")
     suspend fun getCurrentUser(): UserEntity
 
-    @POST("/users/register")
+    @POST("api/users/register")
     suspend fun registerUser(@Body request: RegistrationRequestEntity): UserTokenResponse
 
-    @POST("/users/signin")
+    @POST("api/users/signin")
     suspend fun logInUser(@Body request: LogInRequestEntity): UserTokenResponse
 
-    @GET("/chats")
+    @GET("api/chats")
     suspend fun getChats(
         @Query("page") page: Int,
         @Query("limit") limit: Int,
@@ -39,34 +39,34 @@ interface ForoomApi {
         @Query("favorite") favorite: Boolean = false
     ): ChatsResponseEntity
 
-    @GET("/messages")
+    @GET("api/messages")
     suspend fun getMessageHistory(
         @Query("chatId") chatId: Int,
         @Query("page") page: Int,
         @Query("limit") limit: Int,
     ): MessageHistoryResponseEntity
 
-    @POST("/chats")
+    @POST("api/chats")
     suspend fun createChat(@Body request: CreateChatRequest): ChatEntity
 
-    @PUT("/Users/ChangeAvatar")
+    @PUT("api/Users/ChangeAvatar")
     suspend fun changeAvatar(@Body request: ChangeUserAvatarRequest)
 
-    @PUT("/Users/ChangeUsername")
+    @PUT("api/Users/ChangeUsername")
     suspend fun changeUsername(@Body request: ChangeUsernameRequest)
 
-    @PUT("/Users/ResetPassword")
+    @PUT("api/Users/ResetPassword")
     suspend fun changePassword(@Body request: ChangePasswordRequest)
 
-    @POST("Users/SignOut")
+    @POST("api/Users/SignOut")
     suspend fun signOut()
 
-    @PUT("chats/{id}/favorite")
+    @PUT("api/chats/{id}/favorite")
     suspend fun favoriteChat(@Path("id") id: Int)
 
-    @PUT("chats/{id}/unfavorite")
+    @PUT("api/chats/{id}/unfavorite")
     suspend fun unfavoriteChat(@Path("id") id: Int)
 
-    @DELETE("chats/{id}")
+    @DELETE("api/chats/{id}")
     suspend fun deleteChat(@Path("id") id: Int)
 }

@@ -20,11 +20,11 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://89.168.75.214/\"")
+            buildConfigField("String", "BASE_URL", "\"https://foroom.alternator.cc/\"")
         }
 
         release {
-            buildConfigField("String", "BASE_URL", "\"http://89.168.75.214/\"")
+            buildConfigField("String", "BASE_URL", "\"https://foroom.alternator.cc/\"")
             
             isMinifyEnabled = false
             proguardFiles(

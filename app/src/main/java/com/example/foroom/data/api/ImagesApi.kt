@@ -5,10 +5,10 @@ import retrofit2.http.GET
 
 interface ImagesApi {
 
-    @GET("avatars")
+    @GET("api/avatars")
     suspend fun getAvatars(): List<Image>
 
-    @GET("emojis")
+    @GET("api/emojis")
     suspend fun getEmojis(): List<Image>
 
 }
