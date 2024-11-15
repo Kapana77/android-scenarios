@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:backgroundTint="@color/foroom_layer_background"
+    android:background="@drawable/background_rounded_16dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/messageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:textAppearance="@style/jostText2Medium"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/foroom_white_faded_tr_20" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/closeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/general_close"
+        android:textAlignment="center"
+        android:textColor="@color/foroom_white"
+        android:paddingVertical="12dp"
+        android:textAppearance="@style/jostText2Regular"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

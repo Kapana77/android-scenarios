@@ -42,4 +42,8 @@
     // action sheets
     <string name="change_username_new_username">ახალი სახელი</string>
     <string name="change_password_new_password">ახალი პაროლი</string>
+
+    // chat
+    <string name="error_could_not_connect_to_chat">ჩატთან დაკავშირება ვერ მოხერხდა, გთხოვთ შეამოწმოთ ინტერნეტთან კავშირი.</string>
+
 </resources>

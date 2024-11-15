@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_error_message">დაფიქსირდა შეცდომა, მონაცემები ვერ ჩაიტვირთა</string>
+    <string name="general_error_reload">გადატვირთვა</string>
+    <string name="general_close">დახურვა</string>
+</resources>

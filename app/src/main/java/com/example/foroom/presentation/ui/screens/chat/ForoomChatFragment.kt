@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
-import com.example.design_system.R
+import com.example.foroom.R
+import com.example.design_system.components.dialog.ForoomMessageDialog
 import com.example.foroom.databinding.FragmentForoomChatBinding
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAdapter
@@ -77,7 +78,14 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
 
     private fun observeConnection() {
         viewModel.connectionLiveData.observe(viewLifecycleOwner) { result ->
-            if (result.isError) navigationHost?.goBack()
+            if (result.isError) {
+                ForoomMessageDialog.showMessage(
+                    requireContext(),
+                    getString(R.string.error_could_not_connect_to_chat)
+                ) {
+                    navigationHost?.goBack()
+                }
+            }
         }
     }
 
@@ -120,7 +128,7 @@ class ForoomChatFragment : BaseFragment<ForoomChatViewModel, FragmentForoomChatB
     private fun initMessagesRecyclerView() {
         binding.chatHeaderView.onGlobalLayout {
             binding.messagesRecyclerView.updatePadding(
-                top = bottom + resources.getDimensionPixelSize(R.dimen.spacing_16)
+                top = bottom + resources.getDimensionPixelSize(com.example.design_system.R.dimen.spacing_16)
             )
 
             binding.messagesRecyclerView.adapter = messagesAdapter

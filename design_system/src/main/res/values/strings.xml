@@ -2,4 +2,5 @@
 <resources>
     <string name="general_error_message">Error occurred, could not load data</string>
     <string name="general_error_reload">Reload</string>
+    <string name="general_close">Close</string>
 </resources>
