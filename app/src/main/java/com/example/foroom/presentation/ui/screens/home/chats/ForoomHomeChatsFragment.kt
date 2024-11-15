@@ -13,6 +13,7 @@ import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeCh
 import com.example.navigation.host.openNextPage
 import com.example.navigation.util.navigationHost
 import com.example.shared.extension.handleResult
+import com.example.shared.extension.onClick
 import com.example.shared.ui.fragment.BaseFragment
 import com.example.shared.ui.viewModel.BaseViewModel
 import com.example.shared.util.events.observeEvent
@@ -74,6 +75,10 @@ class ForoomHomeChatsFragment :
 
         binding.searchChatInput.input.editText.addTextChangedListener { text ->
             viewModel.filterSearchByName(text?.toString())
+        }
+
+        binding.reloadButton.onClick {
+            viewModel.getChats(BaseViewModel.RequestCode.RC_INIT)
         }
     }
 

@@ -1,8 +1,6 @@
 package com.example.design_system.components.button
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import androidx.appcompat.content.res.AppCompatResources
@@ -10,7 +8,6 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.design_system.R
 import com.example.shared.extension.dpToPx
 import com.example.shared.extension.getDrawableFromAttribute
-import com.google.android.material.ripple.RippleDrawableCompat
 
 class PrimaryButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
@@ -37,7 +34,12 @@ class PrimaryButton @JvmOverloads constructor(
         setTextAppearance(R.style.jostText1Regular)
 
         val padding = BUTTON_PADDING.dpToPx(context).toInt()
-        setPadding(ZERO_PADDING, padding, ZERO_PADDING, padding)
+        setPadding(
+            paddingLeft,
+            if (paddingTop != ZERO_PADDING) paddingTop else padding,
+            paddingRight,
+            if (paddingBottom != ZERO_PADDING) paddingBottom else padding
+        )
 
         foreground =
             context.getDrawableFromAttribute(androidx.appcompat.R.attr.selectableItemBackground)

@@ -3,4 +3,6 @@
     <string name="general_error_message">დაფიქსირდა შეცდომა, მონაცემები ვერ ჩაიტვირთა</string>
     <string name="general_error_reload">გადატვირთვა</string>
     <string name="general_close">დახურვა</string>
+    <string name="general_today">დღეს</string>
+    <string name="general_yesterday">გუშინ</string>
 </resources>

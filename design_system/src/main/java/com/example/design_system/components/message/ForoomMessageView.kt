@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.example.design_system.R
 import com.example.design_system.databinding.LayoutForoomMessageBinding
 import com.example.shared.extension.hide
@@ -39,8 +38,13 @@ class ForoomMessageView @JvmOverloads constructor(
 
     fun setUp(message: String, userName: String, messageDate: LocalDateTime?) {
         binding.userNameTextView.text = userName
-        binding.messageDateTextView.text = SmartDateFormatter.formatDate(messageDate)
         binding.messageTextView.text = message
+        binding.messageDateTextView.text = SmartDateFormatter.formatDate(
+            messageDate, SmartDateFormatter.FormatParams(
+                today = context.getString(R.string.general_today),
+                yesterday = context.getString(R.string.general_yesterday)
+            )
+        )
     }
 
     private fun handleTypeChange() {

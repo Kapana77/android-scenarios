@@ -18,6 +18,8 @@
         android:id="@+id/reloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="8dp"
         android:text="@string/general_error_reload"/>
 
 </LinearLayout>

@@ -1,12 +1,9 @@
 package com.example.shared.util.formatter
 
 import android.annotation.SuppressLint
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
-// Do not give a fuck about changing locale in runtime
 @SuppressLint("ConstantLocale")
 object SmartDateFormatter {
     private const val TIME_FORMATTER_PATTERN = "hh:mm"
@@ -15,14 +12,20 @@ object SmartDateFormatter {
     private val timeFormatter = DateTimeFormatter.ofPattern(TIME_FORMATTER_PATTERN)
     private val dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN)
 
-    fun formatDate(date: LocalDateTime?): String {
+    fun formatDate(date: LocalDateTime?, formatParams: FormatParams): String {
         val currentDay = LocalDateTime.now().dayOfMonth
-        val date = date ?: LocalDateTime.now()
+        val messageDate = date ?: LocalDateTime.now()
 
         return when (currentDay) {
-            date.dayOfMonth -> "Today, " + timeFormatter.format(date)
-            date.dayOfMonth - 1 -> "Yesterday, " + timeFormatter.format(date)
-            else -> dateTimeFormatter.format(date)
+            messageDate.dayOfMonth ->
+                "${formatParams.today}, " + timeFormatter.format(messageDate)
+
+            messageDate.dayOfMonth - 1 ->
+                "${formatParams.yesterday}, " + timeFormatter.format(messageDate)
+
+            else -> dateTimeFormatter.format(messageDate)
         }
     }
+
+    data class FormatParams(val today: String, val yesterday: String)
 }

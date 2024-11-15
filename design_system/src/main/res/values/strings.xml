@@ -3,4 +3,6 @@
     <string name="general_error_message">Error occurred, could not load data</string>
     <string name="general_error_reload">Reload</string>
     <string name="general_close">Close</string>
+    <string name="general_today">Today</string>
+    <string name="general_yesterday">Yesterday</string>
 </resources>

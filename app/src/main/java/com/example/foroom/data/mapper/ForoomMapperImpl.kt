@@ -17,6 +17,7 @@ import com.example.foroom.domain.model.User
 import com.example.foroom.domain.model.request.RegistrationRequest
 import com.example.foroom.domain.model.request.SendMessageRequest
 import com.example.foroom.domain.model.response.MessageHistoryResponse
+import com.example.shared.extension.removeTimeZone
 import java.time.LocalDateTime
 
 class ForoomMapperImpl : ForoomMapper {
@@ -68,7 +69,7 @@ class ForoomMapperImpl : ForoomMapper {
             Message(
                 username,
                 avatarUrl,
-                LocalDateTime.now(),
+                LocalDateTime.parse(createdAt.removeTimeZone()),
                 text,
                 userId,
                 id,

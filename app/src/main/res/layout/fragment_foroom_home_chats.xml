@@ -22,11 +22,29 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Error"/>
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/general_error_message"
+                android:textAppearance="@style/jostText1Regular" />
+
+            <com.example.design_system.components.button.PrimaryButton
+                android:id="@+id/reloadButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_error_reload"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="8dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.example.design_system.components.loader.ContentLoaderView>
 
@@ -41,13 +59,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="24dp"
-            app:hint="@string/chats_search_hint" >
+            app:hint="@string/chats_search_hint">
 
             <com.example.design_system.components.options.SlidingOptionsView
                 android:id="@+id/filterOptionsView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
         </com.example.design_system.components.search_bar.ForoomSearchBar>
 
