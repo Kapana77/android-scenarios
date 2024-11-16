@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.core.view.updateLayoutParams
 import com.example.design_system.components.message.ForoomMessageView
 import com.example.design_system.R
-import com.example.foroom.databinding.ItemForoomMessageBinding
+import com.alternator.foroom.databinding.ItemForoomMessageBinding
 import com.example.foroom.presentation.ui.model.MessageUI
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.screenWidthOf

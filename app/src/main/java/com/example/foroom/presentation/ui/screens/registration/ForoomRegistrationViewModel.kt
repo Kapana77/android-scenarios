@@ -3,7 +3,7 @@ package com.example.foroom.presentation.ui.screens.registration
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.foroom.R
+import com.alternator.foroom.R
 import com.example.foroom.domain.model.request.RegistrationRequest
 import com.example.foroom.domain.usecase.GetAvatarsUseCase
 import com.example.foroom.domain.usecase.RegisterUserUseCase

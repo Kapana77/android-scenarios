@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.foroom.databinding.LayoutForoomPaginationErrorBinding
-import com.example.foroom.databinding.LayoutForoomPaginationLoadingBinding
+import com.alternator.foroom.databinding.LayoutForoomPaginationErrorBinding
+import com.alternator.foroom.databinding.LayoutForoomPaginationLoadingBinding
 import com.example.shared.util.diffutil.DefaultItemDiffCallback
 import com.example.shared.util.recyclerview.RecyclerViewEndReachListener
 import java.lang.ref.WeakReference

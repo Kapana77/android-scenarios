@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.design_system.components.shimmer.ForoomShimmerDrawableBuilder
-import com.example.foroom.databinding.FragmentForoomProfileBinding
+import com.alternator.foroom.databinding.FragmentForoomProfileBinding
 import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents
 import com.example.foroom.presentation.ui.screens.home.container.events.HomeNavigationType

@@ -5,8 +5,8 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.foroom.R
-import com.example.foroom.databinding.FragmentForoomContainerHomeBinding
+import com.alternator.foroom.R
+import com.alternator.foroom.databinding.FragmentForoomContainerHomeBinding
 import com.example.foroom.presentation.ui.screens.home.chats.ForoomHomeChatsFragment
 import com.example.foroom.presentation.ui.screens.create_chat.ForoomCreateChatFragment
 import com.example.foroom.presentation.ui.screens.home.container.events.ForoomHomeEvents

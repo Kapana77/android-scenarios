@@ -2,7 +2,7 @@ package com.example.foroom.presentation.ui.screens.home.chats.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.example.foroom.databinding.ItemForoomChatBinding
+import com.alternator.foroom.databinding.ItemForoomChatBinding
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.util.adapter.ForoomLoadingListAdapter
 import com.example.shared.extension.isEven

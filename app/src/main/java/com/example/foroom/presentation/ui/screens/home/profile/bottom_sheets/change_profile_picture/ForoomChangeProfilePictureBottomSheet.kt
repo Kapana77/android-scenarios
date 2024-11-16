@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheetFragment
-import com.example.foroom.R
-import com.example.foroom.databinding.LayoutChangeProfilePictureBottomSheetBinding
+import com.alternator.foroom.R
+import com.alternator.foroom.databinding.LayoutChangeProfilePictureBottomSheetBinding
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.shared.extension.handleResult
 import com.example.shared.model.Image

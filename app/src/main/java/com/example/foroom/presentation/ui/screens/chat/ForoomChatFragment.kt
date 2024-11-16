@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
-import com.example.foroom.R
+import com.alternator.foroom.R
 import com.example.design_system.components.dialog.ForoomMessageDialog
-import com.example.foroom.databinding.FragmentForoomChatBinding
+import com.alternator.foroom.databinding.FragmentForoomChatBinding
 import com.example.foroom.presentation.ui.model.ChatUI
 import com.example.foroom.presentation.ui.screens.chat.adapter.ForoomMessagesAdapter
 import com.example.navigation.guest.ForoomNavigationArgumentsHolder

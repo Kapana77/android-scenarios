@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheetFragment
 import com.example.design_system.R
-import com.example.foroom.databinding.LayoutChangeLanguageBottomSheetBinding
+import com.alternator.foroom.databinding.LayoutChangeLanguageBottomSheetBinding
 import com.example.shared.extension.onClick
 import com.example.shared.model.ForoomLanguage
 import com.example.shared.util.language_change.LanguageChangePoint

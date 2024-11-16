@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foroom"
         tools:targetApi="31"
-        android:name=".presentation.ui.application.ForoomApplication">
+        android:name="com.example.foroom.presentation.ui.application.ForoomApplication">
         <activity
-            android:name=".presentation.ui.activity.ForoomActivity"
+            android:name="com.example.foroom.presentation.ui.activity.ForoomActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

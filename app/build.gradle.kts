@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.foroom"
+    namespace = "com.alternator.foroom"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.foroom"
+        applicationId = "com.alternator.foroom"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -20,7 +20,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

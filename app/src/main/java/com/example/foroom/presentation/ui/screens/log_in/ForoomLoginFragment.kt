@@ -9,7 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.design_system.components.input.Input
-import com.example.foroom.databinding.FragmentForoomLogInBinding
+import com.alternator.foroom.databinding.FragmentForoomLogInBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.registration.ForoomRegistrationFragment
 import com.example.foroom.presentation.ui.util.validator.BlankInputValidation

@@ -6,8 +6,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
-import com.example.foroom.R
-import com.example.foroom.databinding.ActivityForoomBinding
+import com.alternator.foroom.R
+import com.alternator.foroom.databinding.ActivityForoomBinding
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerFragment
 import com.example.foroom.presentation.ui.screens.home.container.ForoomHomeContainerInitialScreenIndex
 import com.example.foroom.presentation.ui.screens.log_in.ForoomLoginFragment

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import com.example.foroom.R
-import com.example.foroom.databinding.FragmentForoomCreateChatBinding
+import com.alternator.foroom.R
+import com.alternator.foroom.databinding.FragmentForoomCreateChatBinding
 import com.example.foroom.presentation.ui.screens.chat.ForoomChatFragment
 import com.example.foroom.presentation.ui.screens.home.chats.events.ForoomHomeChatsEvents
 import com.example.navigation.host.openNextPage

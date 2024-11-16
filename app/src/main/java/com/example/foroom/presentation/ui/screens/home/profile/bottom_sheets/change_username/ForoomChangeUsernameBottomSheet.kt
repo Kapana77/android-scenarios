@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.design_system.components.bottom_sheet.ForoomActionBottomSheetFragment
 import com.example.design_system.components.input.Input
-import com.example.foroom.R
-import com.example.foroom.databinding.LayoutChangeUsernameBottomSheetBinding
+import com.alternator.foroom.R
+import com.alternator.foroom.databinding.LayoutChangeUsernameBottomSheetBinding
 import com.example.foroom.presentation.ui.screens.home.profile.events.ProfileScreenEvents
 import com.example.foroom.presentation.ui.util.validator.BlankInputValidation
 import com.example.foroom.presentation.ui.util.validator.SizeInputValidation
