@@ -23,6 +23,8 @@ signalr = "7.0.0"
 okhttp-logging = "4.12.0"
 datastore = "1.1.1"
 splashscreen = "1.0.1"
+espressoContrib = "3.6.1"
+firebaseCrashlyticsBuildtools = "3.0.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +48,8 @@ microsoft-signalr = { group = "com.microsoft.signalr", name = "signalr", version
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref="splashscreen"}
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espressoContrib" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -60,6 +60,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.datastore)
     implementation(libs.splashscreen)
+    implementation(libs.androidx.espresso.contrib)
+    implementation(libs.firebase.crashlytics.buildtools)
     coreLibraryDesugaring(libs.android.desugaring)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
