@@ -39,13 +39,13 @@ class Utils {
         fun registerNewUserAndStay(username:String,password:String){
             loginSteps.clickSignUp()
 
-            registerSteps.enterUserAndPass(userName, pass)
+            registerSteps.enterUserAndPass(username, password)
                 .chooseRandomIcon()
                 .register()
 
             homePageSteps.goToUserProfile()
 
-            profileSteps.validateUserRegistered(userName)
+            profileSteps.validateUserRegistered(username)
         }
 
         fun clickRandomIcon() {
