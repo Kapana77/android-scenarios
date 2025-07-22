@@ -1,8 +1,10 @@
 package com.example.foroom.tests
 
 import com.example.foroom.data.Constants
+import com.example.foroom.steps.ChatSteps
 import com.example.foroom.steps.CreateChatSteps
 import com.example.foroom.steps.HomePageSteps
+import com.example.foroom.steps.IndividualChatSteps
 import com.example.foroom.steps.LanguageSteps
 import com.example.foroom.steps.LoginSteps
 import com.example.foroom.steps.ProfileSteps
@@ -14,11 +16,14 @@ open class BaseTest {
     protected val homePageSteps = HomePageSteps()
     protected val profileSteps = ProfileSteps()
     protected val registerSteps = RegisterSteps()
-    protected  val languageSteps = LanguageSteps()
+    protected val languageSteps = LanguageSteps()
     protected val createChatSteps = CreateChatSteps()
+    protected val chatSteps = ChatSteps()
+    protected val individualChatSteps = IndividualChatSteps()
 
     companion object {
-        private val faker = Faker()
+        @JvmStatic
+        protected val faker = Faker()
         @JvmStatic
         val userName: String = faker.name().username()
 
